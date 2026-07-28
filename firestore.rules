@@ -1,9 +1,16 @@
 rules_version = '2';
 
-// Prázdny základ - zatiaľ nikto nesmie nič čítať ani zapisovať.
-// Pravidlá doplň, keď bude jasné, aké dáta appka ukladá.
+// Zatiaľ jediný zápis: e-mail do čakacieho zoznamu na landing page.
+// Čítať nesmie nikto, zapísať sa dá len nový záznam s e-mailom.
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /waitlist/{entry} {
+      allow create: if request.resource.data.keys().hasOnly(['email', 'createdAt'])
+                    && request.resource.data.email is string
+                    && request.resource.data.email.size() < 200;
+      allow read, update, delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

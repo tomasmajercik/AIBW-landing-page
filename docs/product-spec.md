@@ -14,7 +14,7 @@ Aplikácia nespája ľudí okolo „podujatí", ale okolo **stolov** — malých
 
 Produkt stojí na dvoch osiach:
 
-- **Formát** (káva, čaj, pivo, víno) — určuje, koľko času, peňazí a sociálnej odvahy stretnutie stojí. Je to rebrík záväzku a zároveň zamaskovaný typ podniku a čas dňa.
+- **Formát** (káva, čaj, pivo, víno) — voľba nápoja, ktorý má človek rád. Nesie so sebou aj typ podniku a orientačnú mieru záväzku (cena, dĺžka), ale **neurčuje čas dňa** — kedy sa stôl koná, rozhoduje hostiteľ.
 - **Druhá os** (knihy, turistika, psy, poker, zápas, ochutnávka …) — určuje, čo sa pri stole deje. Môže to byť téma rozhovoru aj spoločná činnosť.
 
 Priesečník je jednotka produktu: *Káva + knihy, utorok 18:00, 6 miest*.
@@ -40,7 +40,7 @@ Z toho vyplývajú dve pravidlá. Marketing a copy vedú **záujmami a ľuďmi**
 
 ### Onboarding ladder
 
-Nový používateľ nezačína vínom. Poradie káva → pivo → víno je zámerné: káva má najnižšiu bariéru (denné svetlo, nízka cena, dá sa odísť po hodine). Aplikácia má používateľa po tomto rebríku vedome viesť.
+Nový používateľ nezačína vínom. Poradie káva → pivo → víno je zámerné: káva má najnižšiu bariéru (nízka cena, dá sa odísť po hodine, žiadne 18+). Aplikácia má používateľa po tomto rebríku vedome viesť. Rebrík je o bariére nápoja, nie o čase dňa.
 
 ### Monetizácia (mimo rozsahu v1, ale určuje dizajn)
 
@@ -63,20 +63,17 @@ Jazyk UI hovorí o stole, nie o podujatí. Je to lacné a robí polovicu odlíš
 
 ## 3. Formáty (nápojová os)
 
-Formáty nie sú nápoje. Sú to zamaskované kombinácie **času dňa a typu podniku** — preto je ich zoznam krátky a nemá rásť.
-
-| | bez alkoholu | s alkoholom |
-|---|---|---|
-| **deň** | káva — kaviareň | — |
-| **večer** | čaj — čajovňa | pivo (krčma), víno (vináreň) |
+Formát je v prvom rade **voľba nápoja, ktorý má používateľ rád** — a s ním prirodzene prichádza aj typ podniku, kde sa dá dobre sedieť a rozprávať. **Nie je to predpis času dňa.** Kávu si niekto dá ráno, iný večer; formát neohraničuje, kedy sa stôl koná — to je vec konkrétneho stola a jeho hostiteľa. Zoznam formátov je krátky a nemá rásť.
 
 | Formát | Kapacita | Farba | Poznámka |
 |---|---|---|---|
-| Káva | 4–6 | hnedá | Vstupná brána. Denné svetlo, nízka bariéra. |
-| Čaj | 4–6 | zelená | Večer bez alkoholu. Čajovne sú tiché, otvorené večer a ich biznis model je, že ľudia sedia hodiny. |
-| Pivo | 4–8 | žltá | Hlučné, skupinové, znesie viac ľudí. |
-| Víno | 4–6 | červená | Intímnejšie, večerné, 18+. |
-| Iné | 4–6 | sivá | Všetko ostatné. Hostiteľ **musí dopísať krátky text**, čo to je — na karte sa zobrazí ako „iné · limonáda". |
+| Káva | 3+ | hnedá | Najnižšia bariéra, vstupná brána. |
+| Čaj | 3+ | zelená | Bez alkoholu. |
+| Pivo | 3+ | žltá | Skupinové, znesie viac ľudí. 18+. |
+| Víno | 3+ | červená | Pomalšie tempo pre témy na dlhšie. 18+. |
+| Iné | 3+ | sivá | Všetko ostatné. Hostiteľ **musí dopísať krátky text**, čo to je — na karte sa zobrazí ako „iné · limonáda". |
+
+Kapacita **nie je pevná per formát** — používateľ (hostiteľ) si ju volí pri zakladaní. Minimum sú **3 ľudia**, mäkký horný odhad okolo **8** (viď kapitola 5). Číslo drží hostiteľ, nie formát.
 
 Farebné odlíšenie formátov je súčasťou vizuálneho systému. Presné odtiene sa ešte zadefinujú — bude existovať farebná škála.
 
@@ -193,7 +190,7 @@ Keď používateľ zvolí kategóriu bez stolov, nezobraz prázdny feed. Povedz 
 - **Minimálna kapacita pri zakladaní: 3.** Pôvodne bola navrhnutá 4, pretože pri ~80 % dochádzke skončí skoro každý druhý trojstôl ako dvojica a trojica je zároveň najnestabilnejšia veľkosť skupiny (rozpadá sa na 2+1). Tá námietka ale mierila na svet **bez** mechanizmu z kapitoly 6 — keď dvojica vzniká len s obojstranným súhlasom naslepo, nikoho neprekvapí a trojka je obhájiteľná.
 - Predvolená kapacita pri zakladaní nech je **6**. Trojka je povolená, nie odporúčaná.
 - Sledovať, ako často trojstoly reálne spadnú na dvojicu — ak sa mechanizmus spúšťa tak často, že produkt pôsobí nespoľahlivo, minimum sa zdvihne.
-- **Mäkký strop podľa formátu** (viď tabuľka vyššie). Nad 5 ľudí sa jeden rozhovor rozpadá na dva; nad 10 sa dynamika prepne na režim „podujatie", čo je presne to, voči čomu sa produkt vymedzuje. Kaviarne navyše fyzicky neposadia 15 ľudí bez rezervácie.
+- **Mäkký horný strop, nie pevný per formát.** Kapacitu volí hostiteľ; odporúčaný strop je okolo **8**. Nad 5 ľudí sa jeden rozhovor rozpadá na dva; nad 10 sa dynamika prepne na režim „podujatie", čo je presne to, voči čomu sa produkt vymedzuje. Kaviarne navyše fyzicky neposadia 15 ľudí bez rezervácie. Ide o odporúčanie, nie o rigidný limit priradený k nápoju.
 - **Prebytok dopytu → viac stolov, nie väčší stôl.** Deviaty človek ide na waitlist. Keď má waitlist 4 ľudí, aplikácia navrhne otvoriť paralelný stôl na rovnakú tému a ponúkne rolu hostiteľa tomu z waitlistu, kto má najviac absolvovaných stolov.
 
 ### Pravdepodobnosť kolapsu (pri 80 % dochádzke)
@@ -218,7 +215,7 @@ Mechanizmus:
 3. Stôl sa koná len pri **obojstrannom áno**.
 4. **Mlčanie sa počíta ako nie.** Opt-in, nie opt-out.
 5. Pri jednom „nie" dostane druhý neutrálnu správu „stôl sa neuskutoční" — nikdy nie „X nechce ísť".
-6. V otázke je vidieť: kto je druhý (meno, fotka, počet absolvovaných stolov), kde a kedy. Plus tlačidlo „radšej iný stôl", ktoré vracia do feedu.
+6. V otázke je vidieť: kto je druhý (meno, fotka), kde a kedy. Plus tlačidlo „radšej iný stôl", ktoré vracia do feedu. (Žiadny verejný počet stolov ani skóre — viď hierarchia signálov dôvery v kapitole 7.)
 
 **Otvorené:** či sa dvojica vôbec ponúkne používateľovi s nula absolvovanými stolmi. Prvý zážitok definuje vzťah k produktu a dvojica má vysokú varianciu. Rozhodnúť dátami, nie debatou.
 
@@ -252,10 +249,11 @@ Povolanie a vzdelanie → networkingová appka. Vzťahový status, výška, „h
 Poradie, v akom ľudia reálne vyhodnocujú bezpečnosť — investovať do prvých troch:
 
 1. Overené telefónne číslo
-2. História: „bola na 7 stoloch, dochádzka 100 %"
-3. Verejný podnik
-4. Hostiteľ s menom a históriou
-5. Fotka a meno
+2. Verejný podnik
+3. Hostiteľ s menom
+4. Fotka a meno
+
+**Dochádzka a história sa na profiloch ľudí verejne nezobrazujú.** Sledujeme ich interne (kvôli metrikám a banovaniu), ale nerobíme z nich verejné skóre ani rebríček. Verejný počet stolov či „hodnotenie" by ľudí s pár zlými skúsenosťami mohol úplne odstrihnúť — nikto by si k nim nesadol — a to je presne dynamika zoznamky/ratingu, voči ktorej sa vymedzujeme. Dôveru robí overené číslo a verejný podnik, nie verejný rebríček ľudí.
 
 ---
 
@@ -453,7 +451,7 @@ Každá z týchto vecí je dobrý nápad a každá by v prvom kvartáli uškodil
 - push notifikácie (v1 e-mail a SMS)
 - séria a opakovania
 - kurátorované platené stoly
-- hodnotenie ľudí (okrem dochádzky)
+- hodnotenie ľudí a verejné skóre na profiloch (vrátane verejne zobrazenej dochádzky či počtu stolov) — dochádzku sledujeme len interne
 - mapa partnerských podnikov
 - administračné rozhranie — schvaľovanie podnikov a banovanie sa pri prvých desiatkach ľudí robí priamo v databáze
 - generovanie názvu (manuálne pole zatiaľ stačí)
