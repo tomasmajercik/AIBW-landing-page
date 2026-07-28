@@ -1,4 +1,4 @@
-# Landing page — Spolu
+# Landing page - Spolu
 
 Jednostránková landing page v Reacte, pripravená na nasadenie na Firebase Hosting.
 
@@ -6,9 +6,9 @@ Jednostránková landing page v Reacte, pripravená na nasadenie na Firebase Hos
 
 ## 1. Čo potrebuješ nainštalovať (raz za život)
 
-**Node.js** — prostredie, v ktorom projekt beží.
+**Node.js** - prostredie, v ktorom projekt beží.
 Stiahni verziu „LTS" z [nodejs.org](https://nodejs.org) a nainštaluj.
-Overenie, že to prešlo — otvor Terminál a napíš:
+Overenie, že to prešlo - otvor Terminál a napíš:
 
 ```bash
 node -v
@@ -16,7 +16,7 @@ node -v
 
 Ak ti to vypíše niečo ako `v20.11.0`, je to v poriadku.
 
-**Firebase CLI** — nástroj na nasadzovanie. V Termináli:
+**Firebase CLI** - nástroj na nasadzovanie. V Termináli:
 
 ```bash
 npm install -g firebase-tools
@@ -45,7 +45,7 @@ Zastavíš to klávesovou skratkou `Ctrl + C`.
 ## 3. Ako meniť texty
 
 Všetky texty stránky sú v jedinom súbore: **`src/content.js`**.
-Nadpisy, popisy, otázky aj názov produktu — všetko sa dá prepísať tam a nikam inam liezť nemusíš.
+Nadpisy, popisy, otázky aj názov produktu - všetko sa dá prepísať tam a nikam inam liezť nemusíš.
 
 > Názov **„Spolu"** je len pracovný. Prepíšeš ho na prvom riadku `content.js`.
 
@@ -55,7 +55,7 @@ Farby a písma sú na začiatku súboru **`src/styles.css`** v sekcii `:root`.
 
 ## 4. Zbieranie e-mailov
 
-Formulár funguje hneď, ale kým nenastavíš Firebase, beží v **demo režime** — e-mail sa iba vypíše do konzoly prehliadača a nikam sa neuloží.
+Formulár funguje hneď, ale kým nenastavíš Firebase, beží v **demo režime** - e-mail sa iba vypíše do konzoly prehliadača a nikam sa neuloží.
 
 Aby sa e-maily naozaj ukladali:
 
@@ -78,7 +78,7 @@ npm run build
 firebase deploy
 ```
 
-Prvýkrát ťa Firebase môže vyzvať na potvrdenie nastavení — priečinok na zverejnenie je **`dist`**.
+Prvýkrát ťa Firebase môže vyzvať na potvrdenie nastavení - priečinok na zverejnenie je **`dist`**.
 
 Ak si Firestore ešte nezapla a `firebase deploy` hlási chybu, nasaď zatiaľ len samotnú stránku:
 

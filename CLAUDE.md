@@ -12,10 +12,10 @@ Prvý trh: Bratislava. Cieľom stránky je získať prvých organizátorov akci�
 
 ## Príkazy
 
-- `npm run dev` — spustí lokálny vývoj (zvyčajne na http://localhost:5173)
-- `npm run build` — build do priečinka `dist/`
-- `npm run preview` — lokálne skontroluje výsledok buildu
-- `firebase deploy --only hosting` — nasadenie na Firebase
+- `npm run dev` - spustí lokálny vývoj (zvyčajne na http://localhost:5173)
+- `npm run build` - build do priečinka `dist/`
+- `npm run preview` - lokálne skontroluje výsledok buildu
+- `firebase deploy --only hosting` - nasadenie na Firebase
 
 Pred každým nasadením spusti `npm run build` a over, že prejde bez chyby.
 
@@ -31,9 +31,9 @@ Pred každým nasadením spusti `npm run build` a over, že prejde bez chyby.
 ## Obsah a tón
 
 - Všetky texty na stránke sú v slovenčine
-- Píš ľudsky a konkrétne, nie korporátne — žiadne "revolučná platforma" ani "Welcome to our platform"
+- Píš ľudsky a konkrétne, nie korporátne - žiadne "revolučná platforma" ani "Welcome to our platform"
 - Cieľová skupina: organizátori akcií v Bratislave a ľudia, ktorí chcú nájsť čo sa deje v okolí
-- Vytváranie akcií je zdarma — to je hlavný argument, spomínaj ho
+- Vytváranie akcií je zdarma - to je hlavný argument, spomínaj ho
 
 ## Ako so mnou pracovať
 

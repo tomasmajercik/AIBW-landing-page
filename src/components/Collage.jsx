@@ -1,7 +1,7 @@
 import { collage } from "../content.js";
 
 // Koláž fotiek pod úvodným nadpisom.
-// Súbory ležia v public/fotky landing page/ — ak tam pridáš ďalšiu
+// Súbory ležia v public/fotky landing page/ - ak tam pridáš ďalšiu
 // fotku, stačí ju zapísať do content.js (sekcia `collage`).
 const PRIECINOK = "/fotky landing page";
 

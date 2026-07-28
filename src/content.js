@@ -1,11 +1,11 @@
 // ─────────────────────────────────────────────────────────────
 //  VŠETKY TEXTY STRÁNKY SÚ TU.
 //  Ak chceš zmeniť čokoľvek napísané na stránke, meň to v tomto
-//  súbore — do ostatných súborov nemusíš vôbec chodiť.
+//  súbore - do ostatných súborov nemusíš vôbec chodiť.
 //  Pozor len na to, aby ostali úvodzovky a čiarky na svojich miestach.
 // ─────────────────────────────────────────────────────────────
 
-// "Spolu" je zatiaľ len pracovný názov — pokojne ho prepíš.
+// "Spolu" je zatiaľ len pracovný názov - pokojne ho prepíš.
 export const brand = "Spolu";
 
 export const nav = {
@@ -20,7 +20,7 @@ export const nav = {
 export const hero = {
   eyebrow: "Bratislava · pripravujeme",
   title: "Nájdi si v meste ľudí, s ktorými to má pokračovanie.",
-  lede: "Väčšina appiek ti nájde event. My chceme, aby ti ostali ľudia, ktorých na ňom stretneš — či už si v meste nový, alebo tu žiješ roky a len nemáš s kým chodiť na to, čo ťa baví.",
+  lede: "Väčšina appiek ti nájde event. My chceme, aby ti ostali ľudia, ktorých na ňom stretneš - či už si v meste nový, alebo tu žiješ roky a len nemáš s kým chodiť na to, čo ťa baví.",
   formNote: "Napíšeme ti, keď spustíme beta verziu v Bratislave. Nič iné ti posielať nebudeme.",
   // Fotka na pozadí nadpisu. Musí ležať v public/fotky landing page/.
   // Ak sem dáš prázdne úvodzovky, pozadie sa nezobrazí vôbec.
@@ -59,7 +59,7 @@ export const collage = {
 export const diagram = {
   eyebrow: "Jedna cesta, dva konce",
   caption:
-    "Bod, v ktorom sa dnešné appky končia, je pre nás odbočka — nie cieľová stanica.",
+    "Bod, v ktorom sa dnešné appky končia, je pre nás odbočka - nie cieľová stanica.",
   stops: [
     { label: "Chýba ti partia", color: "teal" },
     { label: "Nájdeš verejný event", color: "teal" },
@@ -77,7 +77,7 @@ export const problem = {
   cards: [
     {
       kicker: "Objavovacie platformy",
-      body: "VaultGrid, Meetup, Eventbrite či Luma ti nájdu akciu. Lenže event nemá pamäť — o mesiac sa tá istá partia skladá odznova.",
+      body: "VaultGrid, Meetup, Eventbrite či Luma ti nájdu akciu. Lenže event nemá pamäť - o mesiac sa tá istá partia skladá odznova.",
     },
     {
       kicker: "Súkromné pozvánky",
@@ -97,13 +97,13 @@ export const how = {
     {
       tag: "Súkromná",
       title: "Pre partiu, ktorú už máš",
-      body: "Vytvoríš akciu, pošleš link, vidíš kto príde. Kamarát sa nemusí nikde registrovať ani nič sťahovať. Funguje od prvého dňa — aj keď appku nemá nikto iný v meste.",
+      body: "Vytvoríš akciu, pošleš link, vidíš kto príde. Kamarát sa nemusí nikde registrovať ani nič sťahovať. Funguje od prvého dňa - aj keď appku nemá nikto iný v meste.",
       color: "teal",
     },
     {
       tag: "Verejná",
       title: "Pre ľudí, ktorých ešte nepoznáš",
-      body: "Nič netlačíme — veľa akcií je jednorazových a tak to má ostať. Keď sa ale vaša partia stretne tretíkrát, ponúkneme organizátorovi otvoriť ju pre ďalších. A po jednorazovej akcii ponúkneme účastníkom ostať v kontakte s konkrétnymi ľuďmi, ktorých tam stretli.",
+      body: "Nič netlačíme - veľa akcií je jednorazových a tak to má ostať. Keď sa ale vaša partia stretne tretíkrát, ponúkneme organizátorovi otvoriť ju pre ďalších. A po jednorazovej akcii ponúkneme účastníkom ostať v kontakte s konkrétnymi ľuďmi, ktorých tam stretli.",
       color: "raspberry",
     },
   ],
@@ -112,7 +112,7 @@ export const how = {
 export const promise = {
   eyebrow: "Sľub",
   title: "Vytvoriť akciu bude vždy zadarmo",
-  body: "Bez výnimiek a bez hviezdičky. Platíš len vtedy, keď sám vyberáš peniaze od účastníkov — vtedy si necháme 5 až 10 % z vybranej sumy. Nič vopred, žiadne riziko pre organizátora.",
+  body: "Bez výnimiek a bez hviezdičky. Platíš len vtedy, keď sám vyberáš peniaze od účastníkov - vtedy si necháme 5 až 10 % z vybranej sumy. Nič vopred, žiadne riziko pre organizátora.",
 };
 
 export const faq = {
@@ -125,11 +125,11 @@ export const faq = {
     },
     {
       q: "Nie som nový v meste. Je to aj pre mňa?",
-      a: "Áno. Partia na konkrétnu vec — ranné behanie, deskovky, lezenie, jazyky — chýba rovnako ľuďom, ktorí tu žijú roky. Eventy preto triedime podľa témy, nie podľa toho, ako dlho v meste si.",
+      a: "Áno. Partia na konkrétnu vec - ranné behanie, deskovky, lezenie, jazyky - chýba rovnako ľuďom, ktorí tu žijú roky. Eventy preto triedime podľa témy, nie podľa toho, ako dlho v meste si.",
     },
     {
       q: "Musia si appku stiahnuť aj moji kamaráti?",
-      a: "Nie. Na potvrdenie účasti stačí link — bez inštalácie a bez registrácie.",
+      a: "Nie. Na potvrdenie účasti stačí link - bez inštalácie a bez registrácie.",
     },
     {
       q: "Organizujem akcie pravidelne. Má to pre mňa zmysel?",
@@ -155,7 +155,7 @@ export const form = {
   placeholder: "tvoj@email.sk",
   button: "Chcem byť medzi prvými",
   buttonBusy: "Ukladám…",
-  success: "Hotovo — máme ťa v zozname. Ozveme sa.",
+  success: "Hotovo - máme ťa v zozname. Ozveme sa.",
   errorEmail: "Skontroluj e-mail, niečo tam nesedí.",
   errorGeneric: "Nepodarilo sa uložiť. Skús to o chvíľu znova.",
 };

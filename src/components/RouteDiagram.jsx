@@ -1,7 +1,7 @@
 import { diagram } from "../content.js";
 
 // Podpisový prvok stránky: linka ako v mape MHD.
-// Trasa vedie zľava doprava a v bode "Spoznáš ľudí" sa rozdvojí —
+// Trasa vedie zľava doprava a v bode "Spoznáš ľudí" sa rozdvojí -
 // presne tam, kde ostatné appky končia.
 export default function RouteDiagram() {
   return (

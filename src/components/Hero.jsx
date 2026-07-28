@@ -14,7 +14,7 @@ export default function Hero() {
 
   return (
     <section className="hero" id="top">
-      {/* Horná časť s fotkou na pozadí — končí nad kolážou */}
+      {/* Horná časť s fotkou na pozadí - končí nad kolážou */}
       <div className="hero__banner" style={pozadie}>
         <div className="shell">
           <p className="eyebrow">{hero.eyebrow}</p>

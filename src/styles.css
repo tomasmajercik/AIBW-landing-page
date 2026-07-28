@@ -209,7 +209,7 @@ a {
   position: relative;
   isolation: isolate;
   /* Čím vyšší je tento pás, tým väčšia časť fotky je vidieť.
-     Fotka sa vždy roztiahne na celú šírku — to je to, čo určuje
+     Fotka sa vždy roztiahne na celú šírku - to je to, čo určuje
      jej priblíženie. Menšia už byť nemôže, inak by po stranách
      ostali prázdne miesta. */
   padding: 116px 0 92px;
@@ -239,7 +239,7 @@ a {
 }
 
 /* Na širokej obrazovke stojí text len vľavo, takže vpravo môže
-   fotka ostať takmer odhalená — vidno, čo sa na nej deje. */
+   fotka ostať takmer odhalená - vidno, čo sa na nej deje. */
 @media (min-width: 900px) {
   .hero__banner::before {
     background-image: linear-gradient(
@@ -248,7 +248,7 @@ a {
         rgba(240, 239, 245, 0.66) 88%,
         var(--paper) 100%
       ),
-      /* Závoj ostáva hustý až po 70 % šírky — tam končí najdlhší
+      /* Závoj ostáva hustý až po 70 % šírky - tam končí najdlhší
          riadok podnadpisu. Až za textom sa rozplynie a odhalí fotku. */
       linear-gradient(
         to right,
@@ -334,7 +334,7 @@ a {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   7. Podpisový prvok — linka
+   7. Podpisový prvok - linka
    ═══════════════════════════════════════════════════════════ */
 
 .route {
@@ -372,7 +372,7 @@ a {
   color: var(--ink-soft);
 }
 
-/* Mobilná verzia trasy — zvislá */
+/* Mobilná verzia trasy - zvislá */
 .route__stack {
   margin: 0;
   padding: 0 0 0 26px;
@@ -517,7 +517,7 @@ a {
   color: var(--ink-soft);
 }
 
-/* Sľub — tmavý pás */
+/* Sľub - tmavý pás */
 .section--promise {
   background: var(--ink);
   color: var(--paper);
@@ -707,7 +707,7 @@ a {
 
 /* ═══════════════════════════════════════════════════════════
    12. Koláž aktivít pod úvodným nadpisom
-   Celá koláž je pohromade tu — aj to, ako sa správa na mobile.
+   Celá koláž je pohromade tu - aj to, ako sa správa na mobile.
    Obrázky sú kreslené v src/components/Collage.jsx,
    texty pod nimi v src/content.js (sekcia `collage`).
    ═══════════════════════════════════════════════════════════ */
@@ -726,7 +726,7 @@ a {
   width: 142px;
 }
 
-/* Rámček je biela kartička ako pri polaroide — fotka a pod ňou popisok */
+/* Rámček je biela kartička ako pri polaroide - fotka a pod ňou popisok */
 .collage__frame {
   margin: 0;
   padding: 8px 8px 0;
