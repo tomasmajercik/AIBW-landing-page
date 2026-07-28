@@ -1,42 +1,35 @@
-# Landing page
+# prisadnisi — kontext projektu
 
-Landing page pre platformu, ktorá spája ľudí okolo lokálnych akcií a aktivít.
-Prvý trh: Bratislava. Cieľom stránky je získať prvých organizátorov akcií.
+Webová aplikácia (PWA), ktorá spája ľudí okolo malých stolov — 4 až 8 ľudí sa stretne pri nápoji a konkrétnej téme.
 
-## Stack
+Názov **prisadnisi** je odvodený od slovesa, na ktorom stojí celý produkt: *sadni si, prisadni si, sadnite si* — fyzicky prisadnúť k stolu aj mentálne si sadnúť s ľuďmi. Značka a slovník UI musia hovoriť jedným hlasom.
 
-- React (JavaScript, nie TypeScript)
-- Vite ako build nástroj
-- Tailwind CSS na štýlovanie
-- Hosting: Firebase Hosting
+**Úplná špecifikácia je v `docs/product-spec.md`. Prečítaj ju pred prácou na produktových funkciách.**
 
-## Príkazy
+## Rýchly kontext
 
-- `npm run dev` - spustí lokálny vývoj (zvyčajne na http://localhost:5173)
-- `npm run build` - build do priečinka `dist/`
-- `npm run preview` - lokálne skontroluje výsledok buildu
-- `firebase deploy --only hosting` - nasadenie na Firebase
+- Jednotka produktu je **stôl**, nie podujatie: *Káva + knihy, utorok 18:00, 6 miest*
+- Dve osi: **formát** (káva / čaj / pivo / víno / iné) × **čo sa deje** (téma rozhovoru alebo spoločná činnosť — zápas, poker, ochutnávka, beh po káve)
+- v1: jedno mesto (Bratislava), len nápoje, 6 obrazoviek
 
-Pred každým nasadením spusti `npm run build` a over, že prejde bez chyby.
+## Zásady, ktoré platia pri každom rozhodnutí
 
-## Konvencie
+1. **Jazyk hovorí o stole, nie o evente.** „prisadnúť si", nie „zúčastniť sa". „hostiteľ", nie „organizátor". Je to zároveň názov produktu — nikdy to nenahrádzaj generickým „join" alebo „attend".
+2. **Žiadne platby v v1.** Ak návrh vyžaduje Stripe, zálohy alebo refundy, je zle položený.
+3. **Žiadne súkromné správy (DM), nikdy.** Komunikácia existuje len ako skupinové vlákno naviazané na stôl, otvorené 24 h pred a zatvorené 12 h po stretnutí. Toto je hlavná poistka proti tomu, aby sa z produktu stala zoznamka.
+4. **Zobrazuj, nerozhoduj.** Aplikácia ukáže atribúty (pohlavie, vek, história) a rozhodnutie necháva na ľuďoch. Nikdy nerozhoduje automaticky podľa pohlavia či veku.
+5. **Konkrétnosť karty je posvätná.** Nič, čo by na karte nechalo otvorené kde alebo kedy.
+6. **Nápoj je kotva, aktivita je nadstavba.** Test: bez nápoja stôl nedáva zmysel, bez aktivity áno. Žiadny samostatný tab „aktivity", žiadny stôl mimo schváleného podniku, žiadny stôl bez nápoja.
+7. **Prebytok dopytu → viac stolov, nie väčší stôl.**
+8. **Zakladanie stola musí trvať do 60 sekúnd** a nesmie sa zaseknúť na žiadnej voliteľnej funkcii (napr. generovanie názvu).
 
-- Komponenty v `src/components/`, jeden súbor = jeden komponent
-- Funkčné komponenty, žiadne class components
-- Názvy komponentov s veľkým začiatočným písmenom: `HeroSection.jsx`
-- Odsadenie 2 medzery
-- Tailwind utility triedy priamo v JSX, nie samostatné CSS súbory
-- Žiadne nové knižnice bez toho, aby si sa najprv spýtal
+## Technické
 
-## Obsah a tón
+- Web / PWA, nie natívna aplikácia
+- Notifikácie e-mailom alebo SMS, nie push
+- Päť tabuliek: `users`, `interests`, `tables`, `attendance`, `venues`
+- Ak dátový model rastie nad päť tabuliek, pravdepodobne pribúda niečo mimo rozsahu v1
 
-- Všetky texty na stránke sú v slovenčine
-- Píš ľudsky a konkrétne, nie korporátne - žiadne "revolučná platforma" ani "Welcome to our platform"
-- Cieľová skupina: organizátori akcií v Bratislave a ľudia, ktorí chcú nájsť čo sa deje v okolí
-- Vytváranie akcií je zdarma - to je hlavný argument, spomínaj ho
+## Metriky
 
-## Ako so mnou pracovať
-
-- Som začiatočníčka. Vysvetli, čo robíš a prečo, nepredpokladaj znalosť pojmov.
-- Pri väčších zmenách mi najprv povedz plán, až potom píš kód.
-- Keď treba niečo spustiť v termináli, napíš presný príkaz.
+Severka je **return rate** — % ľudí, ktorí prídu na druhý stôl do 30 dní.

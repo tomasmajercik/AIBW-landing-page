@@ -1,17 +1,9 @@
 rules_version = '2';
 
-// Ktokoľvek sa môže zapísať do zoznamu záujemcov,
-// ale nikto zvonku nemôže zoznam čítať, meniť ani mazať.
-// Zapísané e-maily si pozrieš vo Firebase konzole.
+// Prázdny základ - zatiaľ nikto nesmie nič čítať ani zapisovať.
+// Pravidlá doplň, keď bude jasné, aké dáta appka ukladá.
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /waitlist/{doc} {
-      allow create: if request.resource.data.keys().hasOnly(['email', 'createdAt'])
-                    && request.resource.data.email is string
-                    && request.resource.data.email.size() > 5
-                    && request.resource.data.email.size() < 200;
-      allow read, update, delete: if false;
-    }
     match /{document=**} {
       allow read, write: if false;
     }
