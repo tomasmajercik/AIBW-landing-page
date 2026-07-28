@@ -70,31 +70,6 @@ export const preview = {
   },
 };
 
-// Trojica fotiek pod úvodom.
-// `src` je názov súboru v priečinku public/fotky landing page/
-// `caption` je popisok pod fotkou, `alt` je popis pre nevidiacich.
-// Fotky sú zámerne úzke - v tejto veľkosti ostanú ostré.
-export const gallery = {
-  eyebrow: "Ako to vyzerá",
-  items: [
-    {
-      src: "piknik.webp",
-      caption: "Víno v parku",
-      alt: "Skupina ľudí sediaca v kruhu na tráve v parku",
-    },
-    {
-      src: "workshop.webp",
-      caption: "Čaj a kreatívne veci",
-      alt: "Ľudia tvoria pri dlhých stoloch vonku",
-    },
-    {
-      src: "prechadzka.webp",
-      caption: "Prechádzka a jedno pivo",
-      alt: "Skupina ľudí kráča po chodníku do zapadajúceho slnka",
-    },
-  ],
-};
-
 // Štyri nápoje. Nič nepredpisujú - sú to len príklady toho,
 // čo si u nás môžeš vytvoriť. Číslo (01, 02...) sa dopĺňa
 // automaticky podľa poradia.
@@ -153,32 +128,6 @@ export const how = {
     {
       title: "Stretnete sa naživo",
       body: "Bez týždňov chatovania. Prídeš, sadneš si, rozprávate sa o veci, ktorá vás všetkých baví.",
-    },
-  ],
-};
-
-// Tmavá sekcia - spojené „prečo traja“ a „toto nie je zoznamka“.
-export const why = {
-  eyebrow: "Sľub",
-  title: "Toto nie je",
-  titleAccent: "zoznamka.",
-  body: "Nikto nechodí na rande vo štvorici. Preto je minimum troch ľudí pravidlo, nie odporúčanie - formát to ustráži sám.",
-  points: [
-    {
-      title: "Nie je to rande",
-      body: "Keď sú pri stole traja a viac, nikto si to nemôže pomýliť. Prichádzaš sa rozprávať, nie randiť.",
-    },
-    {
-      title: "Nie je to trápne",
-      body: "Keď sa dvaja cudzí ľudia nemajú čo povedať, nastane ticho. V trojici sa vždy niekto ozve.",
-    },
-    {
-      title: "Je to bezpečnejšie",
-      body: "Nikdy nie si sama s cudzím človekom. Stretávate sa vo verejnom podniku a je vás viac.",
-    },
-    {
-      title: "Ľudia sa neboja prísť",
-      body: "Káva s jedným cudzím človekom je záväzok. Prísť medzi troch je ako prísť do baru za partiou.",
     },
   ],
 };

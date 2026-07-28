@@ -1,123 +1,91 @@
-# Landing page - Spolu
+# Prisadni si — landing page
 
-Jednostránková landing page v Reacte, pripravená na nasadenie na Firebase Hosting.
+Landing page pre **Prisadni si** — platformu, kde si ľudia vypíšu stretnutie pri
+káve, čaji, pive alebo víne a ostatní sa k nim pridajú.
 
----
-
-## 1. Čo potrebuješ nainštalovať (raz za život)
-
-**Node.js** - prostredie, v ktorom projekt beží.
-Stiahni verziu „LTS" z [nodejs.org](https://nodejs.org) a nainštaluj.
-Overenie, že to prešlo - otvor Terminál a napíš:
-
-```bash
-node -v
-```
-
-Ak ti to vypíše niečo ako `v20.11.0`, je to v poriadku.
-
-**Firebase CLI** - nástroj na nasadzovanie. V Termináli:
-
-```bash
-npm install -g firebase-tools
-firebase login
-```
+Pravidlo, na ktorom celá vec stojí: **vždy traja a viac ľudí.** Nie je to
+zoznamka a formát to ustráži sám.
 
 ---
 
-## 2. Spustenie na tvojom počítači
-
-V Termináli sa presuň do priečinka s projektom a spusti:
+## Ako to spustiť
 
 ```bash
-cd ~/Developer/AI-build-week/landing-page
 npm install
 npm run dev
 ```
 
-Terminál ti vypíše adresu (`http://localhost:5173`). Otvor ju v prehliadači.
-Keď niečo v kóde zmeníš a uložíš, stránka sa sama obnoví.
+Stránka pobeží na `http://localhost:5173`. Adresa funguje len na tvojom
+počítači — `localhost` znamená „tento počítač".
 
-Zastavíš to klávesovou skratkou `Ctrl + C`.
+Ďalšie príkazy:
 
----
-
-## 3. Ako meniť texty
-
-Všetky texty stránky sú v jedinom súbore: **`src/content.js`**.
-Nadpisy, popisy, otázky aj názov produktu - všetko sa dá prepísať tam a nikam inam liezť nemusíš.
-
-> Názov **„Spolu"** je len pracovný. Prepíšeš ho na prvom riadku `content.js`.
-
-Farby a písma sú na začiatku súboru **`src/styles.css`** v sekcii `:root`.
+| Príkaz | Čo robí |
+|---|---|
+| `npm run dev` | spustí stránku na localhoste |
+| `npm run build` | pripraví hotovú verziu do priečinka `dist/` |
+| `npm run preview` | ukáže, ako vyzerá zbuildovaná verzia |
 
 ---
 
-## 4. Zbieranie e-mailov
+## Kde čo meniť
 
-Formulár funguje hneď, ale kým nenastavíš Firebase, beží v **demo režime** - e-mail sa iba vypíše do konzoly prehliadača a nikam sa neuloží.
+### Texty
 
-Aby sa e-maily naozaj ukladali:
+**Všetky texty stránky sú v jedinom súbore: `src/content.js`.**
+Do ostatných súborov nemusíš chodiť. Meň len text medzi úvodzovkami a nechaj
+čiarky tam, kde sú.
 
-1. Vo [Firebase konzole](https://console.firebase.google.com) vytvor projekt.
-2. V projekte zapni **Firestore Database** (režim „production").
-3. V `Project settings → General → Your apps` pridaj **webovú aplikáciu** a skopíruj si údaje.
-4. V priečinku projektu skopíruj `.env.example` do nového súboru `.env` a vyplň hodnoty.
-5. Do `.firebaserc` daj namiesto `SEM-DAJ-ID-SVOJHO-FIREBASE-PROJEKTU` skutočné ID projektu.
-6. Reštartuj `npm run dev`.
+| Časť súboru | Čo ovláda |
+|---|---|
+| `wordmark` | logo — rozdelenie na „pri" (čierne) a „sadni si" (vínové) |
+| `hero` | úvodný nadpis, podnadpis a veta nad formulárom |
+| `preview` | text pri telefóne + celý obsah obrazovky v ňom |
+| `drinks` | štyri nápoje a príklady stretnutí |
+| `how` | štyri kroky „ako to funguje" |
+| `faq` | rozbaľovacie otázky a odpovede |
+| `finalCta` | záverečná výzva |
+| `form` | texty formulára a hlášky |
 
-Zapísané e-maily nájdeš vo Firebase konzole v kolekcii `waitlist`.
-Pravidlá v `firestore.rules` sú nastavené tak, že ktokoľvek sa vie zapísať, ale nikto zvonku zoznam neprečíta.
+Keď pridáš alebo ubereš položku v zozname (napr. jednu otázku), stránka sa
+prispôsobí sama — čísla krokov aj nápojov sa prečíslujú automaticky.
 
----
+### Vzhľad
 
-## 5. Nasadenie na internet
+`src/styles.css`, hneď na začiatku v sekcii 1. Sú tam všetky farby na jednom
+mieste aj s popiskami. Keď prepíšeš farbu tam, zmení sa všade naraz.
 
-```bash
-npm run build
-firebase deploy
-```
-
-Prvýkrát ťa Firebase môže vyzvať na potvrdenie nastavení - priečinok na zverejnenie je **`dist`**.
-
-Ak si Firestore ešte nezapla a `firebase deploy` hlási chybu, nasaď zatiaľ len samotnú stránku:
-
-```bash
-firebase deploy --only hosting
-```
-
-Skratka pre oboje naraz je `npm run deploy`.
+Paleta je rovnaká ako v appke: krémové pozadie, biele zaoblené kartičky
+a štyri farby podľa nápoja — káva hnedá, čaj zelená, pivo jantárová,
+víno burgundy.
 
 ---
 
-## 6. Čo je v ktorom súbore
+## Ako je to poskladané
 
-```
-landing-page/
-├── index.html              titulok stránky, popis pre Google, načítanie písiem
-├── package.json            zoznam knižníc a príkazov
-├── vite.config.js          nastavenie buildu
-├── firebase.json           nastavenie Firebase Hostingu
-├── .firebaserc             ID tvojho Firebase projektu
-├── firestore.rules         kto smie zapisovať do databázy
-├── .env.example            vzor pre prístupové údaje k Firebase
-├── public/
-│   └── favicon.svg         ikonka v záložke prehliadača
-└── src/
-    ├── content.js          ⭐ VŠETKY TEXTY STRÁNKY
-    ├── styles.css          ⭐ farby, písma, vzhľad
-    ├── App.jsx             poskladanie sekcií za sebou
-    ├── main.jsx            štart aplikácie
-    ├── lib/firebase.js     ukladanie e-mailov
-    └── components/
-        ├── Nav.jsx             horná lišta
-        ├── Hero.jsx            úvodná obrazovka
-        ├── RouteDiagram.jsx    linka s odbočkou
-        ├── WaitlistForm.jsx    formulár na e-mail
-        ├── Problem.jsx         tri karty s problémom
-        ├── HowItWorks.jsx      dve vrstvy produktu
-        ├── Promise.jsx         tmavý pás so sľubom
-        ├── Faq.jsx             časté otázky
-        ├── FinalCta.jsx        záverečná výzva
-        └── Footer.jsx          pätička
-```
+- **React** + **Vite** (JavaScript, nie TypeScript)
+- Obyčajné CSS v jednom súbore, žiadny Tailwind
+- Jeden komponent = jeden súbor v `src/components/`
+
+| Komponent | Sekcia na stránke |
+|---|---|
+| `Nav.jsx` | horná lišta |
+| `Hero.jsx` | úvod s nadpisom a formulárom |
+| `Preview.jsx` | telefón s ukážkou appky |
+| `Drinks.jsx` | štyri nápoje |
+| `HowItWorks.jsx` | štyri kroky |
+| `Faq.jsx` | rozbaľovacie otázky |
+| `FinalCta.jsx` | záverečná výzva |
+| `Footer.jsx` | pätička |
+| `WaitlistForm.jsx` | formulár na zapísanie e-mailu |
+
+Telefón v sekcii `Preview` **nie je obrázok** — je poskladaný z CSS, takže je
+ostrý na akejkoľvek obrazovke a jeho obsah sa mení v `content.js`.
+
+---
+
+## Formulár na zapísanie
+
+Beží v ukážkovom režime — e-maily sa nikam neukladajú, len sa vypíšu do
+konzoly prehliadača. Aby sa ukladali naozaj, treba doplniť prístupy k Firebase
+(`.env` podľa `.env.example`) a projekt v `.firebaserc`.

@@ -1,13 +1,22 @@
-# Landing page
+# Prisadni si — landing page
 
-Landing page pre platformu, ktorá spája ľudí okolo lokálnych akcií a aktivít.
-Prvý trh: Bratislava. Cieľom stránky je získať prvých organizátorov akcií.
+Landing page pre platformu **Prisadni si**: ľudia si vypíšu stretnutie pri
+káve, čaji, pive alebo víne a ostatní sa k nim pridajú.
+
+Pravidlá produktu, ktoré musia byť z textov cítiť:
+
+- **Vždy traja a viac ľudí.** Nie je to zoznamka, formát to ustráži sám.
+- **Organizátor určuje vždy nápoj a čas.** Podnik a téma môžu ostať otvorené —
+  na tých sa dohodnú až tí, čo sa pridali.
+- **Nič sa nepredpisuje.** Chceš na pivo pozerať futbal? Vytvoríš stôl.
+  Chceš si len tak posedieť pri čaji? To isté.
+- Celé Slovensko, prvé stretnutia budú najhustejšie v Bratislave.
 
 ## Stack
 
 - React (JavaScript, nie TypeScript)
 - Vite ako build nástroj
-- Tailwind CSS na štýlovanie
+- Obyčajné CSS v `src/styles.css`, žiadny Tailwind
 - Hosting: Firebase Hosting
 
 ## Príkazy
@@ -15,7 +24,6 @@ Prvý trh: Bratislava. Cieľom stránky je získať prvých organizátorov akci�
 - `npm run dev` - spustí lokálny vývoj (zvyčajne na http://localhost:5173)
 - `npm run build` - build do priečinka `dist/`
 - `npm run preview` - lokálne skontroluje výsledok buildu
-- `firebase deploy --only hosting` - nasadenie na Firebase
 
 Pred každým nasadením spusti `npm run build` a over, že prejde bez chyby.
 
@@ -23,17 +31,28 @@ Pred každým nasadením spusti `npm run build` a over, že prejde bez chyby.
 
 - Komponenty v `src/components/`, jeden súbor = jeden komponent
 - Funkčné komponenty, žiadne class components
-- Názvy komponentov s veľkým začiatočným písmenom: `HeroSection.jsx`
+- Názvy komponentov s veľkým začiatočným písmenom: `HowItWorks.jsx`
 - Odsadenie 2 medzery
-- Tailwind utility triedy priamo v JSX, nie samostatné CSS súbory
+- **Všetky texty patria do `src/content.js`**, nie do komponentov
+- Farby sa menia len v sekcii 1 v `src/styles.css`
 - Žiadne nové knižnice bez toho, aby si sa najprv spýtal
+
+## Vzhľad
+
+Rovnaký jazyk ako mobilná appka: krémové pozadie, biele zaoblené kartičky,
+guľaté tlačidlá, popisky v monospace fonte veľkými písmenami.
+
+Štyri farby podľa nápoja - káva `#6B4126`, čaj `#3D6B47`, pivo `#B57A16`,
+víno `#7B2233`. Vínová je zároveň hlavná farba značky.
+
+Logo je dvojfarebné: „pri" čiernou, „sadni si" vínovou.
 
 ## Obsah a tón
 
 - Všetky texty na stránke sú v slovenčine
-- Píš ľudsky a konkrétne, nie korporátne - žiadne "revolučná platforma" ani "Welcome to our platform"
-- Cieľová skupina: organizátori akcií v Bratislave a ľudia, ktorí chcú nájsť čo sa deje v okolí
-- Vytváranie akcií je zdarma - to je hlavný argument, spomínaj ho
+- Píš ľudsky a konkrétne, nie korporátne - žiadne „revolučná platforma"
+- Cieľová skupina: ľudia, ktorí by radi niekam zašli, len nemajú s kým
+- Vytvoriť aj pridať sa je zdarma
 
 ## Ako so mnou pracovať
 
