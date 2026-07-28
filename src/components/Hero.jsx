@@ -1,5 +1,4 @@
 import { Avatar, Cluster, EmptySeat } from "./Avatars.jsx";
-import Waitlist from "./Waitlist.jsx";
 
 function PhoneDemo() {
   return (
@@ -78,7 +77,6 @@ export default function Hero() {
           si, o čom sa chceš rozprávať, a prisadni si k ľuďom, ktorých to baví
           tiež.
         </p>
-        <Waitlist />
       </div>
       <PhoneDemo />
     </header>
