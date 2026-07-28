@@ -1,6 +1,7 @@
-# Landing page - Spolu
+# Projekt
 
-Jednostránková landing page v Reacte, pripravená na nasadenie na Firebase Hosting.
+Jednostránková appka v Reacte, pripravená na nasadenie na Firebase Hosting.
+Zatiaľ prázdny základ - obsah pribudne, keď bude jasný nápad.
 
 ---
 
@@ -30,7 +31,6 @@ firebase login
 V Termináli sa presuň do priečinka s projektom a spusti:
 
 ```bash
-cd ~/Developer/AI-build-week/landing-page
 npm install
 npm run dev
 ```
@@ -42,36 +42,23 @@ Zastavíš to klávesovou skratkou `Ctrl + C`.
 
 ---
 
-## 3. Ako meniť texty
+## 3. Ukladanie dát do Firebase
 
-Všetky texty stránky sú v jedinom súbore: **`src/content.js`**.
-Nadpisy, popisy, otázky aj názov produktu - všetko sa dá prepísať tam a nikam inam liezť nemusíš.
+Appka beží aj bez Firebase - pripojenie je zatiaľ len pripravené (`src/lib/firebase.js`).
 
-> Názov **„Spolu"** je len pracovný. Prepíšeš ho na prvom riadku `content.js`.
-
-Farby a písma sú na začiatku súboru **`src/styles.css`** v sekcii `:root`.
-
----
-
-## 4. Zbieranie e-mailov
-
-Formulár funguje hneď, ale kým nenastavíš Firebase, beží v **demo režime** - e-mail sa iba vypíše do konzoly prehliadača a nikam sa neuloží.
-
-Aby sa e-maily naozaj ukladali:
+Aby sa dáta naozaj ukladali:
 
 1. Vo [Firebase konzole](https://console.firebase.google.com) vytvor projekt.
 2. V projekte zapni **Firestore Database** (režim „production").
 3. V `Project settings → General → Your apps` pridaj **webovú aplikáciu** a skopíruj si údaje.
 4. V priečinku projektu skopíruj `.env.example` do nového súboru `.env` a vyplň hodnoty.
 5. Do `.firebaserc` daj namiesto `SEM-DAJ-ID-SVOJHO-FIREBASE-PROJEKTU` skutočné ID projektu.
-6. Reštartuj `npm run dev`.
-
-Zapísané e-maily nájdeš vo Firebase konzole v kolekcii `waitlist`.
-Pravidlá v `firestore.rules` sú nastavené tak, že ktokoľvek sa vie zapísať, ale nikto zvonku zoznam neprečíta.
+6. V `firestore.rules` nastav, kto smie čo čítať a zapisovať.
+7. Reštartuj `npm run dev`.
 
 ---
 
-## 5. Nasadenie na internet
+## 4. Nasadenie na internet
 
 ```bash
 npm run build
@@ -90,34 +77,21 @@ Skratka pre oboje naraz je `npm run deploy`.
 
 ---
 
-## 6. Čo je v ktorom súbore
+## 5. Čo je v ktorom súbore
 
 ```
-landing-page/
-├── index.html              titulok stránky, popis pre Google, načítanie písiem
+├── index.html              titulok stránky, načítanie appky
 ├── package.json            zoznam knižníc a príkazov
 ├── vite.config.js          nastavenie buildu
 ├── firebase.json           nastavenie Firebase Hostingu
 ├── .firebaserc             ID tvojho Firebase projektu
-├── firestore.rules         kto smie zapisovať do databázy
+├── firestore.rules         kto smie čítať a zapisovať do databázy
 ├── .env.example            vzor pre prístupové údaje k Firebase
-├── public/
-│   └── favicon.svg         ikonka v záložke prehliadača
+├── public/                 statické súbory (favicon, obrázky)
 └── src/
-    ├── content.js          ⭐ VŠETKY TEXTY STRÁNKY
-    ├── styles.css          ⭐ farby, písma, vzhľad
-    ├── App.jsx             poskladanie sekcií za sebou
+    ├── styles.css          farby, písma, vzhľad
+    ├── App.jsx             poskladanie stránky
     ├── main.jsx            štart aplikácie
-    ├── lib/firebase.js     ukladanie e-mailov
-    └── components/
-        ├── Nav.jsx             horná lišta
-        ├── Hero.jsx            úvodná obrazovka
-        ├── RouteDiagram.jsx    linka s odbočkou
-        ├── WaitlistForm.jsx    formulár na e-mail
-        ├── Problem.jsx         tri karty s problémom
-        ├── HowItWorks.jsx      dve vrstvy produktu
-        ├── Promise.jsx         tmavý pás so sľubom
-        ├── Faq.jsx             časté otázky
-        ├── FinalCta.jsx        záverečná výzva
-        └── Footer.jsx          pätička
+    ├── lib/firebase.js     pripojenie na Firebase
+    └── components/         jednotlivé časti stránky
 ```
