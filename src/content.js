@@ -5,12 +5,18 @@
 //  Pozor len na to, aby ostali úvodzovky a čiarky na svojich miestach.
 // ─────────────────────────────────────────────────────────────
 
-// "Spolu" je zatiaľ len pracovný názov - pokojne ho prepíš.
-export const brand = "Spolu";
+export const brand = "Prisadni si";
+
+// Logo je dvojfarebné: "pri" čiernou, "sadni si" vínovou.
+// Ak zmeníš názov, rozdeľ ho tu na dve časti.
+export const wordmark = {
+  first: "pri",
+  rest: "sadni si",
+};
 
 export const nav = {
   links: [
-    { label: "Prečo", href: "#preco" },
+    { label: "Nápoje", href: "#napoje" },
     { label: "Ako to funguje", href: "#ako" },
     { label: "Otázky", href: "#otazky" },
   ],
@@ -18,142 +24,215 @@ export const nav = {
 };
 
 export const hero = {
-  eyebrow: "Bratislava · pripravujeme",
-  title: "Nájdi si v meste ľudí, s ktorými to má pokračovanie.",
-  lede: "Väčšina appiek ti nájde event. My chceme, aby ti ostali ľudia, ktorých na ňom stretneš - či už si v meste nový, alebo tu žiješ roky a len nemáš s kým chodiť na to, čo ťa baví.",
-  formNote: "Napíšeme ti, keď spustíme beta verziu v Bratislave. Nič iné ti posielať nebudeme.",
-  // Fotka na pozadí nadpisu. Musí ležať v public/fotky landing page/.
-  // Ak sem dáš prázdne úvodzovky, pozadie sa nezobrazí vôbec.
-  background: "tanec.jpg",
+  eyebrow: "Slovensko · pripravujeme",
+  title: "Nájdi tých, čo ti sadnú.",
+  titleAccent: "Prisadni si.",
+  lede: "Veľa ľudí by rado niekam zašlo - len nemá s kým. Vytvor stôl pri káve, čaji, pive alebo víne a kto chce, ten si prisadne. Vždy traja a viac.",
+  // Veta hneď nad formulárom v úvode
+  formLead: "Chyť si svoje miesto pri stole.",
+  formNote: "Napíšeme ti, keď spustíme prvé stretnutia. Nič iné ti posielať nebudeme.",
 };
 
-// Fotky pod úvodným nadpisom.
+// Ukážka stretnutia v telefóne.
+// `open: true` znamená, že položka je "otvorená" - organizátor ju
+// nevyplnil a dohodnú sa na nej až tí, čo sa pridali.
+export const preview = {
+  eyebrow: "Takto to vyzerá",
+  title: "Nápoj, čas a miesto určíš ty. Zvyšok môže ostať otvorený.",
+  lede: "Organizátor vyplní vždy tri veci - čo sa pije, o koľkej a kde. Téma povinná nie je. Keď ju nechá otvorenú, dohodnete sa na nej až vy, čo idete.",
+  note: "Prerušovaný krúžok s plusom je voľné miesto pri stole. To je to tvoje.",
+  // Obsah obrazovky v telefóne. Kľúč `key` určuje farbu podľa nápoja.
+  // `people` sú iniciály ľudí, `free` je počet voľných miest.
+  app: {
+    title: "Kde je pre teba voľné miesto",
+    sub: "Dnes večer · 4 stoly čakajú na tretieho",
+    chips: ["Dnes", "Len ženy", "Veda"],
+    cards: [
+      {
+        key: "vino",
+        seats: "1 voľné miesto",
+        text: "Lucia, Martin a Tereza sa bavia o knihách vs. seriáloch",
+        meta: "Víno · 19:30 · Pod hradom",
+        people: ["LK", "MJ", "T"],
+        free: 1,
+        button: "Prisadnúť si",
+      },
+      {
+        key: "pivo",
+        seats: "2 voľné miesta",
+        text: "Ján a Peťo chcú vysvetliť, ako naozaj funguje AI",
+        meta: "Pivo · 20:00 · Amorté",
+        people: ["JD", "P"],
+        free: 2,
+        button: "Prisadnúť si",
+      },
+    ],
+  },
+};
+
+// Trojica fotiek pod úvodom.
 // `src` je názov súboru v priečinku public/fotky landing page/
-// `caption` je text pod fotkou, `alt` je popis pre nevidiacich
-// a pre prípad, že sa fotka nenačíta.
-export const collage = {
+// `caption` je popisok pod fotkou, `alt` je popis pre nevidiacich.
+// Fotky sú zámerne úzke - v tejto veľkosti ostanú ostré.
+export const gallery = {
+  eyebrow: "Ako to vyzerá",
   items: [
     {
       src: "piknik.webp",
-      caption: "Piknik v parku",
-      alt: "Partia ľudí sediaca v kruhu na tráve v parku",
-    },
-    {
-      src: "beh.webp",
-      caption: "Ranný beh",
-      alt: "Bežkyne si po dobehnutí plácajú ruky",
+      caption: "Víno v parku",
+      alt: "Skupina ľudí sediaca v kruhu na tráve v parku",
     },
     {
       src: "workshop.webp",
-      caption: "Kreatívny workshop",
-      alt: "Ľudia maľujú pri dlhých stoloch vonku",
+      caption: "Čaj a kreatívne veci",
+      alt: "Ľudia tvoria pri dlhých stoloch vonku",
     },
     {
       src: "prechadzka.webp",
-      caption: "Večerná prechádzka",
+      caption: "Prechádzka a jedno pivo",
       alt: "Skupina ľudí kráča po chodníku do zapadajúceho slnka",
     },
   ],
 };
 
-export const diagram = {
-  eyebrow: "Jedna cesta, dva konce",
-  caption:
-    "Bod, v ktorom sa dnešné appky končia, je pre nás odbočka - nie cieľová stanica.",
-  stops: [
-    { label: "Chýba ti partia", color: "teal" },
-    { label: "Nájdeš verejný event", color: "teal" },
-    { label: "Spoznáš ľudí", color: "teal" },
-  ],
-  branches: [
-    { label: "Partia sa stretáva ďalej", color: "raspberry" },
-    { label: "Ostane ti jedno spojenie", color: "amber" },
-  ],
-};
-
-export const problem = {
-  eyebrow: "Prečo to staviame",
-  title: "Nástroje, ktoré dnes máme, riešia vždy len polovicu",
-  cards: [
+// Štyri nápoje. Nič nepredpisujú - sú to len príklady toho,
+// čo si u nás môžeš vytvoriť. Číslo (01, 02...) sa dopĺňa
+// automaticky podľa poradia.
+export const drinks = {
+  eyebrow: "Čo si dáte",
+  title: "Vytvoríš si to, na čo máš chuť",
+  lede: "Nič nepredpisujeme. Chceš ísť pozerať futbal na pivo? Vytvoríš stretnutie a kto chce, ten sa pridá. Chceš si len tak posedieť pri čaji? To isté. Ty určíš tému, čas aj miesto.",
+  items: [
     {
-      kicker: "Objavovacie platformy",
-      body: "VaultGrid, Meetup, Eventbrite či Luma ti nájdu akciu. Lenže event nemá pamäť - o mesiac sa tá istá partia skladá odznova.",
+      key: "kava",
+      name: "Káva",
+      example: "„Kávička a pokec o knihách?“",
     },
     {
-      kicker: "Súkromné pozvánky",
-      body: "Partiful, WhatsApp či Apple Invites spoľahlivo vyriešia, kto ide a koľko nás bude. Nepomôžu ti však vtedy, keď ešte nemáš koho pozvať.",
+      key: "caj",
+      name: "Čaj",
+      example: "„Len tak si posedieť pri čaji.“",
     },
     {
-      kicker: "Peniaze mimo appky",
-      body: "Kto koľko dlží, sa dohaduje v popise eventu a v správach. Najotravnejšia časť organizovania ostáva nevyriešená.",
+      key: "pivo",
+      name: "Pivo",
+      example: "„Ideme pozerať futbal, kto sa pridá?“",
+    },
+    {
+      key: "vino",
+      name: "Víno",
+      example: "„Víno a debata o filmoch.“",
+    },
+    // Posledná dlaždica nie je nápoj - je to odkaz, že zoznam nie je
+    // uzavretý. Namiesto poradového čísla má znak z `icon`.
+    {
+      key: "ine",
+      name: "Iné",
+      icon: "+",
     },
   ],
 };
 
 export const how = {
   eyebrow: "Ako to funguje",
-  title: "Dve vrstvy, jedna appka",
-  layers: [
+  title: "Štyri kroky, žiadne swipovanie",
+  lede: "Zlaďte sa témou, časom a nápojom a prisadnite si k jednému stolu.",
+  steps: [
     {
-      tag: "Súkromná",
-      title: "Pre partiu, ktorú už máš",
-      body: "Vytvoríš akciu, pošleš link, vidíš kto príde. Kamarát sa nemusí nikde registrovať ani nič sťahovať. Funguje od prvého dňa - aj keď appku nemá nikto iný v meste.",
-      color: "teal",
+      title: "Niekto vypíše stretnutie",
+      body: "Téma, nápoj, dátum, mesto a počet miest. Napríklad: „Ideme na pivo pozerať zápas - štvrtok o 20:00, Staré Mesto, 5 miest.“",
     },
     {
-      tag: "Verejná",
-      title: "Pre ľudí, ktorých ešte nepoznáš",
-      body: "Nič netlačíme - veľa akcií je jednorazových a tak to má ostať. Keď sa ale vaša partia stretne tretíkrát, ponúkneme organizátorovi otvoriť ju pre ďalších. A po jednorazovej akcii ponúkneme účastníkom ostať v kontakte s konkrétnymi ľuďmi, ktorých tam stretli.",
-      color: "raspberry",
+      title: "Ostatní ho uvidia",
+      body: "V zozname si filtruješ podľa nápoja, mesta a témy. Žiadne profily na prezeranie - rovno vidíš, kam sa dá ísť.",
+    },
+    {
+      title: "Klikneš „Prisadnúť si“",
+      body: "Miesto sa zaberie a vidíš, kto ďalší príde. Keď sa stretnutie naplní, zavrie sa.",
+    },
+    {
+      title: "Stretnete sa naživo",
+      body: "Bez týždňov chatovania. Prídeš, sadneš si, rozprávate sa o veci, ktorá vás všetkých baví.",
     },
   ],
 };
 
-export const promise = {
+// Tmavá sekcia - spojené „prečo traja“ a „toto nie je zoznamka“.
+export const why = {
   eyebrow: "Sľub",
-  title: "Vytvoriť akciu bude vždy zadarmo",
-  body: "Bez výnimiek a bez hviezdičky. Platíš len vtedy, keď sám vyberáš peniaze od účastníkov - vtedy si necháme 5 až 10 % z vybranej sumy. Nič vopred, žiadne riziko pre organizátora.",
+  title: "Toto nie je",
+  titleAccent: "zoznamka.",
+  body: "Nikto nechodí na rande vo štvorici. Preto je minimum troch ľudí pravidlo, nie odporúčanie - formát to ustráži sám.",
+  points: [
+    {
+      title: "Nie je to rande",
+      body: "Keď sú pri stole traja a viac, nikto si to nemôže pomýliť. Prichádzaš sa rozprávať, nie randiť.",
+    },
+    {
+      title: "Nie je to trápne",
+      body: "Keď sa dvaja cudzí ľudia nemajú čo povedať, nastane ticho. V trojici sa vždy niekto ozve.",
+    },
+    {
+      title: "Je to bezpečnejšie",
+      body: "Nikdy nie si sama s cudzím človekom. Stretávate sa vo verejnom podniku a je vás viac.",
+    },
+    {
+      title: "Ľudia sa neboja prísť",
+      body: "Káva s jedným cudzím človekom je záväzok. Prísť medzi troch je ako prísť do baru za partiou.",
+    },
+  ],
 };
 
 export const faq = {
-  eyebrow: "Časté otázky",
-  title: "Čo sa väčšinou pýtate",
+  // Ak sem dáš prázdne úvodzovky, malý nadpisík sa nezobrazí.
+  eyebrow: "",
+  title: "Často kladené otázky",
   items: [
     {
+      q: "Naozaj to nie je zoznamka?",
+      a: "Nie. Na každom stretnutí sú minimálne traja ľudia a to sa nedá obísť. Nikto nechodí na rande vo štvorici - a presne o to nám ide.",
+    },
+    {
+      q: "Som hanblivá, čo ak nebudem vedieť čo povedať?",
+      a: "Práve preto sú stretnutia na tému. Nesadáte si k stolu, aby ste sa „spoznali“ - sadáte si, lebo vás všetkých baví to isté. A v skupine nemusíš hovoriť ty, stačí počúvať.",
+    },
+    {
       q: "Kedy to spustíte?",
-      a: "Staviame beta verziu pre Bratislavu. Ľudia zo zoznamu sa k nej dostanú ako prví.",
+      a: "Pripravujeme prvé stretnutia. Ľudia zo zoznamu sa dozvedia ako prví - a budú si môcť vypísať vlastné stretnutie skôr než ostatní.",
     },
     {
-      q: "Nie som nový v meste. Je to aj pre mňa?",
-      a: "Áno. Partia na konkrétnu vec - ranné behanie, deskovky, lezenie, jazyky - chýba rovnako ľuďom, ktorí tu žijú roky. Eventy preto triedime podľa témy, nie podľa toho, ako dlho v meste si.",
+      q: "Nepijem alkohol. Je to aj pre mňa?",
+      a: "Áno. Polovica formátov je nealkoholická - káva a čaj. Nikto ťa nikam netlačí a na pivo si môžeš dať kofolu.",
     },
     {
-      q: "Musia si appku stiahnuť aj moji kamaráti?",
-      a: "Nie. Na potvrdenie účasti stačí link - bez inštalácie a bez registrácie.",
+      q: "Musím vypísať stretnutie, aby som sa mohol pridať?",
+      a: "Nie. Väčšina ľudí sa len pridáva a je to úplne v poriadku. Vypísať vlastné stretnutie je možnosť, nie povinnosť.",
     },
     {
-      q: "Organizujem akcie pravidelne. Má to pre mňa zmysel?",
-      a: "Áno, a radi sa s tebou porozprávame. Zapíš sa a odpíš nám do e-mailu, čo organizuješ.",
+      q: "V ktorých mestách to bude?",
+      a: "Na celom Slovensku - stretnutie si môžeš vypísať kdekoľvek. Prvé budú najhustejšie v Bratislave.",
     },
     {
       q: "Koľko to bude stáť?",
-      a: "Vytváranie akcií a súkromná koordinácia zadarmo, navždy. Províziu si berieme len z akcií, na ktoré sami vyberáte vstupné.",
+      a: "Nič. Zapísať sa, vypísať stretnutie aj pridať sa je zadarmo. Platíš si len vlastný nápoj, ako vždy.",
     },
   ],
 };
 
 export const finalCta = {
-  title: "Chceš byť pri tom od začiatku?",
-  body: "Zapíš sa do zoznamu. Ozveme sa, keď bude čo skúšať.",
+  eyebrow: "Zapíš sa",
+  title: "Chceš byť pri prvých",
+  titleAccent: "stretnutiach?",
+  body: "Ozveme sa, keď bude kam prísť.",
 };
 
 export const footer = {
-  line: "Staviame v Bratislave.",
+  line: "Staviame na Slovensku.",
 };
 
 export const form = {
   placeholder: "tvoj@email.sk",
-  button: "Chcem byť medzi prvými",
+  button: "Zapísať sa",
   buttonBusy: "Ukladám…",
   success: "Hotovo - máme ťa v zozname. Ozveme sa.",
   errorEmail: "Skontroluj e-mail, niečo tam nesedí.",

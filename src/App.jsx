@@ -1,8 +1,8 @@
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
-import Problem from "./components/Problem.jsx";
+import Preview from "./components/Preview.jsx";
+import Drinks from "./components/Drinks.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
-import Promise from "./components/Promise.jsx";
 import Faq from "./components/Faq.jsx";
 import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
@@ -13,9 +13,9 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Problem />
+        <Preview />
+        <Drinks />
         <HowItWorks />
-        <Promise />
         <Faq />
         <FinalCta />
       </main>
