@@ -6,7 +6,7 @@ export default function Closing() {
         <h2>Prisadneš si?</h2>
         <p>
           Otvárame s kávou a pivom, pár podnikmi a pár desiatkami stolov.
-          Bratislava, čoskoro.
+          Čoskoro.
         </p>
       </div>
     </section>
