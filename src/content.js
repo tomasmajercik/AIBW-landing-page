@@ -1,189 +1,388 @@
-// ─────────────────────────────────────────────────────────────
-//  VŠETKY TEXTY STRÁNKY SÚ TU.
-//  Ak chceš zmeniť čokoľvek napísané na stránke, meň to v tomto
-//  súbore - do ostatných súborov nemusíš vôbec chodiť.
-//  Pozor len na to, aby ostali úvodzovky a čiarky na svojich miestach.
-// ─────────────────────────────────────────────────────────────
+// ============================================================
+//  VŠETKY TEXTY A ÚDAJE STRÁNKY SÚ TU
+//  Keď chceš niečo prepísať, meň to v tomto súbore.
+//  Nemusíš chodiť do komponentov.
+// ============================================================
 
-export const brand = "Prisadni si";
-
-// Logo je dvojfarebné: "pri" čiernou, "sadni si" vínovou.
-// Ak zmeníš názov, rozdeľ ho tu na dve časti.
-export const wordmark = {
-  first: "pri",
-  rest: "sadni si",
+// Pracovný názov. Keď vymyslíš iný, stačí ho prepísať tu.
+export const brand = {
+  name: "Communio",
+  tagline: "Nájdi svojich ľudí",
 };
 
 export const nav = {
   links: [
-    { label: "Nápoje", href: "#napoje" },
-    { label: "Ako to funguje", href: "#ako" },
+    { label: "Ako to funguje", href: "#ako-to-funguje" },
+    { label: "Vyskúšaj", href: "#vyskusaj" },
+    { label: "Pre zakladateľov", href: "#pre-zakladatelov" },
     { label: "Otázky", href: "#otazky" },
   ],
-  cta: "Zapísať sa",
+  cta: "Stiahnuť appku",
 };
 
 export const hero = {
-  eyebrow: "Slovensko · pripravujeme",
-  title: "Nájdi tých, čo ti sadnú.",
-  titleAccent: "Prisadni si.",
-  lede: "Veľa ľudí by rado niekam zašlo - len nemá s kým. Vytvor stôl pri káve, čaji, pive alebo víne a kto chce, ten si prisadne. Vždy traja a viac.",
-  // Veta hneď nad formulárom v úvode
-  formLead: "Chyť si svoje miesto pri stole.",
-  formNote: "Napíšeme ti, keď spustíme prvé stretnutia. Nič iné ti posielať nebudeme.",
+  eyebrow: "Všetky komunity na jednom mieste",
+  title: "Nájdi svojich ľudí.",
+  titleAccent: "Alebo si ich pozbieraj.",
+  subtitle:
+    "Povedz, čo ťa baví. Ukážeme ti, kde to už robia iní. A keď nikde, pomôžeme ti to založiť.",
+  ctaPrimary: "Nájdi komunitu",
+  ctaSecondary: "Chcem založiť komunitu",
+  note: "Zadarmo · Naživo aj online · Celé Slovensko",
+  feedLabel: "Práve pribudli",
+  stats: [
+    { value: "3 kliky", label: "k tvojej komunite" },
+    { value: "0 €", label: "založenie aj hľadanie" },
+    { value: "1 pravidlo", label: "stretká vypisuje ktokoľvek" },
+  ],
 };
 
-// Ukážka stretnutia v telefóne.
-// `open: true` znamená, že položka je "otvorená" - organizátor ju
-// nevyplnil a dohodnú sa na nej až tí, čo sa pridali.
-export const preview = {
-  eyebrow: "Takto to vyzerá",
-  title: "Nápoj, čas a miesto určíš ty. Zvyšok môže ostať otvorený.",
-  lede: "Organizátor vyplní vždy tri veci - čo sa pije, o koľkej a kde. Téma povinná nie je. Keď ju nechá otvorenú, dohodnete sa na nej až vy, čo idete.",
-  note: "Prerušovaný krúžok s plusom je voľné miesto pri stole. To je to tvoje.",
-  // Obsah obrazovky v telefóne. Kľúč `key` určuje farbu podľa nápoja.
-  // `people` sú iniciály ľudí, `free` je počet voľných miest.
-  app: {
-    title: "Kde je pre teba voľné miesto",
-    sub: "Dnes večer · 4 stoly čakajú na tretieho",
-    chips: ["Dnes", "Len ženy", "Veda"],
-    cards: [
-      {
-        key: "vino",
-        seats: "1 voľné miesto",
-        text: "Lucia, Martin a Tereza sa bavia o knihách vs. seriáloch",
-        meta: "Víno · 19:30 · Pod hradom",
-        people: ["LK", "MJ", "T"],
-        free: 1,
-        button: "Prisadnúť si",
-      },
-      {
-        key: "pivo",
-        seats: "2 voľné miesta",
-        text: "Ján a Peťo chcú vysvetliť, ako naozaj funguje AI",
-        meta: "Pivo · 20:00 · Amorté",
-        people: ["JD", "P"],
-        free: 2,
-        button: "Prisadnúť si",
-      },
-    ],
-  },
-};
-
-// Štyri nápoje. Nič nepredpisujú - sú to len príklady toho,
-// čo si u nás môžeš vytvoriť. Číslo (01, 02...) sa dopĺňa
-// automaticky podľa poradia.
-export const drinks = {
-  eyebrow: "Čo si dáte",
-  title: "Vytvoríš si to, na čo máš chuť",
-  lede: "Nič nepredpisujeme. Chceš ísť pozerať futbal na pivo? Vytvoríš stretnutie a kto chce, ten sa pridá. Chceš si len tak posedieť pri čaji? To isté. Ty určíš tému, čas aj miesto.",
+export const problem = {
+  title: "Komunity existujú.",
+  titleAccent: "Len sa o nich nedozvieš.",
   items: [
     {
-      key: "kava",
-      name: "Káva",
-      example: "„Kávička a pokec o knihách?“",
+      lead: "Sú roztrúsené.",
+      text: "Facebook, Instagram, WhatsApp, papier na nástenke. Dozvieš sa o nich, len keď ti to niekto povie.",
     },
     {
-      key: "caj",
-      name: "Čaj",
-      example: "„Len tak si posedieť pri čaji.“",
+      lead: "Záujem nestačí.",
+      text: "„Futbal“ sú tri rôzne partie. Hrať, pozerať v krčme, voziť dieťa na tréning.",
     },
     {
-      key: "pivo",
-      name: "Pivo",
-      example: "„Ideme pozerať futbal, kto sa pridá?“",
-    },
-    {
-      key: "vino",
-      name: "Víno",
-      example: "„Víno a debata o filmoch.“",
-    },
-    // Posledná dlaždica nie je nápoj - je to odkaz, že zoznam nie je
-    // uzavretý. Namiesto poradového čísla má znak z `icon`.
-    {
-      key: "ine",
-      name: "Iné",
-      icon: "+",
+      lead: "Zakladateľ je sám.",
+      text: "Napíše do troch skupín, pridá sa päť kamarátov a o mesiac je ticho.",
     },
   ],
 };
 
-export const how = {
-  eyebrow: "Ako to funguje",
-  title: "Štyri kroky, žiadne swipovanie",
-  lede: "Zlaďte sa témou, časom a nápojom a prisadnite si k jednému stolu.",
-  steps: [
+// ---------- DVE STRANY, KTORÉ SI CHÝBAJÚ ----------
+export const match = {
+  title: "Dvom ľuďom chýba ten istý kúsok",
+  subtitle:
+    "Jeden má komunitu bez ľudí. Druhý má chuť, ale nevie kam. Bez nás sa nikdy nestretnú.",
+  left: {
+    label: "Zakladá komunitu",
+    who: "Peter · Trnava",
+    text: "Chce hrať florbal každý štvrtok. Zatiaľ sú dvaja. Potrebuje osem.",
+  },
+  right: {
+    label: "Hľadá komunitu",
+    who: "Lucia · Trnava",
+    text: "Presťahovala sa pred mesiacom. Florbal hrala roky. Nevie s kým tu.",
+  },
+  hint: "Chyť pravý dielik a potiahni ho k ľavému",
+  joined: "Sedí to",
+  replay: "Rozpojiť",
+  note: "Toto je celá naša robota. Nájsť ten druhý kúsok.",
+};
+
+export const howItWorks = {
+  title: "Ako to funguje",
+  subtitle: "Prepni si stranu podľa toho, kde stojíš.",
+  sides: [
     {
-      title: "Niekto vypíše stretnutie",
-      body: "Téma, nápoj, dátum, mesto a počet miest. Napríklad: „Ideme na pivo pozerať zápas - štvrtok o 20:00, Staré Mesto, 5 miest.“",
+      badge: "Hľadám partiu",
+      steps: [
+        { title: "Čo ťa baví", text: "Futbal, knihy, lezenie. Pokojne viac naraz." },
+        {
+          title: "Čo s tým chceš robiť",
+          text: "Hrať, pozerať, učiť sa. Toto je ten dôležitý kúsok.",
+        },
+        { title: "Kde", text: "Nepovinné. Pri online partiách to neriešime." },
+        {
+          title: "Prisadni sa",
+          text: "Ukážeme ti, čo existuje. A ozveme sa, keď pribudne nové.",
+        },
+      ],
     },
     {
-      title: "Ostatní ho uvidia",
-      body: "V zozname si filtruješ podľa nápoja, mesta a témy. Žiadne profily na prezeranie - rovno vidíš, kam sa dá ísť.",
+      badge: "Zakladám komunitu",
+      steps: [
+        { title: "Vypíš, o čo ide", text: "Čo robíte a ako často. Nemusí to byť dokonalé." },
+        {
+          title: "Prihráme ti ľudí",
+          text: "Tých, čo hľadali presne to isté — záujem, zámer, mesto.",
+        },
+        {
+          title: "Poradíme, ako na to",
+          text: "Kedy začať, ako často, čo robiť, keď to zaspí.",
+        },
+        {
+          title: "Nezostaneš v tom sama",
+          text: "Stretká vypisuje ktokoľvek z partie, nielen ty.",
+        },
+      ],
+    },
+  ],
+};
+
+// ---------- INTERAKTÍVNE HĽADANIE ----------
+// Naklikávacie filtre v telefóne — záujem + zámer + miesto.
+
+export const explorer = {
+  title: "Prvá obrazovka, ktorú uvidíš",
+  subtitle: "Tri otázky a máš zoznam. Skús si to, funguje to naozaj.",
+  points: [
+    "Vyberáš si sama. Nerozhoduje za teba algoritmus.",
+    "Zámer je dôležitejší než záujem.",
+    "Miesto je nepovinné. Pri online komunitách odpadá.",
+  ],
+  screenTitle: "Nájdi komunitu",
+  labels: {
+    interest: "Zaujíma ma",
+    intent: "a chcem",
+    place: "kde",
+    anyIntent: "je mi to jedno",
+    anyPlace: "kdekoľvek",
+  },
+  emptyTitle: "Takáto komunita ešte nie je.",
+  emptyText:
+    "Tu sa z hľadajúceho stáva zakladateľ. Prihráme ti ľudí, čo hľadali to isté.",
+  emptyCta: "Založiť takúto komunitu",
+  resultsOne: "komunita zodpovedá",
+  resultsFew: "komunity zodpovedajú",
+  resultsMany: "komunít zodpovedá",
+  note: "Ukážkové údaje. Prvé skutočné komunity pridávame teraz.",
+};
+
+export const interests = [
+  { key: "futbal", label: "futbal", emoji: "⚽", intents: ["hrať", "pozerať"] },
+  { key: "beh", label: "beh", emoji: "🏃", intents: ["bežať", "trénovať na pretek"] },
+  { key: "knihy", label: "knihy", emoji: "📚", intents: ["čítať a debatovať", "písať"] },
+  { key: "deskovky", label: "deskovky", emoji: "🎲", intents: ["hrať"] },
+  { key: "lezenie", label: "lezenie", emoji: "🧗", intents: ["učiť sa", "liezť"] },
+  { key: "fotenie", label: "fotenie", emoji: "📷", intents: ["fotiť", "učiť sa"] },
+  { key: "gaming", label: "gaming", emoji: "🎮", intents: ["hrať"] },
+  { key: "varenie", label: "varenie", emoji: "🍳", intents: ["variť"] },
+];
+
+export const places = ["Bratislava", "Košice", "Žilina", "online"];
+
+export const communities = [
+  {
+    emoji: "⚽",
+    name: "Futbal v Petržalke",
+    interest: "futbal",
+    intent: "hrať",
+    place: "Bratislava",
+    when: "štvrtok 19:00",
+    members: 18,
+  },
+  {
+    emoji: "⚽",
+    name: "Zápasy v krčme U Michala",
+    interest: "futbal",
+    intent: "pozerať",
+    place: "Bratislava",
+    when: "keď hrá liga",
+    members: 26,
+  },
+  {
+    emoji: "⚽",
+    name: "Malý futbal na Terase",
+    interest: "futbal",
+    intent: "hrať",
+    place: "Košice",
+    when: "utorok 18:30",
+    members: 14,
+  },
+  {
+    emoji: "🏃",
+    name: "Ranný beh pri Dunaji",
+    interest: "beh",
+    intent: "bežať",
+    place: "Bratislava",
+    when: "utorok a piatok, 6:30",
+    members: 34,
+  },
+  {
+    emoji: "🏃",
+    name: "Príprava na polmaratón",
+    interest: "beh",
+    intent: "trénovať na pretek",
+    place: "Žilina",
+    when: "nedeľa doobeda",
+    members: 11,
+  },
+  {
+    emoji: "📚",
+    name: "Čítame nefikciu",
+    interest: "knihy",
+    intent: "čítať a debatovať",
+    place: "online",
+    when: "posledná nedeľa v mesiaci",
+    members: 56,
+  },
+  {
+    emoji: "📚",
+    name: "Knižný klub na Hlavnej",
+    interest: "knihy",
+    intent: "čítať a debatovať",
+    place: "Košice",
+    when: "raz mesačne",
+    members: 19,
+  },
+  {
+    emoji: "✍️",
+    name: "Píšeme po večeroch",
+    interest: "knihy",
+    intent: "písať",
+    place: "online",
+    when: "streda 20:00",
+    members: 23,
+  },
+  {
+    emoji: "🎲",
+    name: "Deskovky u Kamila",
+    interest: "deskovky",
+    intent: "hrať",
+    place: "Košice",
+    when: "raz za dva týždne",
+    members: 9,
+  },
+  {
+    emoji: "🎲",
+    name: "Doskový štvrtok",
+    interest: "deskovky",
+    intent: "hrať",
+    place: "Bratislava",
+    when: "štvrtok 18:00",
+    members: 31,
+  },
+  {
+    emoji: "🧗",
+    name: "Lezenie pre začiatočníkov",
+    interest: "lezenie",
+    intent: "učiť sa",
+    place: "Žilina",
+    when: "streda 18:00",
+    members: 12,
+  },
+  {
+    emoji: "📷",
+    name: "Fotíme mesto v noci",
+    interest: "fotenie",
+    intent: "fotiť",
+    place: "Bratislava",
+    when: "keď je dobré počasie",
+    members: 21,
+  },
+  {
+    emoji: "🎮",
+    name: "Nočné sedenia",
+    interest: "gaming",
+    intent: "hrať",
+    place: "online",
+    when: "piatok od 21:00",
+    members: 41,
+  },
+  {
+    emoji: "🍳",
+    name: "Varíme si navzájom",
+    interest: "varenie",
+    intent: "variť",
+    place: "Bratislava",
+    when: "raz mesačne v sobotu",
+    members: 16,
+  },
+];
+
+// ---------- BANNERY ----------
+
+// Nekonečne bežiaci pás pod hero sekciou.
+// Každá položka sa dá kliknúť a nastaví filter v ukážke appky.
+export const marquee = {
+  hint: "klikni a ukážeme ti to",
+  items: [
+    { label: "futbal v Petržalke", interest: "futbal" },
+    { label: "ranný beh pri Dunaji", interest: "beh" },
+    { label: "deskovky u Kamila", interest: "deskovky" },
+    { label: "čítame nefikciu", interest: "knihy" },
+    { label: "lezenie pre začiatočníkov", interest: "lezenie" },
+    { label: "fotíme mesto v noci", interest: "fotenie" },
+    { label: "nočné sedenia online", interest: "gaming" },
+    { label: "varíme si navzájom", interest: "varenie" },
+    { label: "zápasy v krčme", interest: "futbal" },
+    { label: "píšeme po večeroch", interest: "knihy" },
+  ],
+};
+
+// ---------- PRE ZAKLADATEĽOV ----------
+// Prepínač ukazuje, že systém radí inak podľa typu komunity.
+
+export const founders = {
+  title: "Nenecháme ťa v tom",
+  text: "Komunity nezanikajú pre nezáujem. Zanikajú preto, že nikto nepovie, čo nefunguje. My to vidíme.",
+  closing: "Nájsť ľudí je začiatok. Udržať ich je robota. A v tej ti pomáhame.",
+  switchLabel: "Dve komunity, dve úplne iné rady:",
+  cases: [
+    {
+      key: "zivo",
+      tab: "Florbal v Trnave",
+      meta: "naživo · 12 členov · 6 týždňov ticho",
+      tips: [
+        "Nemáš zadané miesto. Pri florbale je to prvá vec, ktorú ľudia hľadajú.",
+        "Šesť týždňov bez stretka. Vypíš termín, kým na vás nezabudnú.",
+        "Chodia stále tí istí štyria. Skús víkend.",
+      ],
     },
     {
-      title: "Klikneš „Prisadnúť si“",
-      body: "Miesto sa zaberie a vidíš, kto ďalší príde. Keď sa stretnutie naplní, zavrie sa.",
-    },
-    {
-      title: "Stretnete sa naživo",
-      body: "Bez týždňov chatovania. Prídeš, sadneš si, rozprávate sa o veci, ktorá vás všetkých baví.",
+      key: "online",
+      tab: "Nočné sedenia",
+      meta: "online · 41 členov · aktívna",
+      tips: [
+        "Miesto neriešime, ste online. S tým ťa otravovať nebudeme.",
+        "Chýba veta o tom, čo sa u vás deje. Ľudia sa neprihlásia naslepo.",
+        "Rastiete rýchlo. Pridaj druhého, kto môže vypisovať stretká.",
+      ],
     },
   ],
 };
 
 export const faq = {
-  // Ak sem dáš prázdne úvodzovky, malý nadpisík sa nezobrazí.
-  eyebrow: "",
-  title: "Často kladené otázky",
+  title: "Časté otázky",
   items: [
+    { q: "Je to zadarmo?", a: "Áno. Hľadanie aj založenie." },
     {
-      q: "Naozaj to nie je zoznamka?",
-      a: "Nie. Na každom stretnutí sú minimálne traja ľudia a to sa nedá obísť. Nikto nechodí na rande vo štvorici - a presne o to nám ide.",
+      q: "Musím mať účet?",
+      a: "Áno, prihlásenie je na jeden klik. Potrebujeme vedieť, kto sa do partie pridáva.",
     },
     {
-      q: "Som hanblivá, čo ak nebudem vedieť čo povedať?",
-      a: "Práve preto sú stretnutia na tému. Nesadáte si k stolu, aby ste sa „spoznali“ - sadáte si, lebo vás všetkých baví to isté. A v skupine nemusíš hovoriť ty, stačí počúvať.",
+      q: "Čo keď v mojom meste nič nie je?",
+      a: "Neboj sa, evidujeme ťa. Keď taká komunita vznikne, pošleme ti upozornenie. A ak nechceš čakať, založ ju — prihráme ti prvých ľudí a poradíme, ako začať.",
     },
     {
-      q: "Kedy to spustíte?",
-      a: "Pripravujeme prvé stretnutia. Ľudia zo zoznamu sa dozvedia ako prví - a budú si môcť vypísať vlastné stretnutie skôr než ostatní.",
+      q: "Sú tu aj online komunity?",
+      a: "Áno. Pri nich mesto neriešime.",
+      // Poznámka pre seba. Keď riadok zmažeš, nápis zo stránky zmizne.
+      todo: "Vrátiť sa a zmeniť toto",
     },
     {
-      q: "Nepijem alkohol. Je to aj pre mňa?",
-      a: "Áno. Polovica formátov je nealkoholická - káva a čaj. Nikto ťa nikam netlačí a na pivo si môžeš dať kofolu.",
+      q: "Je to zoznamka?",
+      a: "Nie. Ide o komunity, nie o dvojice.",
     },
     {
-      q: "Musím vypísať stretnutie, aby som sa mohol pridať?",
-      a: "Nie. Väčšina ľudí sa len pridáva a je to úplne v poriadku. Vypísať vlastné stretnutie je možnosť, nie povinnosť.",
-    },
-    {
-      q: "V ktorých mestách to bude?",
-      a: "Na celom Slovensku - stretnutie si môžeš vypísať kdekoľvek. Prvé budú najhustejšie v Bratislave.",
-    },
-    {
-      q: "Koľko to bude stáť?",
-      a: "Nič. Zapísať sa, vypísať stretnutie aj pridať sa je zadarmo. Platíš si len vlastný nápoj, ako vždy.",
+      q: "Kto môže vypísať stretko?",
+      a: "Ktorýkoľvek člen, nielen zakladateľ.",
     },
   ],
 };
 
 export const finalCta = {
-  eyebrow: "Zapíš sa",
-  title: "Chceš byť pri prvých",
-  titleAccent: "stretnutiach?",
-  body: "Ozveme sa, keď bude kam prísť.",
+  title: "Tvoja komunita už možno existuje. Nenechaj ju čakať.",
+  text: "Alebo čaká, kým ju založíš. Obe cesty vedú cez to isté tlačidlo.",
+  ctaPrimary: "Hľadám partiu",
+  ctaSecondary: "Zakladám komunitu",
 };
 
 export const footer = {
-  line: "Staviame na Slovensku.",
-};
-
-export const form = {
-  placeholder: "tvoj@email.sk",
-  button: "Zapísať sa",
-  buttonBusy: "Ukladám…",
-  success: "Hotovo - máme ťa v zozname. Ozveme sa.",
-  errorEmail: "Skontroluj e-mail, niečo tam nesedí.",
-  errorGeneric: "Nepodarilo sa uložiť. Skús to o chvíľu znova.",
+  tagline: "Miesto, kde sa ľudia a komunity konečne nájdu.",
+  links: [
+    { label: "Ako to funguje", href: "#ako-to-funguje" },
+    { label: "Vyskúšaj", href: "#vyskusaj" },
+    { label: "Pre zakladateľov", href: "#pre-zakladatelov" },
+    { label: "Otázky", href: "#otazky" },
+  ],
+  note: "Pracovná verzia. Staviame to práve teraz.",
 };

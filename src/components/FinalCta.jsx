@@ -1,18 +1,20 @@
-import { finalCta } from "../content.js";
-import WaitlistForm from "./WaitlistForm.jsx";
+import { finalCta } from "../content";
 
 export default function FinalCta() {
   return (
-    <section className="section section--cta">
-      <div className="shell cta">
-        <p className="eyebrow">{finalCta.eyebrow}</p>
-        <h2 className="cta__title">
-          {finalCta.title}
-          <br />
-          <em>{finalCta.titleAccent}</em>
-        </h2>
-        <p className="cta__body">{finalCta.body}</p>
-        <WaitlistForm id="final" />
+    <section className="final">
+      <div className="container final__inner">
+        <h2 className="final__title">{finalCta.title}</h2>
+        <p className="final__text">{finalCta.text}</p>
+
+        <div className="hero__actions">
+          <a className="btn btn--light" href="#vyskusaj">
+            {finalCta.ctaPrimary}
+          </a>
+          <a className="btn btn--outline" href="#pre-zakladatelov">
+            {finalCta.ctaSecondary}
+          </a>
+        </div>
       </div>
     </section>
   );

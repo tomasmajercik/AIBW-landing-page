@@ -1,23 +1,39 @@
-import { how } from "../content.js";
+import { useState } from "react";
+import { howItWorks } from "../content";
 
-// Kroky pod sebou, každý oddelený vlasovou linkou.
-// Číslo vľavo, text vpravo.
 export default function HowItWorks() {
-  return (
-    <section className="section section--rule" id="ako">
-      <div className="shell">
-        <p className="eyebrow">{how.eyebrow}</p>
-        <h2 className="section__title">{how.title}</h2>
-        <p className="section__lede">{how.lede}</p>
+  const [active, setActive] = useState(0);
+  const side = howItWorks.sides[active];
 
-        <ol className="steps">
-          {how.steps.map((step, index) => (
-            <li className="step" key={step.title}>
-              <span className="step__num">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+  return (
+    <section className="section" id="ako-to-funguje">
+      <div className="container">
+        <div className="section__head" data-reveal>
+          <h2 className="section__title">{howItWorks.title}</h2>
+          <p className="section__intro">{howItWorks.subtitle}</p>
+        </div>
+
+        <div className="switch" role="tablist" aria-label="Ktorá strana">
+          {howItWorks.sides.map((item, i) => (
+            <button
+              key={item.badge}
+              type="button"
+              role="tab"
+              aria-selected={active === i}
+              className={`switch__btn ${active === i ? "is-active" : ""}`}
+              onClick={() => setActive(i)}
+            >
+              {item.badge}
+            </button>
+          ))}
+        </div>
+
+        <ol className="steps" key={active}>
+          {side.steps.map((step, i) => (
+            <li className="step" key={step.title} style={{ "--i": i }}>
+              <span className="step__num">{i + 1}</span>
               <h3 className="step__title">{step.title}</h3>
-              <p className="step__body">{step.body}</p>
+              <p className="step__text">{step.text}</p>
             </li>
           ))}
         </ol>

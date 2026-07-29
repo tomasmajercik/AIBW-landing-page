@@ -1,16 +1,24 @@
-import { footer, wordmark } from "../content.js";
+import { brand, footer } from "../content";
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="shell footer__inner">
-        <span className="footer__brand">
-          {wordmark.first}
-          <span className="wordmark__accent">{wordmark.rest}</span>
-        </span>
-        <span className="footer__line">{footer.line}</span>
-        <span className="footer__year">© {new Date().getFullYear()}</span>
+      <div className="container footer__inner">
+        <div>
+          <p className="footer__brand">{brand.name}</p>
+          <p className="footer__tagline">{footer.tagline}</p>
+        </div>
+
+        <nav className="footer__links">
+          {footer.links.map((link) => (
+            <a key={link.href} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
+
+      <p className="footer__note">{footer.note}</p>
     </footer>
   );
 }

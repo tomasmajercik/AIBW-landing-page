@@ -1,15 +1,16 @@
-import { nav, wordmark } from "../content.js";
+import { brand, nav } from "../content";
+import Logo from "./Logo";
 
 export default function Nav() {
   return (
     <header className="nav">
-      <div className="shell nav__inner">
+      <div className="container nav__inner">
         <a className="nav__brand" href="#top">
-          {wordmark.first}
-          <span className="wordmark__accent">{wordmark.rest}</span>
+          <Logo />
+          {brand.name}
         </a>
 
-        <nav className="nav__links" aria-label="Hlavné menu">
+        <nav className="nav__links">
           {nav.links.map((link) => (
             <a key={link.href} href={link.href}>
               {link.label}
@@ -17,7 +18,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <a className="nav__cta" href="#zapisat">
+        <a className="btn btn--small" href="#vyskusaj">
           {nav.cta}
         </a>
       </div>
