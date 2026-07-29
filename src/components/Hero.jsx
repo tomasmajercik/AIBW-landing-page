@@ -1,86 +1,110 @@
-import { Avatar, Cluster, EmptySeat } from "./Avatars.jsx";
-import Waitlist from "./Waitlist.jsx";
+import { useEffect, useState } from "react";
+import { hero, brand, communities } from "../content";
+import Logo from "./Logo";
 
-function PhoneDemo() {
+const VISIBLE = 4; // koľko kariet je vidno v telefóne naraz
+const INTERVAL = 2400; // ako často pribudne nová (v milisekundách)
+
+export default function Hero({ onPick }) {
+  const [start, setStart] = useState(0);
+
+  // Karty sa posúvajú dokola, akoby stále pribúdali nové komunity.
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    const id = setInterval(
+      () => setStart((s) => (s + 1) % communities.length),
+      INTERVAL
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  const visible = Array.from({ length: VISIBLE }, (_, i) => {
+    const index = (start + i) % communities.length;
+    return { ...communities[index], index };
+  });
+
   return (
-    <div className="phone" aria-hidden="true">
-      <div className="phone__top">
-        <span className="phone__brand">prisadni si</span>
-        <span className="phone__you">TY</span>
-      </div>
+    <section className="hero" id="top">
+      <div className="container hero__grid">
+        <div className="hero__copy">
+          <p className="eyebrow">{hero.eyebrow}</p>
 
-      <div className="phone__proof">
-        <Cluster>
-          <Avatar initials="LK" tone="vino" small />
-          <Avatar initials="JD" tone="pivo" small />
-          <Avatar initials="ZB" tone="kava" small />
-        </Cluster>
-        <span>
-          <strong>11 ľudí</strong> ide dnes večer von. Traja z nich majú voľné
-          miesto.
-        </span>
-      </div>
+          <h1 className="hero__title">
+            {hero.title}
+            <br />
+            <span className="hero__accent">{hero.titleAccent}</span>
+          </h1>
 
-      <div className="tcard tcard--color tcard--vino">
-        <div className="tcard__metarow">
-          <span className="mono">Víno · 19:30</span>
-          <span className="badge">1 miesto</span>
+          <p className="hero__subtitle">{hero.subtitle}</p>
+
+          <div className="hero__actions">
+            <a className="btn" href="#vyskusaj">
+              {hero.ctaPrimary}
+            </a>
+            <a className="btn btn--ghost" href="#pre-zakladatelov">
+              {hero.ctaSecondary}
+            </a>
+          </div>
+
+          <p className="hero__note">{hero.note}</p>
+
+          <ul className="stats">
+            {hero.stats.map((stat) => (
+              <li key={stat.label} className="stat">
+                <span className="stat__value">{stat.value}</span>
+                <span className="stat__label">{stat.label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <Cluster>
-          <Avatar initials="LK" tone="#712035" />
-          <Avatar initials="MJ" tone="vino-soft" />
-          <Avatar initials="T" tone="#a34b62" />
-          <EmptySeat light />
-        </Cluster>
-        <h3 className="tcard__title">Lucia, Martin a Tereza</h3>
-        <p className="tcard__quote">
-          „Prečo ešte čítame romány, keď máme seriály?“
-        </p>
-        <span className="pill pill--cream">Prisadnem si</span>
-      </div>
 
-      <div className="duo">
-        <Cluster>
-          <Avatar initials="ZB" tone="kava" small />
-          <Avatar initials="V" tone="ine" small />
-        </Cluster>
-        <div className="duo__body">
-          <div className="duo__names">Zuzka a Vierka</div>
-          <span className="mono">SO 10:00 · káva · len ženy</span>
+        {/* Telefón s pásom komunít, ktoré práve pribudli */}
+        <div className="hero__visual">
+          <div className="phone">
+            <span className="phone__island" />
+
+            <div className="phone__screen">
+              <div className="phone__bar">
+                <span className="phone__brand">
+                  <Logo size={18} />
+                  {brand.name}
+                </span>
+                <span className="phone__time">9:41</span>
+              </div>
+
+              <p className="feed__label">
+                <span className="feed__dot" />
+                {hero.feedLabel}
+              </p>
+
+              <div className="feed">
+                {visible.map((item, i) => (
+                  // key = poradie karty v zozname, takže pri posune sa
+                  // nová karta nasadí odznova a prehrá si animáciu
+                  <button
+                    type="button"
+                    className="float"
+                    key={item.index}
+                    style={{ "--i": i }}
+                    onClick={() => onPick(item.interest)}
+                  >
+                    <span className="float__emoji">{item.name.charAt(0)}</span>
+                    <span className="float__body">
+                      <span className="float__name">{item.name}</span>
+                      <span className="float__meta">
+                        {item.intent} · {item.place}
+                      </span>
+                    </span>
+                    <span className="float__members">{item.members}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-        <span className="pill pill--ink">Idem</span>
       </div>
-
-      <div className="phone__tabs">
-        <div className="phone__tablist">
-          <span>Stoly</span>
-          <span>Moje</span>
-          <span>Ja</span>
-        </div>
-        <span className="pill pill--ink">+ Založiť stôl</span>
-      </div>
-    </div>
-  );
-}
-
-export default function Hero() {
-  return (
-    <header className="hero wrap" id="hore">
-      <div>
-        <p className="mono hero__eyebrow">Bratislava · čoskoro</p>
-        <h1>
-          Nájdi ľudí cez to,
-          <br />
-          čo ťa <em>baví.</em>
-        </h1>
-        <p className="hero__sub">
-          Malé stoly, <strong>jedna téma</strong> a podnik, ktorý poznáme. Vyber
-          si, o čom sa chceš rozprávať, a prisadni si k ľuďom, ktorých to baví
-          tiež.
-        </p>
-        <Waitlist />
-      </div>
-      <PhoneDemo />
-    </header>
+    </section>
   );
 }

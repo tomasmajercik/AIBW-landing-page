@@ -1,23 +1,44 @@
-import Nav from "./components/Nav.jsx";
-import Hero from "./components/Hero.jsx";
-import HowItWorks from "./components/HowItWorks.jsx";
-import Formats from "./components/Formats.jsx";
-import Feed from "./components/Feed.jsx";
-import Trust from "./components/Trust.jsx";
-import Closing from "./components/Closing.jsx";
-import Footer from "./components/Footer.jsx";
+import { useState } from "react";
+import Nav from "./components/Nav";
+import Hero from "./components/Hero";
+import Marquee from "./components/Marquee";
+import Problem from "./components/Problem";
+import Match from "./components/Match";
+import HowItWorks from "./components/HowItWorks";
+import Explorer from "./components/Explorer";
+import Founders from "./components/Founders";
+import Faq from "./components/Faq";
+import FinalCta from "./components/FinalCta";
+import Footer from "./components/Footer";
+import useReveal from "./useReveal";
 
 export default function App() {
+  useReveal();
+
+  // Vybraný záujem je spoločný pre celú stránku — keď na niečo klikneš
+  // v hero alebo v bežiacom páse, nastaví sa filter v ukážke appky.
+  const [interest, setInterest] = useState("futbal");
+
+  function pick(key) {
+    setInterest(key);
+    document
+      .getElementById("vyskusaj")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   return (
     <>
       <Nav />
       <main>
-        <Hero />
+        <Hero onPick={pick} />
+        <Marquee onPick={pick} />
+        <Problem />
+        <Match />
         <HowItWorks />
-        <Formats />
-        <Feed />
-        <Trust />
-        <Closing />
+        <Explorer interestKey={interest} onInterest={setInterest} />
+        <Founders />
+        <Faq />
+        <FinalCta />
       </main>
       <Footer />
     </>

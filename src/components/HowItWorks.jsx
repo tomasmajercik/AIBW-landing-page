@@ -1,41 +1,42 @@
-const STEPS = [
-  {
-    n: "01",
-    title: "Vyber si stôl",
-    text: "Téma, čas, podnik aj voľné miesta sú na karte. Nič, čo by nechalo otvorené kde alebo kedy.",
-  },
-  {
-    n: "02",
-    title: "Prisadni si",
-    text: "Jedno ťapnutie a miesto je tvoje. Deň vopred potvrdíš, že ideš, a vlákno stola ti povie, kde presne sedia.",
-  },
-  {
-    n: "03",
-    title: "Sadnite si",
-    text: "Hostiteľ príde skôr a obsadí stôl. Po stretnutí stačí jedno ťapnutie: „chcem sa vidieť znova“.",
-  },
-];
+import { useState } from "react";
+import { howItWorks } from "../content";
 
 export default function HowItWorks() {
+  const [active, setActive] = useState(0);
+  const side = howItWorks.sides[active];
+
   return (
-    <section className="section wrap" id="ako">
-      <div className="section__head">
-        <span className="mono">Ako to funguje</span>
-        <h2>Žiadne podujatia. Stoly.</h2>
-        <p>
-          Stôl je malá skupina, ktorá sa stretne pri konkrétnom nápoji a
-          konkrétnej téme. Nikdy anonymný dav, vždy pár ľudí, medzi ktorých sa
-          dá prisadnúť.
-        </p>
-      </div>
-      <div className="steps">
-        {STEPS.map((s) => (
-          <article className="step" key={s.n}>
-            <span className="mono">{s.n}</span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-          </article>
-        ))}
+    <section className="section" id="ako-to-funguje">
+      <div className="container">
+        <div className="section__head" data-reveal>
+          <h2 className="section__title">{howItWorks.title}</h2>
+          <p className="section__intro">{howItWorks.subtitle}</p>
+        </div>
+
+        <div className="switch" role="tablist" aria-label="Ktorá strana">
+          {howItWorks.sides.map((item, i) => (
+            <button
+              key={item.badge}
+              type="button"
+              role="tab"
+              aria-selected={active === i}
+              className={`switch__btn ${active === i ? "is-active" : ""}`}
+              onClick={() => setActive(i)}
+            >
+              {item.badge}
+            </button>
+          ))}
+        </div>
+
+        <ol className="steps" key={active}>
+          {side.steps.map((step, i) => (
+            <li className="step" key={step.title} style={{ "--i": i }}>
+              <span className="step__num">{i + 1}</span>
+              <h3 className="step__title">{step.title}</h3>
+              <p className="step__text">{step.text}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
