@@ -1,70 +1,85 @@
 import { useEffect, useRef, useState } from "react";
-import { match } from "../content";
+import { brand, match } from "../content";
+import Logo from "./Logo";
 
-const APART = 150; // ako ďaleko od seba dieliky začínajú (v px)
-const SNAP = 46; // od akej blízkosti už samy zacvaknú
+const APART = 220; // ako ďaleko od seba sú dieliky (v px)
+
+// Tvar dielika ako kresba — vďaka tomu má aj obrys, nielen výplň.
+// vector-effect drží hrúbku čiary rovnakú aj po roztiahnutí tvaru.
+function Shape({ variant }) {
+  const d =
+    variant === "left"
+      ? "M4,0 H87.8 V40 C100,43.5 100,56.5 87.8,60 V100 H4 C1.8,100 0,97.8 0,95 V5 C0,2.2 1.8,0 4,0 Z"
+      : "M0,0 H96 C98.2,0 100,2.2 100,5 V95 C100,97.8 98.2,100 96,100 H0 V60 C12.2,56.5 12.2,43.5 0,40 Z";
+
+  return (
+    <svg
+      className="side__shape"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path d={d} vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
 
 export default function Match() {
-  const [offset, setOffset] = useState(APART);
-  const [dragging, setDragging] = useState(false);
+  const [gap, setGap] = useState(APART);
+  // fázy animácie: nic -> telefon -> logo -> sam (telefón zmizne) -> dieliky sa spoja
+  const [phase, setPhase] = useState("nic");
+
   const stageRef = useRef(null);
-  const drag = useRef(null);
+  const timers = useRef([]);
 
-  const snapped = offset === 0;
+  const joined = gap === 0;
 
-  // Keď na sekciu doscrolluješ, dieliky sa priblížia — ale zvyšok nechajú na teba.
+  // Animácia sa prehráva dookola: appka sa objaví a pritiahne dieliky k sebe.
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setGap(0);
+      setPhase("sam");
+      return;
+    }
+
+    let stopped = false;
+
+    function clear() {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+    }
+
+    function cycle() {
+      if (stopped) return;
+      clear();
+      setGap(APART);
+      setPhase("nic");
+
+      // 1) objaví sa telefón  2) v ňom cvakne svietiace logo
+      // 3) telefón zmizne  4) logo pritiahne dieliky  5) chvíľu drží  6) odznova
+      timers.current.push(setTimeout(() => setPhase("telefon"), 600));
+      timers.current.push(setTimeout(() => setPhase("logo"), 1400));
+      timers.current.push(setTimeout(() => setPhase("sam"), 2300));
+      timers.current.push(setTimeout(() => setGap(0), 2700));
+      timers.current.push(setTimeout(cycle, 6800));
+    }
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setOffset((o) => (o === APART ? 96 : o));
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.4 }
+      ([entry]) => (entry.isIntersecting ? cycle() : null),
+      { threshold: 0.35 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      stopped = true;
+      clear();
+      observer.disconnect();
+    };
   }, []);
-
-  function onPointerDown(e) {
-    if (snapped) return;
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch {
-      // niektoré prehliadače to odmietnu, ťahanie funguje aj bez toho
-    }
-    drag.current = { startX: e.clientX, startOffset: offset };
-    setDragging(true);
-  }
-
-  function onPointerMove(e) {
-    if (!drag.current) return;
-    const dx = e.clientX - drag.current.startX;
-    // doľava sa dá ísť len po zacvaknutie, doprava najviac na východiskovú vzdialenosť
-    const next = Math.min(APART, Math.max(0, drag.current.startOffset + dx));
-    setOffset(next);
-  }
-
-  function onPointerUp() {
-    if (!drag.current) return;
-    drag.current = null;
-    setDragging(false);
-    setOffset((o) => (o < SNAP ? 0 : APART));
-  }
-
-  // Klávesnica a jednoduchý klik: dielik zacvakne sám.
-  function joinNow() {
-    if (!dragging) setOffset(0);
-  }
-
-  function reset() {
-    setOffset(APART);
-  }
 
   return (
     <section className="section match" id="dve-strany">
@@ -87,55 +102,63 @@ export default function Match() {
         </div>
 
         <div
-          className={`match__stage ${snapped ? "is-joined" : ""} ${
-            dragging ? "is-dragging" : ""
-          }`}
+          className={`match__stage ${joined ? "is-joined" : ""} ${
+            phase === "telefon" || phase === "logo" ? "is-phone" : ""
+          } ${phase === "logo" || phase === "sam" ? "is-logo" : ""}`}
+          style={{ "--gap": `${gap}px` }}
           ref={stageRef}
         >
           <article className="side side--left">
+            <Shape variant="left" />
             <div className="side__inner">
-              <span className="side__label">{match.left.label}</span>
+              <span className="side__role">{match.left.role}</span>
+              <p className="side__label">{match.left.label}</p>
               <p className="side__who">{match.left.who}</p>
               <p className="side__text">{match.left.text}</p>
             </div>
           </article>
 
-          <article
-            className="side side--right"
-            style={{ "--offset": `${offset}px` }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-          >
+          <article className="side side--right">
+            <Shape variant="right" />
             <div className="side__inner">
-              <span className="side__label">{match.right.label}</span>
+              <span className="side__role">{match.right.role}</span>
+              <p className="side__label">{match.right.label}</p>
               <p className="side__who">{match.right.who}</p>
               <p className="side__text">{match.right.text}</p>
             </div>
-
-            <span className="side__grip" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
           </article>
+
+          {/* appka stojí presne v mieste spoja — ona ich ťahá k sebe */}
+          <span className="match__app" aria-hidden="true">
+            {/* domovská obrazovka telefónu — naša appka je jedna z nich */}
+            <span className="match__phone">
+              <span className="match__phoneIsland" />
+              <span className="match__screen">
+                {Array.from({ length: 9 }, (_, i) =>
+                  i === 4 ? (
+                    <span className="match__icon match__icon--nasa" key={i}>
+                      <Logo size={16} />
+                    </span>
+                  ) : (
+                    <span className="match__icon" key={i} />
+                  )
+                )}
+              </span>
+            </span>
+
+            {/* logo aj názov sú jeden celok — držia sa spolu a hýbu sa spolu */}
+            <span className="match__logo">
+              <span className="match__appMark">
+                <Logo size={30} />
+              </span>
+              <span className="match__appName">{brand.name}</span>
+            </span>
+          </span>
         </div>
 
-        <div className={`match__foot ${snapped ? "is-joined" : ""}`}>
-          {snapped ? (
-            <>
-              <span className="match__badge">{match.joined}</span>
-              <p className="match__note">{match.note}</p>
-              <button type="button" className="match__replay" onClick={reset}>
-                {match.replay}
-              </button>
-            </>
-          ) : (
-            <button type="button" className="match__hint" onClick={joinNow}>
-              {match.hint}
-            </button>
-          )}
+        {/* bublina vyskočí presne vtedy, keď dieliky zapadnú do seba */}
+        <div className={`match__foot ${joined ? "is-joined" : ""}`}>
+          <p className="match__bubble">{match.note}</p>
         </div>
       </div>
     </section>

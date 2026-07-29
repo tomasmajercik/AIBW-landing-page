@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Marquee from "./components/Marquee";
 import Problem from "./components/Problem";
 import Match from "./components/Match";
 import HowItWorks from "./components/HowItWorks";
@@ -31,7 +30,6 @@ export default function App() {
       <Nav />
       <main>
         <Hero onPick={pick} />
-        <Marquee onPick={pick} />
         <Problem />
         <Match />
         <HowItWorks />

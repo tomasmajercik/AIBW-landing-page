@@ -6,8 +6,8 @@
 
 // Pracovný názov. Keď vymyslíš iný, stačí ho prepísať tu.
 export const brand = {
-  name: "Communio",
-  tagline: "Nájdi svojich ľudí",
+  name: "Zapadni",
+  tagline: "Zapadni medzi svojich",
 };
 
 export const nav = {
@@ -39,7 +39,7 @@ export const hero = {
 
 export const problem = {
   title: "Komunity existujú.",
-  titleAccent: "Len sa o nich nedozvieš.",
+  titleAccent: "Len sa o nich tak ľahko nedozvieš.",
   items: [
     {
       lead: "Sú roztrúsené.",
@@ -60,20 +60,19 @@ export const problem = {
 export const match = {
   title: "Dvom ľuďom chýba ten istý kúsok",
   subtitle:
-    "Jeden má komunitu bez ľudí. Druhý má chuť, ale nevie kam. Bez nás sa nikdy nestretnú.",
+    "Jeden chce komunitu založiť. Druhá presne takú hľadá. Sú v tom istom meste a bez nás sa nikdy nestretnú.",
   left: {
-    label: "Zakladá komunitu",
+    role: "Zakladateľ",
+    label: "Komunitu ešte nemá. Chce ju založiť.",
     who: "Peter · Trnava",
-    text: "Chce hrať florbal každý štvrtok. Zatiaľ sú dvaja. Potrebuje osem.",
+    text: "Chcel by hrať florbal každý štvrtok. Nemá s kým začať, potrebuje aspoň osem ľudí.",
   },
   right: {
-    label: "Hľadá komunitu",
+    role: "Hľadá komunitu",
+    label: "Presne takú, akú Peter zakladá.",
     who: "Lucia · Trnava",
-    text: "Presťahovala sa pred mesiacom. Florbal hrala roky. Nevie s kým tu.",
+    text: "Presťahovala sa pred mesiacom. Florbal hrala roky. Nevie, s kým si ho tu zahrať.",
   },
-  hint: "Chyť pravý dielik a potiahni ho k ľavému",
-  joined: "Sedí to",
-  replay: "Rozpojiť",
   note: "Toto je celá naša robota. Nájsť ten druhý kúsok.",
 };
 
@@ -287,26 +286,6 @@ export const communities = [
     members: 16,
   },
 ];
-
-// ---------- BANNERY ----------
-
-// Nekonečne bežiaci pás pod hero sekciou.
-// Každá položka sa dá kliknúť a nastaví filter v ukážke appky.
-export const marquee = {
-  hint: "klikni a ukážeme ti to",
-  items: [
-    { label: "futbal v Petržalke", interest: "futbal" },
-    { label: "ranný beh pri Dunaji", interest: "beh" },
-    { label: "deskovky u Kamila", interest: "deskovky" },
-    { label: "čítame nefikciu", interest: "knihy" },
-    { label: "lezenie pre začiatočníkov", interest: "lezenie" },
-    { label: "fotíme mesto v noci", interest: "fotenie" },
-    { label: "nočné sedenia online", interest: "gaming" },
-    { label: "varíme si navzájom", interest: "varenie" },
-    { label: "zápasy v krčme", interest: "futbal" },
-    { label: "píšeme po večeroch", interest: "knihy" },
-  ],
-};
 
 // ---------- PRE ZAKLADATEĽOV ----------
 // Prepínač ukazuje, že systém radí inak podľa typu komunity.
