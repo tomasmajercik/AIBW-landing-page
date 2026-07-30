@@ -10,8 +10,11 @@
   --ink-faint: #8b948f;
 
   --bg: #ffffff;
-  --bg-soft: #f8f8f7;
-  --line: #e7e9e7;
+  /* neutrály sú šalviové — z rovnakej rodiny ako farby kariet v appke.
+     Terakota na nich vynikne a nepôsobí to ako novinový papier. */
+  --bg-warm: #f5f9f6; /* podklad úvodu */
+  --bg-soft: #eef3ef; /* striedajúce sa pásy */
+  --line: #e0e8e2;
 
   --accent: #b24a32;
   --accent-dark: #8f3826;
@@ -232,7 +235,8 @@ button {
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(255, 255, 255, 0.82);
+  /* hlavička má tón úvodu, aby nad ním nerobila šev */
+  background: rgba(245, 249, 246, 0.82);
   backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid var(--line);
 }
@@ -279,12 +283,13 @@ button {
   position: relative;
   overflow: hidden;
   padding: 96px 0 104px;
+  /* úvod otvára stránku teplo — krém so žiarou v rohu, nie holá biela */
   background: radial-gradient(
       120% 80% at 88% 0%,
       var(--accent-soft) 0%,
       transparent 58%
     ),
-    var(--bg);
+    var(--bg-warm);
 }
 
 .hero__grid {
@@ -988,12 +993,14 @@ button {
 }
 
 /* ---------- 9. PREPÍNAČ (taby) ---------- */
+/* dráha je o odtieň tmavšia než pás, na ktorom leží — inak by
+   sa stratila a bolo by vidno len biely jazdec */
 .switch {
   display: inline-flex;
   gap: 4px;
   margin-top: 36px;
   padding: 4px;
-  background: var(--bg-soft);
+  background: var(--line);
   border: 1px solid var(--line);
   border-radius: 999px;
 }
@@ -1438,9 +1445,12 @@ button {
 }
 
 /* ---------- 15. PÄTIČKA ---------- */
+/* pätička je tmavá — uzatvára stránku, aby terakotový záver
+   nekončil do prázdnej bielej */
 .footer {
   padding: 56px 0 40px;
-  background: var(--bg);
+  background: var(--ink);
+  color: #fff;
 }
 
 .footer__inner {
@@ -1457,7 +1467,7 @@ button {
 
 .footer__tagline {
   margin-top: 4px;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.66);
   font-size: 14.5px;
 }
 
@@ -1465,10 +1475,10 @@ button {
   max-width: var(--max);
   margin: 40px auto 0;
   padding: 24px 28px 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
   text-align: center;
   font-size: 13px;
-  color: var(--ink-faint);
+  color: rgba(255, 255, 255, 0.46);
 }
 
 /* ---------- 16. MENŠIE OBRAZOVKY ---------- */

@@ -44,7 +44,7 @@ export default function Explorer() {
   const ukazVyzvu = vyzva && !zavrete;
 
   return (
-    <section className="section section--muted" id="vyskusaj">
+    <section className="section" id="vyskusaj">
       <div className="container explorer__grid">
         <div className="explorer__copy" data-reveal>
           <h2 className="section__title section__title--left">
