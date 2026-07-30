@@ -7,7 +7,7 @@ export default function FinalCta() {
         <h2 className="final__title">{finalCta.title}</h2>
         <p className="final__text">{finalCta.text}</p>
 
-        {/* appka ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
+        {/* web ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
         <button type="button" className="btn btn--light btn--big">
           {finalCta.cta}
         </button>

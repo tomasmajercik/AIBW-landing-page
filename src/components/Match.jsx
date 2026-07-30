@@ -4,43 +4,57 @@ import Logo from "./Logo";
 
 const APART = 130; // ako ďaleko od seba sú dieliky (v px)
 
-// Zloží obrys puzzle dielika. Pre každú hranu povieš, či tam má byť
-// výstupok, priehlbina, alebo rovná čiara.
+// Tvar dielika je prevzatý z loga — rovnaké pomery, len prepočítané
+// na výšku 100. Výstupok je skoro celý kruh na úzkom krčku, preto to
+// vyzerá ako puzzle a nie ako vlnka.
+const R_VYSTUPOK = 12; // polomer guľatého výstupku
+const KRCOK = 15.4; // šírka krčka pod výstupkom
+const R_ROH = 7.5; // zaoblenie rohov
+
+// Zloží obrys dielika. Pre každú hranu povieš, či tam má byť
+// výstupok, priehlbina, alebo rovná čiara. Kreslí sa v smere
+// hodinových ručičiek, preto sa značka smeru pri hranách strieda.
 // vector-effect drží hrúbku čiary rovnakú aj po roztiahnutí tvaru.
-function obrys({ hore, vpravo, dole, vlavo }) {
-  const rx = 5.5;
-  const ry = 6.5;
+function obrys({ hore, vpravo, dole, vlavo }, sirka, vyska) {
+  const r = R_ROH;
+  const R = R_VYSTUPOK;
+
+  const x1 = (sirka - KRCOK) / 2;
+  const x2 = (sirka + KRCOK) / 2;
+  const y1 = (vyska - KRCOK) / 2;
+  const y2 = (vyska + KRCOK) / 2;
 
   const hornaHrana =
     hore === "rovno"
-      ? "H94"
-      : `H44 A${rx},${ry} 0 1 ${hore === "vystupok" ? 0 : 1} 56,0 H94`;
+      ? `H${sirka - r}`
+      : `H${x1} A${R},${R} 0 1 ${hore === "vystupok" ? 1 : 0} ${x2},0 H${sirka - r}`;
 
   const pravaHrana =
     vpravo === "rovno"
-      ? "V94"
-      : `V44 A${rx},${ry} 0 1 ${vpravo === "vystupok" ? 1 : 0} 100,56 V94`;
+      ? `V${vyska - r}`
+      : `V${y1} A${R},${R} 0 1 ${vpravo === "vystupok" ? 0 : 1} ${sirka},${y2} V${vyska - r}`;
 
   const dolnaHrana =
     dole === "rovno"
-      ? "H6"
-      : `H56 A${rx},${ry} 0 1 ${dole === "vystupok" ? 0 : 1} 44,100 H6`;
+      ? `H${r}`
+      : `H${x2} A${R},${R} 0 1 ${dole === "vystupok" ? 1 : 0} ${x1},${vyska} H${r}`;
 
   const lavaHrana =
     vlavo === "rovno"
-      ? "V6"
-      : `V56 A${rx},${ry} 0 1 ${vlavo === "vystupok" ? 1 : 0} 0,44 V6`;
+      ? `V${r}`
+      : `V${y2} A${R},${R} 0 1 ${vlavo === "vystupok" ? 0 : 1} 0,${y1} V${r}`;
 
   return [
-    "M6,0",
+    `M${r},0`,
     hornaHrana,
-    "C97.3,0 100,2.7 100,6",
+    `A${r},${r} 0 0 1 ${sirka},${r}`,
     pravaHrana,
-    "C100,97.3 97.3,100 94,100",
+    `A${r},${r} 0 0 1 ${sirka - r},${vyska}`,
     dolnaHrana,
-    "C2.7,100 0,97.3 0,94",
+    `A${r},${r} 0 0 1 0,${vyska - r}`,
     lavaHrana,
-    "C0,2.7 2.7,0 6,0 Z",
+    `A${r},${r} 0 0 1 ${r},0`,
+    "Z",
   ].join(" ");
 }
 
@@ -53,15 +67,22 @@ const TVARY = [
   { hore: "priehlbina", vpravo: "rovno", dole: "rovno", vlavo: "priehlbina" },
 ];
 
-function Shape({ index }) {
+// Dielik sa roztiahne na veľkosť kartičky, takže kresbu robíme rovno
+// v jej pomere strán — inak by sa okrúhly výstupok sploštil na ovál.
+function Shape({ index, pomer }) {
+  const sirka = 100 * pomer;
+
   return (
     <svg
       className="side__shape"
-      viewBox="0 0 100 100"
+      viewBox={`0 0 ${sirka} 100`}
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <path d={obrys(TVARY[index])} vectorEffect="non-scaling-stroke" />
+      <path
+        d={obrys(TVARY[index], sirka, 100)}
+        vectorEffect="non-scaling-stroke"
+      />
     </svg>
   );
 }
@@ -70,13 +91,24 @@ export default function Match() {
   const [gap, setGap] = useState(APART);
   // fázy animácie: nic -> telefon -> logo -> sam (telefón zmizne) -> dieliky sa spoja
   const [phase, setPhase] = useState("nic");
+  // na širokej obrazovke je dielik 290×200, na úzkej štvorec 138×138
+  const [pomer, setPomer] = useState(1.45);
+
+  useEffect(() => {
+    const uzka = window.matchMedia("(max-width: 880px)");
+    const prepocitaj = () => setPomer(uzka.matches ? 1 : 1.45);
+
+    prepocitaj();
+    uzka.addEventListener("change", prepocitaj);
+    return () => uzka.removeEventListener("change", prepocitaj);
+  }, []);
 
   const stageRef = useRef(null);
   const timers = useRef([]);
 
   const joined = gap === 0;
 
-  // Animácia sa prehráva dookola: appka sa objaví a pritiahne dieliky k sebe.
+  // Animácia sa prehráva dookola: Zapadni sa objaví a pritiahne dieliky k sebe.
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
@@ -140,7 +172,7 @@ export default function Match() {
         >
           {match.pieces.map((piece, i) => (
             <article className={`side side--${i}`} key={piece.who}>
-              <Shape index={i} />
+              <Shape index={i} pomer={pomer} />
               <div className="side__inner">
                 <span className="side__role">{piece.role}</span>
                 <p className="side__who">{piece.who}</p>
@@ -149,7 +181,7 @@ export default function Match() {
             </article>
           ))}
 
-          {/* appka stojí presne v strede — ona ich dala dokopy */}
+          {/* Zapadni stojí presne v strede — vďaka nemu sa našli */}
           <span className="match__app" aria-hidden="true">
             <span className="match__phone">
               <span className="match__phoneIsland" />

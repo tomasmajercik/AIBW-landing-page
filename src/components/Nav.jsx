@@ -18,7 +18,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* appka ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
+        {/* web ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
         <button type="button" className="btn btn--small">
           {nav.cta}
         </button>

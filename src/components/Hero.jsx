@@ -5,7 +5,7 @@ import Logo from "./Logo";
 const VISIBLE = 3; // koľko kariet je v telefóne naraz (spodná sa stráca)
 const INTERVAL = 3200; // ako často sa zoznam posunie (v milisekundách)
 
-// Šesť farieb z appky — každá komunita má svoju, aby sa karty nezlievali.
+// Šesť farieb zo Zapadni — každá komunita má svoju, aby sa karty nezlievali.
 const TINTS = [
   { bg: "#f5e3dc", ink: "#8f3826" },
   { bg: "#ddebe6", ink: "#2f6354" },
@@ -24,7 +24,7 @@ function ClockIcon() {
   );
 }
 
-// Ikonky spodnej lišty — rovnaké ako v appke.
+// Ikonky spodnej lišty — rovnaké ako na webe.
 const TAB_ICONS = [
   <svg key="d" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="4,12 12,5 20,12" />
@@ -93,7 +93,7 @@ export default function Hero() {
           <p className="hero__note">{hero.note}</p>
         </div>
 
-        {/* Telefón s ukážkou appky — rovnaké karty, aké budú v nej */}
+        {/* Telefón s ukážkou webu — rovnaké karty, aké na ňom budú */}
         <div className="hero__visual">
           <div className="phone">
             <span className="phone__island" />
@@ -102,7 +102,7 @@ export default function Hero() {
               <div className="appx__head">
                 <span className="appx__brand">
                   <Logo size={18} />
-                  zapadni.sk
+                  zapadni.com
                 </span>
               </div>
 

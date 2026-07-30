@@ -133,7 +133,7 @@ export default function Explorer() {
                 </button>
               </div>
 
-              {/* zatmavenie a výzva na stiahnutie */}
+              {/* zatmavenie a výzva na pokračovanie */}
               {ukazVyzvu && (
                 <div className="app__done">
                   <p className="app__doneTitle">{obrazovka.doneTitle}</p>

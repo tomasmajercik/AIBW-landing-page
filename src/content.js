@@ -16,7 +16,7 @@ export const nav = {
     { label: "Vyskúšaj demo", href: "#vyskusaj" },
     { label: "Otázky", href: "#otazky" },
   ],
-  cta: "Stiahnuť appku",
+  cta: "Pokračovať na web",
 };
 
 export const hero = {
@@ -36,7 +36,7 @@ export const problem = {
   title: "Komunity existujú.",
   titleAccent: "Len sa o nich tak ľahko nedozvieš.",
   ctaText: "Ťažko sa hľadajú. U nás ich máš pokope.",
-  ctaButton: "Stiahnuť appku",
+  ctaButton: "Pokračovať na web",
 };
 
 // ---------- ŠTYRIA ĽUDIA, JEDNA KOMUNITA ----------
@@ -44,7 +44,7 @@ export const problem = {
 export const match = {
   title: "Jeden založí, ostatní sa pridajú.",
   subtitle:
-    "Štyria ľudia z Trnavy, ktorých baví florbal. Jeden komunitu zakladá, ďalší sa pridávajú — a pridať sa môže ktokoľvek ďalší. Bez appky by o sebe nevedeli.",
+    "Štyria ľudia z Trnavy, ktorých baví florbal. Jeden komunitu zakladá, ďalší sa pridávajú — a pridať sa môže ktokoľvek ďalší. Bez Zapadni by o sebe nevedeli.",
   pieces: [
     { role: "Zakladá komunitu", who: "Peter", meta: "florbal · Trnava" },
     { role: "Hľadá komunitu", who: "Lucia", meta: "florbal · Trnava" },
@@ -105,7 +105,7 @@ export const explorer = {
   title: "Tvoje prvé kroky ku komunite",
   subtitle: "Týmto nám pomôžeš nájsť lepšie komunity pre teba.",
   screen: {
-    brand: "zapadni.sk",
+    brand: "zapadni.com",
     step: "Krok 2 z 2",
     title: "Čo ťa baví?",
     hint: "Vyber aspoň 3 témy — pomôže nám to nájsť komunity pre teba.",
@@ -259,7 +259,7 @@ export const explorer = {
     // vyskočí, keď je vybraté mesto aj aspoň 3 témy
     doneTitle: "Toto stačí.",
     doneText: "Podľa tohto ti nájdeme komunity v tvojom okolí.",
-    doneCta: "Stiahnuť appku",
+    doneCta: "Pokračovať na web",
     doneBack: "Späť k výberu",
     topics: [
       "Šport",
@@ -297,7 +297,7 @@ export const interests = [
 
 export const places = ["Bratislava", "Košice", "Žilina", "online"];
 
-// Karty v prvom telefóne. Sú to naozajstné komunity z appky —
+// Karty v prvom telefóne. Sú to naozajstné komunity z Zapadni —
 // rovnaké názvy, texty aj počty ľudí. „tint" je číslo farby (0–5).
 export const communities = [
   {
@@ -418,7 +418,7 @@ export const faq = {
 
 export const finalCta = {
   title: "Tvoja komunita už možno existuje. Zapadni k nej.",
-  cta: "Stiahnuť appku",
+  cta: "Pokračovať na web",
   text: "Alebo založ tú svoju. Obe cesty vedú cez to isté tlačidlo.",
 };
 

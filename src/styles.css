@@ -10,7 +10,7 @@
   --ink-faint: #8b948f;
 
   --bg: #ffffff;
-  /* neutrály sú šalviové — z rovnakej rodiny ako farby kariet v appke.
+  /* neutrály sú šalviové — z rovnakej rodiny ako farby kariet na webe.
      Terakota na nich vynikne a nepôsobí to ako novinový papier. */
   --bg-warm: #f5f9f6; /* podklad úvodu */
   --bg-soft: #eef3ef; /* striedajúce sa pásy */
@@ -368,9 +368,9 @@ button {
   overflow: hidden;
 }
 
-/* ---------- OBRAZOVKA APPKY V PRVOM TELEFÓNE ----------
-   Karty, hlavička aj spodná lišta sú prevzaté z appky (AIBW-frontend),
-   aby človek videl presne to, čo ho po stiahnutí čaká. */
+/* ---------- OBRAZOVKA WEBU V PRVOM TELEFÓNE ----------
+   Karty, hlavička aj spodná lišta sú prevzaté z webu (AIBW-frontend),
+   aby človek videl presne to, čo ho na ňom čaká. */
 .appx {
   display: flex;
   flex-direction: column;
@@ -424,7 +424,7 @@ button {
   white-space: nowrap;
 }
 
-/* spodná lišta s ikonkami, presne ako v appke */
+/* spodná lišta s ikonkami, presne ako na webe */
 .appx__tabs {
   flex: 0 0 auto;
   display: flex;
@@ -829,7 +829,7 @@ button {
 }
 
 
-/* appka stojí presne v strede skladačky — ona ich dala dokopy */
+/* Zapadni stojí presne v strede skladačky — vďaka nemu sa našli */
 .match__app {
   position: absolute;
   top: 50%;
@@ -872,7 +872,7 @@ button {
   border-radius: 8px;
 }
 
-/* naša appka medzi ostatnými */
+/* naša značka medzi ostatnými ikonkami */
 .match__icon--nasa {
   display: flex;
   align-items: center;
@@ -1080,7 +1080,7 @@ button {
   }
 }
 
-/* ---------- 11. APPKA V TELEFÓNE (prihlásenie) ---------- */
+/* ---------- 11. WEB V TELEFÓNE (prihlásenie) ---------- */
 .explorer__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
