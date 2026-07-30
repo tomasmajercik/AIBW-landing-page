@@ -7,22 +7,25 @@ const APART = 130; // ako ďaleko od seba sú dieliky (v px)
 // Tvar dielika je prevzatý z loga — rovnaké pomery, len prepočítané
 // na výšku 100. Výstupok je skoro celý kruh na úzkom krčku, preto to
 // vyzerá ako puzzle a nie ako vlnka.
+// Na mobile je dielik malý, tak sa výstupok zmenší — inak by zasahoval
+// do štítku „Hľadá komunitu". Pomer krčka k výstupku ostáva ako v logu.
 const R_VYSTUPOK = 12; // polomer guľatého výstupku
-const KRCOK = 15.4; // šírka krčka pod výstupkom
+const R_VYSTUPOK_MALY = 7.5;
+const KRCOK_K_VYSTUPKU = 1.283; // z loga: krčok 4 : polomer 3,2
 const R_ROH = 7.5; // zaoblenie rohov
 
 // Zloží obrys dielika. Pre každú hranu povieš, či tam má byť
 // výstupok, priehlbina, alebo rovná čiara. Kreslí sa v smere
 // hodinových ručičiek, preto sa značka smeru pri hranách strieda.
 // vector-effect drží hrúbku čiary rovnakú aj po roztiahnutí tvaru.
-function obrys({ hore, vpravo, dole, vlavo }, sirka, vyska) {
+function obrys({ hore, vpravo, dole, vlavo }, sirka, vyska, R) {
   const r = R_ROH;
-  const R = R_VYSTUPOK;
+  const krcok = R * KRCOK_K_VYSTUPKU;
 
-  const x1 = (sirka - KRCOK) / 2;
-  const x2 = (sirka + KRCOK) / 2;
-  const y1 = (vyska - KRCOK) / 2;
-  const y2 = (vyska + KRCOK) / 2;
+  const x1 = (sirka - krcok) / 2;
+  const x2 = (sirka + krcok) / 2;
+  const y1 = (vyska - krcok) / 2;
+  const y2 = (vyska + krcok) / 2;
 
   const hornaHrana =
     hore === "rovno"
@@ -69,7 +72,7 @@ const TVARY = [
 
 // Dielik sa roztiahne na veľkosť kartičky, takže kresbu robíme rovno
 // v jej pomere strán — inak by sa okrúhly výstupok sploštil na ovál.
-function Shape({ index, pomer }) {
+function Shape({ index, pomer, vystupok }) {
   const sirka = 100 * pomer;
 
   return (
@@ -80,7 +83,7 @@ function Shape({ index, pomer }) {
       aria-hidden="true"
     >
       <path
-        d={obrys(TVARY[index], sirka, 100)}
+        d={obrys(TVARY[index], sirka, 100, vystupok)}
         vectorEffect="non-scaling-stroke"
       />
     </svg>
@@ -91,20 +94,40 @@ export default function Match() {
   const [gap, setGap] = useState(APART);
   // fázy animácie: nic -> telefon -> logo -> sam (telefón zmizne) -> dieliky sa spoja
   const [phase, setPhase] = useState("nic");
-  // na širokej obrazovke je dielik 290×200, na úzkej štvorec 138×138
+  // na širokej obrazovke je dielik na šírku, na úzkej takmer štvorec
+  const [uzko, setUzko] = useState(false);
+  // Pomer strán si meriame z kartičky — mení sa podľa šírky okna aj podľa
+  // toho, na koľko riadkov sa zalomí text. Keby sme ho hádali, výstupok
+  // by sa z kruhu sploštil na ovál.
   const [pomer, setPomer] = useState(1.45);
 
   useEffect(() => {
     const uzka = window.matchMedia("(max-width: 880px)");
-    const prepocitaj = () => setPomer(uzka.matches ? 1 : 1.45);
+    const prepocitaj = () => setUzko(uzka.matches);
 
     prepocitaj();
     uzka.addEventListener("change", prepocitaj);
     return () => uzka.removeEventListener("change", prepocitaj);
   }, []);
 
+  const vystupok = uzko ? R_VYSTUPOK_MALY : R_VYSTUPOK;
+
   const stageRef = useRef(null);
+  const dielikRef = useRef(null);
   const timers = useRef([]);
+
+  useEffect(() => {
+    const el = dielikRef.current;
+    if (!el) return;
+
+    const sledovac = new ResizeObserver(([zaznam]) => {
+      const { width, height } = zaznam.contentRect;
+      if (height > 0) setPomer(width / height);
+    });
+
+    sledovac.observe(el);
+    return () => sledovac.disconnect();
+  }, []);
 
   const joined = gap === 0;
 
@@ -171,8 +194,12 @@ export default function Match() {
           ref={stageRef}
         >
           {match.pieces.map((piece, i) => (
-            <article className={`side side--${i}`} key={piece.who}>
-              <Shape index={i} pomer={pomer} />
+            <article
+              className={`side side--${i}`}
+              key={piece.who}
+              ref={i === 0 ? dielikRef : null}
+            >
+              <Shape index={i} pomer={pomer} vystupok={vystupok} />
               <div className="side__inner">
                 <span className="side__role">{piece.role}</span>
                 <p className="side__who">{piece.who}</p>

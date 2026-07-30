@@ -797,10 +797,12 @@ button {
   fill: var(--piece-fill-strong);
 }
 
+/* bočné odsadenie musí byť väčšie než hĺbka výstupku, inak by
+   priehlbina prechádzala cez štítok a meno */
 .side__inner {
   position: relative;
   z-index: 1;
-  padding: 30px 34px;
+  padding: 68px 70px;
 }
 
 .side__role {
@@ -1525,7 +1527,7 @@ button {
 
   .side__inner {
     width: 100%;
-    padding: 16px 14px;
+    padding: 36px 30px;
     text-align: center;
   }
 
