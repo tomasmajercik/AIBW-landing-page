@@ -5,7 +5,6 @@ import Problem from "./components/Problem";
 import Match from "./components/Match";
 import HowItWorks from "./components/HowItWorks";
 import Explorer from "./components/Explorer";
-import Founders from "./components/Founders";
 import Faq from "./components/Faq";
 import FinalCta from "./components/FinalCta";
 import Footer from "./components/Footer";
@@ -31,10 +30,9 @@ export default function App() {
       <main>
         <Hero onPick={pick} />
         <Problem />
-        <Match />
         <HowItWorks />
+        <Match />
         <Explorer interestKey={interest} onInterest={setInterest} />
-        <Founders />
         <Faq />
         <FinalCta />
       </main>

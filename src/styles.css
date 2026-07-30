@@ -33,8 +33,7 @@
 
   --max: 1160px;
 
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
-    "Times New Roman", serif;
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
@@ -265,24 +264,12 @@ button {
   letter-spacing: -0.02em;
 }
 
-/* značka: kruh s voľným miestom + ten, kto sa pridáva */
+/* značka: jeden puzzle dielik */
 .logo {
   flex: 0 0 auto;
-  overflow: visible;
 }
 
-.logo__dot {
-  fill: var(--ink);
-}
-
-.logo__slot {
-  fill: none;
-  stroke: var(--ink-faint);
-  stroke-width: 1.4;
-  opacity: 0.6;
-}
-
-.logo__joiner {
+.logo__piece {
   fill: var(--accent);
 }
 
@@ -346,32 +333,6 @@ button {
   margin-top: 16px;
   font-size: 13.5px;
   color: var(--ink-faint);
-}
-
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-top: 44px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat__value {
-  font-size: 21px;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-}
-
-.stat__label {
-  margin-top: 2px;
-  font-size: 13.5px;
-  color: var(--ink-soft);
 }
 
 /* telefón s pásom komunít, ktoré „práve pribudli" — drží sa pri pravom okraji */
@@ -571,49 +532,108 @@ button {
 }
 
 /* ---------- 8. PROBLÉM (redakčný zoznam, bez rámčekov) ---------- */
+.problem {
+  /* poskakujúce tlačidlo sa nesmie vysunúť za okraj obrazovky */
+  overflow: hidden;
+}
+
 .problem__grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1fr;
-  gap: 72px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .problem__title {
-  font-size: clamp(30px, 3.8vw, 46px);
-  line-height: 1.12;
+  max-width: 900px;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.08;
 }
 
 .problem__accent {
   color: var(--ink-faint);
 }
 
-.problem__item {
-  display: flex;
-  gap: 20px;
-  padding: 24px 0;
-  border-top: 1px solid var(--line);
-  font-size: 16.5px;
+.problem__cta {
+  margin-top: 28px;
+}
+
+.problem__ctaText {
+  font-size: clamp(19px, 2vw, 23px);
   color: var(--ink-soft);
 }
 
-.problem__item:last-child {
-  border-bottom: 1px solid var(--line);
+.problem__cta .btn {
+  margin-top: 52px;
 }
 
-.problem__item strong {
-  color: var(--ink);
-  font-weight: 600;
+/* veľké tlačidlo pre hlavnú výzvu — jemne dýcha a vysiela krúžok */
+.btn--big {
+  position: relative;
+  /* radšej tučné písmo než široké tlačidlo */
+  padding: 16px 40px;
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  border-radius: 12px;
+  animation: poskoc 2.4s ease-in-out infinite;
 }
 
-.problem__num {
-  flex: 0 0 auto;
-  padding-top: 2px;
-  font-size: 13px;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
+.btn--big::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--accent);
+  border-radius: inherit;
+  pointer-events: none;
+  animation: kruzok 2.4s ease-out infinite;
 }
 
-/* ---------- 8b. DVE STRANY (dve polovice skladačky) ---------- */
+.btn--big:hover {
+  animation-play-state: paused;
+}
+
+/* poskočí, dosadne a ešte raz sa jemne odrazí */
+@keyframes poskoc {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  8% {
+    transform: translateY(0) scale(1.06, 0.94);
+  }
+  22% {
+    transform: translateY(-14px) scale(0.97, 1.05);
+  }
+  36% {
+    transform: translateY(0) scale(1.05, 0.95);
+  }
+  48% {
+    transform: translateY(-5px) scale(1, 1);
+  }
+}
+
+@keyframes kruzok {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--big,
+  .btn--big::after {
+    animation: none;
+  }
+}
+
+/* ---------- 8b. ŠTYRI DIELIKY DO ŠTVORCA ---------- */
 .match {
   overflow: hidden;
   background: var(--bg-soft);
@@ -621,22 +641,97 @@ button {
   border-bottom: 1px solid var(--line);
 }
 
-/* tvary dielikov, samotné SVG nič nezaberá */
-.match__defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-}
-
 .match__stage {
-  --w: 520px;
+  --w: 290px;
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, var(--w));
   justify-content: center;
-  margin-top: 60px;
+  /* dosť miesta, aby dieliky pri rozostúpení nešli do textu */
+  margin-top: 120px;
+  margin-bottom: 40px;
 }
 
-/* appka sedí presne v mieste spoja — ona tie dieliky dala dokopy */
+.side {
+  position: relative;
+  width: var(--w);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* každý dielik odchádza do svojho rohu, keď nie sú spojené */
+.side--0 {
+  transform: translate(calc(var(--gap, 130px) * -0.5), calc(var(--gap, 130px) * -0.5));
+}
+.side--1 {
+  transform: translate(calc(var(--gap, 130px) * 0.5), calc(var(--gap, 130px) * -0.5));
+}
+.side--2 {
+  transform: translate(calc(var(--gap, 130px) * -0.5), calc(var(--gap, 130px) * 0.5));
+}
+.side--3 {
+  transform: translate(calc(var(--gap, 130px) * 0.5), calc(var(--gap, 130px) * 0.5));
+}
+
+.match__stage.is-joined .side {
+  transform: translate(0, 0);
+}
+
+.side__shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.side__shape path {
+  fill: var(--piece-fill-light);
+  stroke: var(--piece-line);
+  stroke-width: 2;
+}
+
+/* zakladateľ má sýtejšiu výplň — je to prvý dielik */
+.side--0 .side__shape path {
+  fill: var(--piece-fill-strong);
+}
+
+.side__inner {
+  position: relative;
+  z-index: 1;
+  padding: 30px 34px;
+}
+
+.side__role {
+  display: inline-block;
+  padding: 5px 13px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--piece-line);
+  border-radius: 999px;
+  color: var(--piece-line);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+
+.side__who {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 27px;
+  letter-spacing: -0.015em;
+}
+
+.side__text {
+  margin-top: 8px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: rgba(15, 21, 18, 0.8);
+}
+
+
+/* appka stojí presne v strede skladačky — ona ich dala dokopy */
 .match__app {
   position: absolute;
   top: 50%;
@@ -649,7 +744,7 @@ button {
 /* 1. fáza — objaví sa telefón */
 .match__phone {
   position: relative;
-  display: block; /* je to span, bez tohto ignoruje rozmery */
+  display: block;
   width: 132px;
   height: 252px;
   background: #16181a;
@@ -657,7 +752,6 @@ button {
   border-radius: 24px;
   box-shadow: 0 16px 36px rgba(15, 21, 18, 0.34);
   opacity: 0;
-  /* vyskočí zdola s malým prešvihom */
   transform: scale(0.5) translateY(26px);
   transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.34, 1.6, 0.6, 1);
 }
@@ -689,7 +783,6 @@ button {
   box-shadow: 0 0 0 1.5px rgba(178, 74, 50, 0.45);
 }
 
-/* keď sa appka otvorí, ikonka sa rozžiari */
 .match__stage.is-logo .match__icon--nasa {
   animation: cvak 0.6s ease-out;
 }
@@ -697,15 +790,12 @@ button {
 @keyframes cvak {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 1.5px rgba(178, 74, 50, 0.45);
   }
   40% {
     transform: scale(1.35);
-    box-shadow: 0 0 0 6px rgba(178, 74, 50, 0.25);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 1.5px rgba(178, 74, 50, 0.45);
   }
 }
 
@@ -732,7 +822,7 @@ button {
   transform: scale(0.75);
 }
 
-/* 2. fáza — z telefónu vyskočí svietiace logo */
+/* 2. fáza — svietiace logo aj s názvom, držia sa spolu */
 .match__logo {
   position: absolute;
   top: 50%;
@@ -761,19 +851,7 @@ button {
   box-shadow: 0 8px 26px rgba(15, 21, 18, 0.3);
 }
 
-.match__appMark {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 74px;
-  height: 74px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 8px 26px rgba(15, 21, 18, 0.3);
-}
-
-/* krúžok, ktorý sa raz rozbehne od appky do strán */
+/* krúžok, ktorý sa rozbieha od loga do strán */
 .match__stage.is-logo .match__appMark::after {
   content: "";
   position: absolute;
@@ -808,166 +886,12 @@ button {
   font-weight: 600;
 }
 
-
-.side {
-  position: relative;
-  width: var(--w);
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  color: var(--ink);
-  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* obe polovice sa hýbu k sebe — každá o polovicu medzery */
-.side--left {
-  transform: translateX(calc(var(--gap, 220px) * -0.5));
-}
-
-.side__shape {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.side__shape path {
-  stroke: var(--piece-line);
-  stroke-width: 2;
-}
-
-.side--left .side__shape path {
-  fill: var(--piece-fill-strong);
-}
-
-.side--right .side__shape path {
-  fill: var(--piece-fill-light);
-  stroke-opacity: 0.55;
-}
-
-.side__inner {
-  position: relative;
-  z-index: 1;
-}
-
-/* pravý dielik sa dá chytiť a potiahnuť */
-.side--right {
-  /* posun o šírku výstupku, aby dielik zapadol do priehlbiny */
-  margin-left: calc(var(--w) * -0.122);
-  transform: translateX(calc(var(--gap, 220px) * 0.5));
-}
-
-
-
-.side__inner {
-  padding: 44px 92px 44px 48px;
-}
-
-.side--right .side__inner {
-  padding: 44px 48px 44px 100px;
-}
-
-/* rola dielika — kto to je */
-.side__role {
-  display: inline-block;
-  padding: 7px 16px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--piece-line);
-  border-radius: 999px;
-  color: var(--piece-line);
-  font-size: 16px;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-}
-
-.side__label {
-  margin-top: 14px;
-  font-size: 16px;
-  color: rgba(15, 21, 18, 0.66);
-}
-
-
-.side__who {
-  margin-top: 18px;
-  font-family: var(--font-display);
-  font-size: 36px;
-  letter-spacing: -0.015em;
-}
-
-.side__text {
-  margin-top: 12px;
-  font-size: 19px;
-  line-height: 1.5;
-  color: rgba(15, 21, 18, 0.8);
-}
-
-
-.match__foot {
-  min-height: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 44px;
-}
-
-/* bublina s pointou — objaví sa v momente spojenia */
-.match__bubble {
-  position: relative;
-  max-width: 560px;
-  padding: 22px 34px;
-  background: #fff;
-  border: 1.5px solid var(--piece-line);
-  border-radius: 24px;
-  box-shadow: 0 10px 26px rgba(15, 21, 18, 0.08);
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2.2vw, 26px);
-  line-height: 1.35;
-  letter-spacing: -0.015em;
-  opacity: 0;
-  transform: scale(0.85) translateY(-6px);
-  transition: opacity 0.3s ease 0.5s,
-    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
-}
-
-/* špička bubliny mieri hore na puzzle */
-.match__bubble::before,
-.match__bubble::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-}
-
-.match__bubble::before {
-  top: -13px;
-  margin-left: -11px;
-  border-bottom: 13px solid var(--piece-line);
-}
-
-.match__bubble::after {
-  top: -11px;
-  margin-left: -11px;
-  border-bottom: 13px solid #fff;
-}
-
-.match__foot.is-joined .match__bubble {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .side,
-  .match__bubble,
   .match__phone,
   .match__logo {
     transition: none;
   }
-
 }
 
 /* ---------- 9. PREPÍNAČ (taby) ---------- */
@@ -1009,7 +933,7 @@ button {
 /* ---------- 10. KROKY (vodorovne) ---------- */
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 24px;
   margin-top: 40px;
 }
@@ -1062,30 +986,6 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
-}
-
-.points {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 26px;
-}
-
-.point {
-  position: relative;
-  padding-left: 20px;
-  font-size: 15.5px;
-  color: var(--ink-soft);
-}
-
-.point::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 11px;
-  width: 8px;
-  height: 2px;
-  background: var(--accent);
 }
 
 .explorer__phone {
@@ -1244,59 +1144,6 @@ button {
   color: var(--ink-soft);
 }
 
-/* ---------- 12. PRE ZAKLADATEĽOV ---------- */
-.founders__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 64px;
-  align-items: center;
-}
-
-.founders__lead {
-  margin-top: 18px;
-  font-size: 17px;
-  color: var(--ink-soft);
-}
-
-.founders__closing {
-  margin-top: 22px;
-  padding-left: 18px;
-  border-left: 2px solid var(--accent);
-  font-size: 16px;
-}
-
-.founders__switchLabel {
-  font-size: 14px;
-  color: var(--ink-faint);
-}
-
-.founders__meta {
-  margin-top: 18px;
-  font-size: 13.5px;
-  color: var(--ink-faint);
-}
-
-.tips {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-/* rada od systému — vyzerá ako správa v aplikácii */
-.tip {
-  padding: 16px 20px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px var(--radius) var(--radius) 4px;
-  box-shadow: var(--shadow-sm);
-  font-size: 15px;
-  color: var(--ink-soft);
-  animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i) * 80ms);
-}
-
 /* ---------- 13. OTÁZKY ---------- */
 .faq {
   margin-top: 40px;
@@ -1341,41 +1188,6 @@ button {
   animation: rise 0.3s ease both;
 }
 
-/* ---------- 13b. POZNÁMKA PRE SEBA ----------
-   Nápadný nápis, ktorý sa NEMÁ dostať na živú stránku.
-   Zmizne, keď v content.js zmažeš riadok „todo". */
-.todo {
-  display: block;
-  margin-top: 14px !important;
-  padding: 14px 18px;
-  background: #ffe600;
-  border: 3px dashed #0f1512;
-  border-radius: 8px;
-  color: #0f1512 !important;
-  font-family: var(--font-body);
-  font-size: 22px !important;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  animation: blikaj 1.4s ease-in-out infinite;
-}
-
-.todo::before {
-  content: "⚠ ";
-}
-
-@keyframes blikaj {
-  50% {
-    background: #fff59b;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .todo {
-    animation: none;
-  }
-}
-
 /* ---------- 14. ZÁVEREČNÁ VÝZVA ---------- */
 .final {
   padding: 104px 0;
@@ -1392,6 +1204,11 @@ button {
 
 .final__title {
   font-size: clamp(30px, 3.8vw, 42px);
+}
+
+/* tlačidlo v závere má odstup od textu */
+.final .btn {
+  margin-top: 34px;
 }
 
 .final__text {
@@ -1429,18 +1246,6 @@ button {
   font-size: 14.5px;
 }
 
-.footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  font-size: 14.5px;
-  color: var(--ink-soft);
-}
-
-.footer__links a:hover {
-  color: var(--accent);
-}
-
 .footer__note {
   max-width: var(--max);
   margin: 40px auto 0;
@@ -1453,9 +1258,7 @@ button {
 
 /* ---------- 16. MENŠIE OBRAZOVKY ---------- */
 @media (max-width: 1000px) {
-  .explorer__grid,
-  .founders__grid,
-  .problem__grid {
+  .explorer__grid {
     grid-template-columns: 1fr;
     gap: 44px;
   }
@@ -1470,6 +1273,58 @@ button {
 }
 
 /* hero drží text a telefón vedľa seba dlhšie než ostatné sekcie */
+@media (max-width: 880px) {
+  /* skladačka zostáva aj na telefóne, len menšia a s kratším textom */
+  .match__stage {
+    --w: min(36vw, 138px);
+    margin-top: 64px;
+    margin-bottom: 24px;
+  }
+
+  .side {
+    min-height: 138px;
+  }
+
+  .side--0 {
+    transform: translate(calc(var(--gap, 130px) * -0.2), calc(var(--gap, 130px) * -0.2));
+  }
+  .side--1 {
+    transform: translate(calc(var(--gap, 130px) * 0.2), calc(var(--gap, 130px) * -0.2));
+  }
+  .side--2 {
+    transform: translate(calc(var(--gap, 130px) * -0.2), calc(var(--gap, 130px) * 0.2));
+  }
+  .side--3 {
+    transform: translate(calc(var(--gap, 130px) * 0.2), calc(var(--gap, 130px) * 0.2));
+  }
+
+  .side__inner {
+    width: 100%;
+    padding: 16px 14px;
+    text-align: center;
+  }
+
+  .side__role {
+    padding: 3px 9px;
+    font-size: 11px;
+  }
+
+  .side__who {
+    margin-top: 6px;
+    font-size: 17px;
+  }
+
+  .side__text {
+    margin-top: 2px;
+    font-size: 12.5px;
+  }
+
+  /* telefón by prekryl celú skladačku, na mobile stačí logo */
+  .match__phone {
+    display: none;
+  }
+}
+
 @media (max-width: 860px) {
   .hero__grid {
     grid-template-columns: 1fr;
@@ -1481,33 +1336,58 @@ button {
   }
 }
 
-@media (max-width: 880px) {
-  /* na úzkej obrazovke skladačku nerežeme, karty idú pod seba */
-  .match__stage {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
   }
 
-  .side {
-    width: 100%;
-    max-width: 440px;
-    min-height: 0;
-    clip-path: none !important;
-    border-radius: var(--radius-lg);
+  .hero__visual {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
   }
 
-  .side--right {
-    margin-left: 0;
+  .hero__visual {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
   }
 
-  .side--right {
-    transform: none !important;
+  .hero__visual {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
   }
 
-  .side__inner,
-  .side--right .side__inner {
-    padding: 32px 30px;
+  .hero__visual {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .hero__visual {
+    justify-content: center;
   }
 }
 
@@ -1545,16 +1425,13 @@ button {
     font-size: 13.5px;
   }
 
-  .stats {
-    gap: 24px;
-  }
-
   .btn {
     width: 100%;
     text-align: center;
   }
 
-  .btn--small {
+  .btn--small,
+  .btn--big {
     width: auto;
   }
 

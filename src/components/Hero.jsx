@@ -40,24 +40,12 @@ export default function Hero({ onPick }) {
           <p className="hero__subtitle">{hero.subtitle}</p>
 
           <div className="hero__actions">
-            <a className="btn" href="#vyskusaj">
-              {hero.ctaPrimary}
-            </a>
-            <a className="btn btn--ghost" href="#pre-zakladatelov">
-              {hero.ctaSecondary}
+            <a className="btn" href="#ako-to-funguje">
+              {hero.cta}
             </a>
           </div>
 
           <p className="hero__note">{hero.note}</p>
-
-          <ul className="stats">
-            {hero.stats.map((stat) => (
-              <li key={stat.label} className="stat">
-                <span className="stat__value">{stat.value}</span>
-                <span className="stat__label">{stat.label}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Telefón s pásom komunít, ktoré práve pribudli */}

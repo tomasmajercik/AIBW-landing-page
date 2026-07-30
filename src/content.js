@@ -13,8 +13,7 @@ export const brand = {
 export const nav = {
   links: [
     { label: "Ako to funguje", href: "#ako-to-funguje" },
-    { label: "Vyskúšaj", href: "#vyskusaj" },
-    { label: "Pre zakladateľov", href: "#pre-zakladatelov" },
+    { label: "Vyskúšaj demo", href: "#vyskusaj" },
     { label: "Otázky", href: "#otazky" },
   ],
   cta: "Stiahnuť appku",
@@ -26,54 +25,30 @@ export const hero = {
   titleAccent: "Alebo si ich pozbieraj.",
   subtitle:
     "Povedz, čo ťa baví. Ukážeme ti, kde to už robia iní. A keď nikde, pomôžeme ti to založiť.",
-  ctaPrimary: "Nájdi komunitu",
-  ctaSecondary: "Chcem založiť komunitu",
+  cta: "Ako to funguje",
   note: "Zadarmo · Naživo aj online · Celé Slovensko",
   feedLabel: "Práve pribudli",
-  stats: [
-    { value: "3 kliky", label: "k tvojej komunite" },
-    { value: "0 €", label: "založenie aj hľadanie" },
-    { value: "1 pravidlo", label: "stretká vypisuje ktokoľvek" },
-  ],
 };
 
 export const problem = {
   title: "Komunity existujú.",
   titleAccent: "Len sa o nich tak ľahko nedozvieš.",
-  items: [
-    {
-      lead: "Sú roztrúsené.",
-      text: "Facebook, Instagram, WhatsApp, papier na nástenke. Dozvieš sa o nich, len keď ti to niekto povie.",
-    },
-    {
-      lead: "Záujem nestačí.",
-      text: "„Futbal“ sú tri rôzne partie. Hrať, pozerať v krčme, voziť dieťa na tréning.",
-    },
-    {
-      lead: "Zakladateľ je sám.",
-      text: "Napíše do troch skupín, pridá sa päť kamarátov a o mesiac je ticho.",
-    },
-  ],
+  ctaText: "Ťažko sa hľadajú. U nás ich máš pokope.",
+  ctaButton: "Stiahnuť appku",
 };
 
-// ---------- DVE STRANY, KTORÉ SI CHÝBAJÚ ----------
+// ---------- ŠTYRIA ĽUDIA, JEDNA KOMUNITA ----------
+// Všetkých spája florbal a mesto. Jeden komunitu zakladá, traja ju hľadajú.
 export const match = {
-  title: "Dvom ľuďom chýba ten istý kúsok",
+  title: "Štyria ľudia, jedna komunita.",
   subtitle:
-    "Jeden chce komunitu založiť. Druhá presne takú hľadá. Sú v tom istom meste a bez nás sa nikdy nestretnú.",
-  left: {
-    role: "Zakladateľ",
-    label: "Komunitu ešte nemá. Chce ju založiť.",
-    who: "Peter · Trnava",
-    text: "Chcel by hrať florbal každý štvrtok. Nemá s kým začať, potrebuje aspoň osem ľudí.",
-  },
-  right: {
-    role: "Hľadá komunitu",
-    label: "Presne takú, akú Peter zakladá.",
-    who: "Lucia · Trnava",
-    text: "Presťahovala sa pred mesiacom. Florbal hrala roky. Nevie, s kým si ho tu zahrať.",
-  },
-  note: "Toto je celá naša robota. Nájsť ten druhý kúsok.",
+    "Všetci sú z Trnavy a všetkých baví florbal. Jeden komunitu zakladá, traja ju hľadajú. Bez appky by o sebe nevedeli.",
+  pieces: [
+    { role: "Zakladá komunitu", who: "Peter", meta: "florbal · Trnava" },
+    { role: "Hľadá komunitu", who: "Lucia", meta: "florbal · Trnava" },
+    { role: "Hľadá komunitu", who: "Jakub", meta: "florbal · Trnava" },
+    { role: "Hľadá komunitu", who: "Zuzana", meta: "florbal · Trnava" },
+  ],
 };
 
 export const howItWorks = {
@@ -81,22 +56,24 @@ export const howItWorks = {
   subtitle: "Prepni si stranu podľa toho, kde stojíš.",
   sides: [
     {
-      badge: "Hľadám partiu",
+      badge: "Hľadám komunitu",
       steps: [
-        { title: "Čo ťa baví", text: "Futbal, knihy, lezenie. Pokojne viac naraz." },
         {
-          title: "Čo s tým chceš robiť",
-          text: "Hrať, pozerať, učiť sa. Toto je ten dôležitý kúsok.",
+          title: "Čo ťa baví",
+          text: "Vyber aspoň 3 záujmy, ktoré máš.",
         },
-        { title: "Kde", text: "Nepovinné. Pri online partiách to neriešime." },
         {
-          title: "Prisadni sa",
-          text: "Ukážeme ti, čo existuje. A ozveme sa, keď pribudne nové.",
+          title: "Kde",
+          text: "Zvoľ mesto, v ktorom si. Pri online komunitách to nie je potrebné.",
+        },
+        {
+          title: "Pridaj sa",
+          text: "Ukážeme ti, aké komunity existujú. Ak by ti žiadna nesadla, ozveme sa, keď pribudne nová, ktorá by sa ti mohla páčiť.",
         },
       ],
     },
     {
-      badge: "Zakladám komunitu",
+      badge: "Chcem založiť komunitu",
       steps: [
         { title: "Vypíš, o čo ide", text: "Čo robíte a ako často. Nemusí to byť dokonalé." },
         {
@@ -105,11 +82,11 @@ export const howItWorks = {
         },
         {
           title: "Poradíme, ako na to",
-          text: "Kedy začať, ako často, čo robiť, keď to zaspí.",
+          text: "Nájsť ľudí je začiatok. Udržať ich je robota. A v tej ti pomáhame. Kedy začať, ako často, čo robiť, keď to zaspí.",
         },
         {
           title: "Nezostaneš v tom sama",
-          text: "Stretká vypisuje ktokoľvek z partie, nielen ty.",
+          text: "Stretká vypisuje ktokoľvek z komunity.",
         },
       ],
     },
@@ -120,13 +97,8 @@ export const howItWorks = {
 // Naklikávacie filtre v telefóne — záujem + zámer + miesto.
 
 export const explorer = {
-  title: "Prvá obrazovka, ktorú uvidíš",
+  title: "Tvoje prvé kroky v našej appke",
   subtitle: "Tri otázky a máš zoznam. Skús si to, funguje to naozaj.",
-  points: [
-    "Vyberáš si sama. Nerozhoduje za teba algoritmus.",
-    "Zámer je dôležitejší než záujem.",
-    "Miesto je nepovinné. Pri online komunitách odpadá.",
-  ],
   screenTitle: "Nájdi komunitu",
   labels: {
     interest: "Zaujíma ma",
@@ -287,45 +259,12 @@ export const communities = [
   },
 ];
 
-// ---------- PRE ZAKLADATEĽOV ----------
-// Prepínač ukazuje, že systém radí inak podľa typu komunity.
-
-export const founders = {
-  title: "Nenecháme ťa v tom",
-  text: "Komunity nezanikajú pre nezáujem. Zanikajú preto, že nikto nepovie, čo nefunguje. My to vidíme.",
-  closing: "Nájsť ľudí je začiatok. Udržať ich je robota. A v tej ti pomáhame.",
-  switchLabel: "Dve komunity, dve úplne iné rady:",
-  cases: [
-    {
-      key: "zivo",
-      tab: "Florbal v Trnave",
-      meta: "naživo · 12 členov · 6 týždňov ticho",
-      tips: [
-        "Nemáš zadané miesto. Pri florbale je to prvá vec, ktorú ľudia hľadajú.",
-        "Šesť týždňov bez stretka. Vypíš termín, kým na vás nezabudnú.",
-        "Chodia stále tí istí štyria. Skús víkend.",
-      ],
-    },
-    {
-      key: "online",
-      tab: "Nočné sedenia",
-      meta: "online · 41 členov · aktívna",
-      tips: [
-        "Miesto neriešime, ste online. S tým ťa otravovať nebudeme.",
-        "Chýba veta o tom, čo sa u vás deje. Ľudia sa neprihlásia naslepo.",
-        "Rastiete rýchlo. Pridaj druhého, kto môže vypisovať stretká.",
-      ],
-    },
-  ],
-};
-
 export const faq = {
   title: "Časté otázky",
   items: [
-    { q: "Je to zadarmo?", a: "Áno. Hľadanie aj založenie." },
     {
       q: "Musím mať účet?",
-      a: "Áno, prihlásenie je na jeden klik. Potrebujeme vedieť, kto sa do partie pridáva.",
+      a: "Áno. Potrebujeme vedieť, kto sa do komunity pridáva.",
     },
     {
       q: "Čo keď v mojom meste nič nie je?",
@@ -333,9 +272,7 @@ export const faq = {
     },
     {
       q: "Sú tu aj online komunity?",
-      a: "Áno. Pri nich mesto neriešime.",
-      // Poznámka pre seba. Keď riadok zmažeš, nápis zo stránky zmizne.
-      todo: "Vrátiť sa a zmeniť toto",
+      a: "Áno.",
     },
     {
       q: "Je to zoznamka?",
@@ -349,19 +286,12 @@ export const faq = {
 };
 
 export const finalCta = {
-  title: "Tvoja komunita už možno existuje. Nenechaj ju čakať.",
+  title: "Tvoja komunita už možno existuje. Zapadni k nej.",
+  cta: "Stiahnuť appku",
   text: "Alebo čaká, kým ju založíš. Obe cesty vedú cez to isté tlačidlo.",
-  ctaPrimary: "Hľadám partiu",
-  ctaSecondary: "Zakladám komunitu",
 };
 
 export const footer = {
   tagline: "Miesto, kde sa ľudia a komunity konečne nájdu.",
-  links: [
-    { label: "Ako to funguje", href: "#ako-to-funguje" },
-    { label: "Vyskúšaj", href: "#vyskusaj" },
-    { label: "Pre zakladateľov", href: "#pre-zakladatelov" },
-    { label: "Otázky", href: "#otazky" },
-  ],
   note: "Pracovná verzia. Staviame to práve teraz.",
 };

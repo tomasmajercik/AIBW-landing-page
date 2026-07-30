@@ -1,6 +1,5 @@
-// Značka: kruh z ľudí, ktorý má jedno voľné miesto —
-// a jeden človek (farebný bod) doň práve zapadá.
-// Presne to, o čom je celý projekt: komunita existuje a je v nej miesto pre teba.
+// Značka: jeden puzzle dielik — výstupok hore a vpravo,
+// priehlbina dole a vľavo. Ten istý tvar, aký je v sekcii o dvoch stranách.
 export default function Logo({ size = 26 }) {
   return (
     <svg
@@ -10,26 +9,12 @@ export default function Logo({ size = 26 }) {
       viewBox="0 0 32 32"
       fill="none"
       role="img"
-      aria-label="Communio"
+      aria-label="Zapadni"
     >
-      {/* päť ľudí, ktorí už v komunite sú */}
-      <circle cx="24.66" cy="21" r="2.4" className="logo__dot" />
-      <circle cx="16" cy="26" r="2.4" className="logo__dot" />
-      <circle cx="7.34" cy="21" r="2.4" className="logo__dot" />
-      <circle cx="7.34" cy="11" r="2.4" className="logo__dot" />
-      <circle cx="24.66" cy="11" r="2.4" className="logo__dot" />
-
-      {/* voľné miesto navrchu */}
-      <circle
-        cx="16"
-        cy="6"
-        r="2.4"
-        className="logo__slot"
-        strokeDasharray="2 2.4"
+      <path
+        className="logo__piece"
+        d="M5 3 h9 a3.2 3.2 0 1 1 4 0 h9 a2 2 0 0 1 2 2 v9 a3.2 3.2 0 1 0 0 4 v9 a2 2 0 0 1 -2 2 h-9 a3.2 3.2 0 1 0 -4 0 h-9 a2 2 0 0 1 -2 -2 v-9 a3.2 3.2 0 1 1 0 -4 v-9 a2 2 0 0 1 2 -2 z"
       />
-
-      {/* ten, kto sa práve pridáva */}
-      <circle cx="16" cy="1.6" r="1.6" className="logo__joiner" />
     </svg>
   );
 }

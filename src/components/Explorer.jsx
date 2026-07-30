@@ -38,14 +38,6 @@ export default function Explorer({ interestKey, onInterest }) {
           </h2>
           <p className="section__intro">{explorer.subtitle}</p>
 
-          <ul className="points">
-            {explorer.points.map((point) => (
-              <li className="point" key={point}>
-                {point}
-              </li>
-            ))}
-          </ul>
-
           <p className="section__note">{explorer.note}</p>
         </div>
 
@@ -154,7 +146,7 @@ export default function Explorer({ interestKey, onInterest }) {
                     <div className="app__empty">
                       <h3 className="app__emptyTitle">{explorer.emptyTitle}</h3>
                       <p className="app__emptyText">{explorer.emptyText}</p>
-                      <a className="btn btn--small" href="#pre-zakladatelov">
+                      <a className="btn btn--small" href="#ako-to-funguje">
                         {explorer.emptyCta}
                       </a>
                     </div>
