@@ -1,4 +1,4 @@
-import { finalCta } from "../content";
+import { finalCta, webUrl } from "../content";
 
 export default function FinalCta() {
   return (
@@ -7,10 +7,9 @@ export default function FinalCta() {
         <h2 className="final__title">{finalCta.title}</h2>
         <p className="final__text">{finalCta.text}</p>
 
-        {/* web ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
-        <button type="button" className="btn btn--light btn--big">
+        <a className="btn btn--light btn--big" href={webUrl}>
           {finalCta.cta}
-        </button>
+        </a>
       </div>
     </section>
   );

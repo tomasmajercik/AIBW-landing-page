@@ -10,6 +10,10 @@ export const brand = {
   tagline: "Zapadni medzi svojich",
 };
 
+// Kam vedú všetky tlačidlá „Pokračovať na web". Keď bude vlastná
+// doména, stačí prepísať túto jednu adresu.
+export const webUrl = "https://zapadni-a9dff.web.app/";
+
 export const nav = {
   links: [
     { label: "Ako to funguje", href: "#ako-to-funguje" },

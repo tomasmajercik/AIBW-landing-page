@@ -1,4 +1,4 @@
-import { problem } from "../content";
+import { problem, webUrl } from "../content";
 
 export default function Problem() {
   return (
@@ -12,10 +12,9 @@ export default function Problem() {
 
         <div className="problem__cta" data-reveal>
           <p className="problem__ctaText">{problem.ctaText}</p>
-          {/* web ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
-          <button type="button" className="btn btn--big">
+          <a className="btn btn--big" href={webUrl}>
             {problem.ctaButton}
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -1323,6 +1323,7 @@ button {
 }
 
 .app__doneCta {
+  display: inline-block;
   margin-top: 10px;
   padding: 14px 26px;
   border: none;

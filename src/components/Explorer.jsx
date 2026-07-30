@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { explorer } from "../content";
+import { explorer, webUrl } from "../content";
 import Logo from "./Logo";
 
 const obrazovka = explorer.screen;
@@ -139,9 +139,9 @@ export default function Explorer() {
                   <p className="app__doneTitle">{obrazovka.doneTitle}</p>
                   <p className="app__doneText">{obrazovka.doneText}</p>
 
-                  <button type="button" className="app__doneCta">
+                  <a className="app__doneCta" href={webUrl}>
                     {obrazovka.doneCta}
-                  </button>
+                  </a>
 
                   <button
                     type="button"

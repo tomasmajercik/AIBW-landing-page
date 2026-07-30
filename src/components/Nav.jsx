@@ -1,4 +1,4 @@
-import { brand, nav } from "../content";
+import { brand, nav, webUrl } from "../content";
 import Logo from "./Logo";
 
 export default function Nav() {
@@ -18,10 +18,9 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* web ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
-        <button type="button" className="btn btn--small">
+        <a className="btn btn--small" href={webUrl}>
           {nav.cta}
-        </button>
+        </a>
       </div>
     </header>
   );
