@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Problem from "./components/Problem";
@@ -13,26 +12,17 @@ import useReveal from "./useReveal";
 export default function App() {
   useReveal();
 
-  // Vybraný záujem je spoločný pre celú stránku — keď na niečo klikneš
-  // v hero alebo v bežiacom páse, nastaví sa filter v ukážke appky.
-  const [interest, setInterest] = useState("futbal");
-
-  function pick(key) {
-    setInterest(key);
-    document
-      .getElementById("vyskusaj")
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
   return (
     <>
       <Nav />
       <main>
-        <Hero onPick={pick} />
+        <Hero />
         <Problem />
         <HowItWorks />
+        {/* demo je najsilnejšia časť, preto ide hore — na mobile
+            sa k nemu človek dostane po pár potiahnutiach */}
+        <Explorer />
         <Match />
-        <Explorer interestKey={interest} onInterest={setInterest} />
         <Faq />
         <FinalCta />
       </main>

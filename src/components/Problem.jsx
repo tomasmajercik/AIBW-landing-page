@@ -12,9 +12,10 @@ export default function Problem() {
 
         <div className="problem__cta" data-reveal>
           <p className="problem__ctaText">{problem.ctaText}</p>
-          <a className="btn btn--big" href="#vyskusaj">
+          {/* appka ešte nie je vonku, tlačidlo zatiaľ nikam nevedie */}
+          <button type="button" className="btn btn--big">
             {problem.ctaButton}
-          </a>
+          </button>
         </div>
       </div>
     </section>

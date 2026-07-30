@@ -227,16 +227,6 @@ button {
   border-color: rgba(255, 255, 255, 0.75);
 }
 
-.eyebrow {
-  display: inline-block;
-  padding: 6px 14px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 550;
-}
-
 /* ---------- 6. HLAVIČKA ---------- */
 .nav {
   position: sticky;
@@ -373,14 +363,25 @@ button {
   overflow: hidden;
 }
 
-.phone__bar {
+/* ---------- OBRAZOVKA APPKY V PRVOM TELEFÓNE ----------
+   Karty, hlavička aj spodná lišta sú prevzaté z appky (AIBW-frontend),
+   aby človek videl presne to, čo ho po stiahnutí čaká. */
+.appx {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4px 18px;
+  flex-direction: column;
+  padding: 0;
 }
 
-.phone__brand {
+.appx__head {
+  flex: 0 0 auto;
+  /* miesto pre pilulku telefónu navrchu */
+  padding: 48px 16px 10px;
+  background: #fff;
+  border-radius: 34px 34px 0 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.appx__brand {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -389,83 +390,213 @@ button {
   letter-spacing: -0.02em;
 }
 
-.phone__time {
-  font-size: 13px;
-  color: var(--ink-faint);
+.appx__body {
+  flex: 1;
+  overflow: hidden;
+  padding: 12px 14px 0;
+  /* spodná karta sa jemne stráca, aby bolo cítiť, že zoznam pokračuje */
+  mask-image: linear-gradient(180deg, #000 78%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent);
 }
 
-.feed__label {
+.appx__label {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding-left: 4px;
-  font-size: 13px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--ink-faint);
 }
 
-.feed__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 1.9s ease-in-out infinite;
+.appx__label span {
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 rgba(178, 74, 50, 0.4);
-  }
-  50% {
-    opacity: 0.7;
-    box-shadow: 0 0 0 7px rgba(178, 74, 50, 0);
-  }
+/* spodná lišta s ikonkami, presne ako v appke */
+.appx__tabs {
+  flex: 0 0 auto;
+  display: flex;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 34px 34px;
+}
+
+.appx__tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 9px 0 12px;
+  font-size: 10px;
+  font-weight: 550;
+  color: var(--ink-faint);
+}
+
+.appx__tab svg {
+  width: 19px;
+  height: 19px;
+}
+
+.appx__tab.is-active {
+  color: var(--accent);
 }
 
 .feed {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  /* spodná karta sa jemne stráca, aby bolo cítiť, že zoznam pokračuje */
-  mask-image: linear-gradient(180deg, #000 76%, transparent);
-  -webkit-mask-image: linear-gradient(180deg, #000 76%, transparent);
+  gap: 12px;
 }
 
-.float {
+/* ---------- karta komunity ---------- */
+.club {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  flex: 0 0 auto;
   width: 100%;
-  padding: 14px;
+  padding: 0;
+  overflow: hidden;
   text-align: left;
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   animation: pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i) * 45ms);
-  transition: border-color 0.14s ease;
+  animation-delay: calc(var(--i) * 55ms);
 }
 
-.float:hover {
-  border-color: var(--accent);
+/* farebný pás s veľkým začiatočným písmenom */
+.club__cover {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  height: 62px;
+  padding: 9px 11px;
+  overflow: hidden;
 }
 
-.float__name,
-.float__meta {
+.club__topic {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 10.5px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.club__mark {
+  position: absolute;
+  right: 9px;
+  bottom: -20px;
+  font-family: var(--font-display);
+  font-size: 74px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  opacity: 0.22;
+}
+
+.club__main {
+  display: flex;
+  flex-direction: column;
+  padding: 11px 13px 12px;
+}
+
+.club__name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.club__rhythm {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  font-weight: 550;
+}
+
+.club__rhythm svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  /* aby hodinky sedeli na prvý riadok textu, nie nad neho */
+  margin-top: 1px;
+  color: var(--accent);
+}
+
+.club__rhythm i {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+
+.club__vibe {
+  margin-top: 7px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.club__foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.faces {
+  flex: none;
+  display: flex;
+}
+
+.face {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: -8px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.club__count {
+  flex: 1;
+  margin-left: 11px;
+  font-size: 10.5px;
+  line-height: 1.3;
+  color: var(--ink-faint);
+}
+
+.club__count b {
   display: block;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
 }
 
-/* najvrchnejšia karta je tá čerstvá — zvýraznená */
-.float:first-child {
-  border-color: rgba(178, 74, 50, 0.35);
-  box-shadow: var(--shadow-lg);
-}
-
-.float__body {
-  min-width: 0;
+.join {
+  flex: none;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 550;
+  white-space: nowrap;
 }
 
 @keyframes pop {
@@ -480,8 +611,7 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .float,
-  .feed__dot {
+  .club {
     animation: none;
   }
 }
@@ -492,43 +622,6 @@ button {
     width: 290px;
     height: 580px;
   }
-}
-
-/* písmenková značka komunity namiesto ikonky */
-.float__emoji {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 650;
-}
-
-.float__name {
-  font-weight: 550;
-  font-size: 14px;
-  line-height: 1.35;
-}
-
-.float__meta {
-  margin-top: 1px;
-  font-size: 12.5px;
-  color: var(--ink-soft);
-}
-
-.float__members {
-  margin-left: auto;
-  padding: 2px 9px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
 }
 
 /* ---------- 8. PROBLÉM (redakčný zoznam, bez rámčekov) ---------- */
@@ -980,7 +1073,7 @@ button {
   }
 }
 
-/* ---------- 11. APPKA V TELEFÓNE (interaktívne filtre) ---------- */
+/* ---------- 11. APPKA V TELEFÓNE (prihlásenie) ---------- */
 .explorer__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -993,39 +1086,33 @@ button {
   justify-content: center;
 }
 
-/* väčší telefón, lebo je v ňom celá obrazovka appky */
 .phone--app {
   width: 348px;
   height: 700px;
 }
 
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 22px 0 0;
+  padding: 0;
 }
 
-.app__top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 18px 14px;
-  border-bottom: 1px solid var(--line);
-  font-weight: 650;
-  font-size: 16px;
+/* hlavička stojí, roluje sa len obsah pod ňou */
+.app__head {
+  flex: 0 0 auto;
+  /* miesto pre pilulku telefónu navrchu */
+  padding: 52px 20px 4px;
+  text-align: center;
+  background: #fff;
+  border-radius: 34px 34px 0 0;
 }
 
-.app__back {
-  font-size: 22px;
-  line-height: 1;
-  color: var(--ink-faint);
-}
-
-/* obsah obrazovky sa dá rolovať, ako v skutočnej appke */
 .app__scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 18px 24px;
+  padding: 4px 20px 16px;
+  text-align: center;
   scrollbar-width: none;
 }
 
@@ -1033,115 +1120,243 @@ button {
   display: none;
 }
 
-.app__row + .app__row {
-  margin-top: 16px;
+.app__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 650;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.app__step {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 14px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.app__title {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.app__hint {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.app__field {
+  position: relative;
+  display: block;
+  margin-top: 18px;
+  text-align: left;
+}
+
+/* rozbaľovací zoznam miest */
+.app__places {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  max-height: 168px;
+  margin-top: 6px;
+  padding: 6px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(15, 21, 18, 0.14);
+  scrollbar-width: none;
+}
+
+.app__places::-webkit-scrollbar {
+  display: none;
+}
+
+.app__places button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.app__places button:hover {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
 }
 
 .app__label {
   display: block;
   margin-bottom: 8px;
   font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.app__field input {
+  width: 100%;
+  padding: 13px 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.app__field input::placeholder {
   color: var(--ink-faint);
 }
 
-.app__chips {
+.app__field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.app__topics {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 20px;
 }
 
-.app__chips .pill {
-  padding: 6px 12px;
-  font-size: 13.5px;
+.app__topics .pill {
+  padding: 8px 14px;
+  font-size: 13px;
 }
 
-.app__results {
-  margin-top: 22px;
-  padding-top: 18px;
+/* spodná lišta s počítadlom a tlačidlom */
+.app__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px 18px;
   border-top: 1px solid var(--line);
+  background: #fff;
+  border-radius: 0 0 34px 34px;
 }
 
 .app__count {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--ink-faint);
 }
 
-.app__count strong {
-  color: var(--ink);
-  font-weight: 650;
-}
-
-.app__card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
-  padding: 12px;
-  background: var(--bg);
-  border: 1px solid var(--line);
+.app__cta {
+  border: none;
+  padding: 12px 22px;
+  background: var(--accent);
+  color: #fff;
   border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  animation: rise 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
 }
 
-.app__emoji {
-  display: inline-flex;
+.app__cta.is-ready {
+  opacity: 1;
+}
+
+/* ---------- VYPLNENÉ: obrazovka stmavne a vyskočí výzva ---------- */
+.app__done {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border-radius: 10px;
+  gap: 10px;
+  padding: 28px 26px;
+  border-radius: 34px;
+  background: rgba(20, 26, 23, 0.72);
+  backdrop-filter: blur(3px);
+  text-align: center;
+  animation: zatmavenie 0.35s ease both;
+}
+
+@keyframes zatmavenie {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.app__doneTitle {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.app__doneText {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.app__doneCta {
+  margin-top: 10px;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff;
   font-size: 15px;
   font-weight: 650;
+  animation: vyzvaPulz 1.9s ease-in-out 0.35s infinite;
 }
 
-.app__cardBody {
-  min-width: 0;
+/* jemné pulzovanie, aby oko šlo na tlačidlo */
+@keyframes vyzvaPulz {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    transform: scale(1.045);
+    box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
+  }
 }
 
-.app__name {
-  font-weight: 550;
-  font-size: 14px;
-  line-height: 1.35;
+.app__doneBack {
+  margin-top: 4px;
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13px;
+  text-decoration: underline;
 }
 
-.app__meta {
-  margin-top: 1px;
-  font-size: 12px;
-  color: var(--ink-soft);
+.app__doneBack:hover {
+  color: #fff;
 }
 
-.app__members {
-  margin-left: auto;
-  padding: 2px 9px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-/* keď sa nič nenájde — z hľadajúceho sa stáva zakladateľ */
-.app__empty {
-  margin-top: 12px;
-  padding: 24px 18px;
-  border: 1px dashed #cfd3d0;
-  border-radius: 14px;
-  text-align: center;
-  animation: rise 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.app__emptyTitle {
-  font-size: 16px;
-}
-
-.app__emptyText {
-  margin: 8px 0 16px;
-  font-size: 13.5px;
-  color: var(--ink-soft);
+@media (prefers-reduced-motion: reduce) {
+  .app__done,
+  .app__doneCta {
+    animation: none;
+  }
 }
 
 /* ---------- 13. OTÁZKY ---------- */
@@ -1336,61 +1551,6 @@ button {
   }
 }
 
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .hero__visual {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .hero__visual {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .hero__visual {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .hero__visual {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .hero__visual {
-    justify-content: center;
-  }
-}
-
 @media (max-width: 680px) {
   .section {
     padding: 76px 0;
@@ -1407,8 +1567,8 @@ button {
   /* telefóny sa zmestia aj na úzku obrazovku */
   .phone {
     width: 100%;
-    max-width: 320px;
-    height: 600px;
+    max-width: 340px;
+    height: 640px;
   }
 
   .phone--app {
