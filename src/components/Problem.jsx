@@ -1,8 +1,8 @@
-import { problem } from "../content";
+import { problem, webUrl } from "../content";
 
 export default function Problem() {
   return (
-    <section className="section problem" id="problem">
+    <section className="section section--muted problem" id="problem">
       <div className="container problem__grid">
         <h2 className="problem__title" data-reveal>
           {problem.title}
@@ -10,16 +10,12 @@ export default function Problem() {
           <span className="problem__accent">{problem.titleAccent}</span>
         </h2>
 
-        <ul className="problem__list">
-          {problem.items.map((item, i) => (
-            <li className="problem__item" key={item.lead} data-reveal>
-              <span className="problem__num">{String(i + 1).padStart(2, "0")}</span>
-              <p>
-                <strong>{item.lead}</strong> {item.text}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <div className="problem__cta" data-reveal>
+          <p className="problem__ctaText">{problem.ctaText}</p>
+          <a className="btn btn--big" href={webUrl}>
+            {problem.ctaButton}
+          </a>
+        </div>
       </div>
     </section>
   );

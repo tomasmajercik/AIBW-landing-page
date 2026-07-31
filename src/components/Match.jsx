@@ -1,85 +1,185 @@
 import { useEffect, useRef, useState } from "react";
-import { match } from "../content";
+import { brand, match } from "../content";
+import Logo from "./Logo";
 
-const APART = 150; // ako ďaleko od seba dieliky začínajú (v px)
-const SNAP = 46; // od akej blízkosti už samy zacvaknú
+const APART = 130; // ako ďaleko od seba sú dieliky (v px)
+
+// Tvar dielika je prevzatý z loga — rovnaké pomery, len prepočítané
+// na výšku 100. Výstupok je skoro celý kruh na úzkom krčku, preto to
+// vyzerá ako puzzle a nie ako vlnka.
+// Na mobile je dielik malý, tak sa výstupok zmenší — inak by zasahoval
+// do štítku „Hľadá komunitu". Pomer krčka k výstupku ostáva ako v logu.
+const R_VYSTUPOK = 12; // polomer guľatého výstupku
+const R_VYSTUPOK_MALY = 7.5;
+const KRCOK_K_VYSTUPKU = 1.283; // z loga: krčok 4 : polomer 3,2
+const R_ROH = 7.5; // zaoblenie rohov
+
+// Zloží obrys dielika. Pre každú hranu povieš, či tam má byť
+// výstupok, priehlbina, alebo rovná čiara. Kreslí sa v smere
+// hodinových ručičiek, preto sa značka smeru pri hranách strieda.
+// vector-effect drží hrúbku čiary rovnakú aj po roztiahnutí tvaru.
+function obrys({ hore, vpravo, dole, vlavo }, sirka, vyska, R) {
+  const r = R_ROH;
+  const krcok = R * KRCOK_K_VYSTUPKU;
+
+  const x1 = (sirka - krcok) / 2;
+  const x2 = (sirka + krcok) / 2;
+  const y1 = (vyska - krcok) / 2;
+  const y2 = (vyska + krcok) / 2;
+
+  const hornaHrana =
+    hore === "rovno"
+      ? `H${sirka - r}`
+      : `H${x1} A${R},${R} 0 1 ${hore === "vystupok" ? 1 : 0} ${x2},0 H${sirka - r}`;
+
+  const pravaHrana =
+    vpravo === "rovno"
+      ? `V${vyska - r}`
+      : `V${y1} A${R},${R} 0 1 ${vpravo === "vystupok" ? 0 : 1} ${sirka},${y2} V${vyska - r}`;
+
+  const dolnaHrana =
+    dole === "rovno"
+      ? `H${r}`
+      : `H${x2} A${R},${R} 0 1 ${dole === "vystupok" ? 1 : 0} ${x1},${vyska} H${r}`;
+
+  const lavaHrana =
+    vlavo === "rovno"
+      ? `V${r}`
+      : `V${y2} A${R},${R} 0 1 ${vlavo === "vystupok" ? 0 : 1} 0,${y1} V${r}`;
+
+  return [
+    `M${r},0`,
+    hornaHrana,
+    `A${r},${r} 0 0 1 ${sirka},${r}`,
+    pravaHrana,
+    `A${r},${r} 0 0 1 ${sirka - r},${vyska}`,
+    dolnaHrana,
+    `A${r},${r} 0 0 1 0,${vyska - r}`,
+    lavaHrana,
+    `A${r},${r} 0 0 1 ${r},0`,
+    "Z",
+  ].join(" ");
+}
+
+// Štyri dieliky do štvorca. Susedné hrany sa dopĺňajú:
+// kde má jeden výstupok, druhý má priehlbinu.
+const TVARY = [
+  { hore: "rovno", vpravo: "vystupok", dole: "vystupok", vlavo: "rovno" },
+  { hore: "rovno", vpravo: "rovno", dole: "vystupok", vlavo: "priehlbina" },
+  { hore: "priehlbina", vpravo: "vystupok", dole: "rovno", vlavo: "rovno" },
+  { hore: "priehlbina", vpravo: "rovno", dole: "rovno", vlavo: "priehlbina" },
+];
+
+// Dielik sa roztiahne na veľkosť kartičky, takže kresbu robíme rovno
+// v jej pomere strán — inak by sa okrúhly výstupok sploštil na ovál.
+function Shape({ index, pomer, vystupok }) {
+  const sirka = 100 * pomer;
+
+  return (
+    <svg
+      className="side__shape"
+      viewBox={`0 0 ${sirka} 100`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d={obrys(TVARY[index], sirka, 100, vystupok)}
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
 
 export default function Match() {
-  const [offset, setOffset] = useState(APART);
-  const [dragging, setDragging] = useState(false);
+  const [gap, setGap] = useState(APART);
+  // fázy animácie: nic -> telefon -> logo -> sam (telefón zmizne) -> dieliky sa spoja
+  const [phase, setPhase] = useState("nic");
+  // na širokej obrazovke je dielik na šírku, na úzkej takmer štvorec
+  const [uzko, setUzko] = useState(false);
+  // Pomer strán si meriame z kartičky — mení sa podľa šírky okna aj podľa
+  // toho, na koľko riadkov sa zalomí text. Keby sme ho hádali, výstupok
+  // by sa z kruhu sploštil na ovál.
+  const [pomer, setPomer] = useState(1.45);
+
+  useEffect(() => {
+    const uzka = window.matchMedia("(max-width: 880px)");
+    const prepocitaj = () => setUzko(uzka.matches);
+
+    prepocitaj();
+    uzka.addEventListener("change", prepocitaj);
+    return () => uzka.removeEventListener("change", prepocitaj);
+  }, []);
+
+  const vystupok = uzko ? R_VYSTUPOK_MALY : R_VYSTUPOK;
+
   const stageRef = useRef(null);
-  const drag = useRef(null);
+  const dielikRef = useRef(null);
+  const timers = useRef([]);
 
-  const snapped = offset === 0;
+  useEffect(() => {
+    const el = dielikRef.current;
+    if (!el) return;
 
-  // Keď na sekciu doscrolluješ, dieliky sa priblížia — ale zvyšok nechajú na teba.
+    const sledovac = new ResizeObserver(([zaznam]) => {
+      const { width, height } = zaznam.contentRect;
+      if (height > 0) setPomer(width / height);
+    });
+
+    sledovac.observe(el);
+    return () => sledovac.disconnect();
+  }, []);
+
+  const joined = gap === 0;
+
+  // Animácia sa prehráva dookola: Zapadni sa objaví a pritiahne dieliky k sebe.
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setGap(0);
+      setPhase("sam");
+      return;
+    }
+
+    let stopped = false;
+
+    function clear() {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+    }
+
+    function cycle() {
+      if (stopped) return;
+      clear();
+      setGap(APART);
+      setPhase("nic");
+
+      // 1) objaví sa telefón  2) v ňom cvakne svietiace logo
+      // 3) telefón zmizne  4) logo pritiahne dieliky  5) chvíľu drží  6) odznova
+      timers.current.push(setTimeout(() => setPhase("telefon"), 600));
+      timers.current.push(setTimeout(() => setPhase("logo"), 1400));
+      timers.current.push(setTimeout(() => setPhase("sam"), 2300));
+      timers.current.push(setTimeout(() => setGap(0), 2700));
+      timers.current.push(setTimeout(cycle, 6800));
+    }
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setOffset((o) => (o === APART ? 96 : o));
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.4 }
+      ([entry]) => (entry.isIntersecting ? cycle() : null),
+      { threshold: 0.3 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      stopped = true;
+      clear();
+      observer.disconnect();
+    };
   }, []);
-
-  function onPointerDown(e) {
-    if (snapped) return;
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch {
-      // niektoré prehliadače to odmietnu, ťahanie funguje aj bez toho
-    }
-    drag.current = { startX: e.clientX, startOffset: offset };
-    setDragging(true);
-  }
-
-  function onPointerMove(e) {
-    if (!drag.current) return;
-    const dx = e.clientX - drag.current.startX;
-    // doľava sa dá ísť len po zacvaknutie, doprava najviac na východiskovú vzdialenosť
-    const next = Math.min(APART, Math.max(0, drag.current.startOffset + dx));
-    setOffset(next);
-  }
-
-  function onPointerUp() {
-    if (!drag.current) return;
-    drag.current = null;
-    setDragging(false);
-    setOffset((o) => (o < SNAP ? 0 : APART));
-  }
-
-  // Klávesnica a jednoduchý klik: dielik zacvakne sám.
-  function joinNow() {
-    if (!dragging) setOffset(0);
-  }
-
-  function reset() {
-    setOffset(APART);
-  }
 
   return (
     <section className="section match" id="dve-strany">
-      {/* Tvary dielikov. Pracujú v pomeroch, takže sa prispôsobia veľkosti karty. */}
-      <svg className="match__defs" aria-hidden="true">
-        <defs>
-          <clipPath id="dielikVlavo" clipPathUnits="objectBoundingBox">
-            <path d="M0.04,0 H0.878 V0.4 C1,0.435 1,0.565 0.878,0.6 V1 H0.04 C0.018,1 0,0.978 0,0.95 V0.05 C0,0.022 0.018,0 0.04,0 Z" />
-          </clipPath>
-          <clipPath id="dielikVpravo" clipPathUnits="objectBoundingBox">
-            <path d="M0,0 H0.96 C0.982,0 1,0.022 1,0.05 V0.95 C1,0.978 0.982,1 0.96,1 H0 V0.6 C0.122,0.565 0.122,0.435 0,0.4 Z" />
-          </clipPath>
-        </defs>
-      </svg>
-
       <div className="container">
         <div className="section__head" data-reveal>
           <h2 className="section__title">{match.title}</h2>
@@ -87,55 +187,51 @@ export default function Match() {
         </div>
 
         <div
-          className={`match__stage ${snapped ? "is-joined" : ""} ${
-            dragging ? "is-dragging" : ""
-          }`}
+          className={`match__stage ${joined ? "is-joined" : ""} ${
+            phase === "telefon" || phase === "logo" ? "is-phone" : ""
+          } ${phase === "logo" || phase === "sam" ? "is-logo" : ""}`}
+          style={{ "--gap": `${gap}px` }}
           ref={stageRef}
         >
-          <article className="side side--left">
-            <div className="side__inner">
-              <span className="side__label">{match.left.label}</span>
-              <p className="side__who">{match.left.who}</p>
-              <p className="side__text">{match.left.text}</p>
-            </div>
-          </article>
+          {match.pieces.map((piece, i) => (
+            <article
+              className={`side side--${i}`}
+              key={piece.who}
+              ref={i === 0 ? dielikRef : null}
+            >
+              <Shape index={i} pomer={pomer} vystupok={vystupok} />
+              <div className="side__inner">
+                <span className="side__role">{piece.role}</span>
+                <p className="side__who">{piece.who}</p>
+                <p className="side__text">{piece.meta}</p>
+              </div>
+            </article>
+          ))}
 
-          <article
-            className="side side--right"
-            style={{ "--offset": `${offset}px` }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-          >
-            <div className="side__inner">
-              <span className="side__label">{match.right.label}</span>
-              <p className="side__who">{match.right.who}</p>
-              <p className="side__text">{match.right.text}</p>
-            </div>
-
-            <span className="side__grip" aria-hidden="true">
-              <i />
-              <i />
-              <i />
+          {/* Zapadni stojí presne v strede — vďaka nemu sa našli */}
+          <span className="match__app" aria-hidden="true">
+            <span className="match__phone">
+              <span className="match__phoneIsland" />
+              <span className="match__screen">
+                {Array.from({ length: 9 }, (_, i) =>
+                  i === 4 ? (
+                    <span className="match__icon match__icon--nasa" key={i}>
+                      <Logo size={16} />
+                    </span>
+                  ) : (
+                    <span className="match__icon" key={i} />
+                  )
+                )}
+              </span>
             </span>
-          </article>
-        </div>
 
-        <div className={`match__foot ${snapped ? "is-joined" : ""}`}>
-          {snapped ? (
-            <>
-              <span className="match__badge">{match.joined}</span>
-              <p className="match__note">{match.note}</p>
-              <button type="button" className="match__replay" onClick={reset}>
-                {match.replay}
-              </button>
-            </>
-          ) : (
-            <button type="button" className="match__hint" onClick={joinNow}>
-              {match.hint}
-            </button>
-          )}
+            <span className="match__logo">
+              <span className="match__appMark">
+                <Logo size={30} />
+              </span>
+              <span className="match__appName">{brand.name}</span>
+            </span>
+          </span>
         </div>
       </div>
     </section>

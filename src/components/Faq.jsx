@@ -10,12 +10,9 @@ export default function Faq() {
 
         <div className="faq" data-reveal>
           {faq.items.map((item) => (
-            <details key={item.q} className="faq__item" open={!!item.todo}>
+            <details key={item.q} className="faq__item">
               <summary>{item.q}</summary>
               <p>{item.a}</p>
-
-              {/* Poznámka pre seba. Pridáš ju cez pole „todo" v content.js. */}
-              {item.todo && <p className="todo">{item.todo}</p>}
             </details>
           ))}
         </div>

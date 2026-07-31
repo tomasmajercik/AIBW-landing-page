@@ -6,7 +6,7 @@ export default function HowItWorks() {
   const side = howItWorks.sides[active];
 
   return (
-    <section className="section" id="ako-to-funguje">
+    <section className="section section--muted" id="ako-to-funguje">
       <div className="container">
         <div className="section__head" data-reveal>
           <h2 className="section__title">{howItWorks.title}</h2>

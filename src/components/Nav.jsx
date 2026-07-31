@@ -1,4 +1,4 @@
-import { brand, nav } from "../content";
+import { brand, nav, webUrl } from "../content";
 import Logo from "./Logo";
 
 export default function Nav() {
@@ -18,7 +18,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <a className="btn btn--small" href="#vyskusaj">
+        <a className="btn btn--small" href={webUrl}>
           {nav.cta}
         </a>
       </div>
