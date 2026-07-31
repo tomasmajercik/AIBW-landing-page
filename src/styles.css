@@ -5,38 +5,45 @@
 
 /* ---------- 1. FARBY A ZÁKLADNÉ HODNOTY ---------- */
 :root {
-  --ink: #0f1512;
-  --ink-soft: #5f6b65;
-  --ink-faint: #8b948f;
+  /* Farby aj písma sú prevzaté z webu (AIBW-frontend/src/index.css),
+     aby landing page a appka vyzerali ako jedna vec. */
+  --ink: #17120e;
+  --ink-soft: #6b6055;
+  --ink-faint: #9b8f81;
 
-  --bg: #ffffff;
-  /* neutrály sú šalviové — z rovnakej rodiny ako farby kariet na webe.
-     Terakota na nich vynikne a nepôsobí to ako novinový papier. */
-  --bg-warm: #f5f9f6; /* podklad úvodu */
-  --bg-soft: #eef3ef; /* striedajúce sa pásy */
-  --line: #e0e8e2;
+  /* Stránka je teplý papier. Karty a políčka na ňom ležia ako biele
+     výstrižky — preto majú vlastnú farbu, inak by splynuli. */
+  --bg: #faf6ef;
+  --bg-warm: #faf6ef; /* podklad úvodu */
+  --bg-soft: #f2ebdf; /* striedajúce sa pásy */
+  --surface: #ffffff;
+  --line: #e3d9c9;
 
-  --accent: #b24a32;
-  --accent-dark: #8f3826;
-  --accent-soft: #faefeb;
+  --accent: #e03a16;
+  --accent-dark: #b62c0e;
+  --accent-soft: #fbe6dd;
 
   /* dve polovice dvojice — stlmená výplň, tmavý obrys */
-  --piece-fill-strong: rgba(178, 74, 50, 0.2); /* zakladateľ */
-  --piece-fill-light: rgba(178, 74, 50, 0.07); /* hľadajúci */
-  --piece-line: #8f3826;
+  --piece-fill-strong: rgba(224, 58, 22, 0.18); /* zakladateľ */
+  --piece-fill-light: rgba(224, 58, 22, 0.06); /* hľadajúci */
+  --piece-line: #b62c0e;
 
   --radius-sm: 10px;
   --radius: 14px;
   --radius-lg: 22px;
 
-  --shadow-sm: 0 1px 2px rgba(15, 21, 18, 0.05);
-  --shadow: 0 1px 2px rgba(15, 21, 18, 0.04), 0 10px 26px rgba(15, 21, 18, 0.06);
-  --shadow-lg: 0 2px 4px rgba(15, 21, 18, 0.04),
-    0 20px 46px rgba(15, 21, 18, 0.1);
+  --shadow-sm: 0 1px 2px rgba(23, 18, 14, 0.05);
+  --shadow: 0 1px 2px rgba(23, 18, 14, 0.04), 0 10px 26px rgba(23, 18, 14, 0.07);
+  --shadow-lg: 0 2px 4px rgba(23, 18, 14, 0.05),
+    0 20px 46px rgba(23, 18, 14, 0.11);
 
   --max: 1160px;
 
-  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  /* Plagátová dvojica: ťažké zúžené písmo na nadpisy a štetcové písmo
+     na to jedno teplé slovo, ktoré sa oň opiera. Text ostáva grotesk,
+     aby si nadpisy udržali úder. */
+  --font-display: "Anton", "Haettenschweiler", "Arial Narrow", Impact, sans-serif;
+  --font-script: "Yellowtail", "Brush Script MT", cursive;
   --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
@@ -68,14 +75,16 @@ h3 {
   font-weight: 650;
 }
 
-/* veľké nadpisy sú serifové — dodávajú stránke tón a ľudskosť */
+/* veľké nadpisy sú plagátové — ťažké, zúžené, verzálkami */
 .hero__title,
 .section__title,
 .problem__title,
 .final__title {
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
 }
 
 p {
@@ -209,14 +218,14 @@ button {
 }
 
 .btn--light {
-  background: #fff;
+  background: var(--bg);
   color: var(--accent-dark);
-  border-color: #fff;
+  border-color: var(--bg);
 }
 
 .btn--light:hover {
-  background: #f4f1f0;
-  border-color: #f4f1f0;
+  background: var(--bg-soft);
+  border-color: var(--bg-soft);
 }
 
 .btn--outline {
@@ -235,8 +244,8 @@ button {
   position: sticky;
   top: 0;
   z-index: 30;
-  /* hlavička má tón úvodu, aby nad ním nerobila šev */
-  background: rgba(245, 249, 246, 0.82);
+  /* hlavička má tón papiera, aby nad úvodom nerobila šev */
+  background: rgba(250, 246, 239, 0.9);
   backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid var(--line);
 }
@@ -299,15 +308,36 @@ button {
   align-items: center;
 }
 
+/* Plagátový nadpis: štetcové slovo leží nízko cez ťažký riadok pod ním,
+   aby to spolu čítalo ako jeden celok, nie ako dva nadpisy. */
 .hero__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-top: 24px;
-  font-size: clamp(40px, 5vw, 62px);
-  font-weight: 680;
-  letter-spacing: -0.035em;
 }
 
-.hero__accent {
+.hero__script {
+  position: relative;
+  z-index: 1;
+  margin-left: 6px;
+  margin-bottom: -0.2em;
+  font-family: var(--font-script);
+  font-size: clamp(46px, 5.6vw, 72px);
+  line-height: 0.9;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.hero__shout {
+  font-size: clamp(42px, 5.2vw, 66px);
+  line-height: 0.95;
   color: var(--accent);
+}
+
+.hero__shout--ink {
+  color: var(--ink);
 }
 
 .hero__subtitle {
@@ -379,9 +409,13 @@ button {
 
 .appx__head {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   /* miesto pre pilulku telefónu navrchu */
-  padding: 48px 16px 10px;
-  background: #fff;
+  padding: 46px 14px 9px;
+  background: var(--bg);
   border-radius: 34px 34px 0 0;
   border-bottom: 1px solid var(--line);
 }
@@ -391,8 +425,123 @@ button {
   align-items: center;
   gap: 7px;
   font-weight: 650;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: -0.02em;
+}
+
+.appx__nova {
+  flex: none;
+  padding: 6px 11px;
+  background: var(--accent);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- vrch domovskej obrazovky ---------- */
+/* Obrazovka sa po chvíli posunie nižšie — nadpis odíde hore a ostane
+   len zoznam komunít, ktorý sa ďalej dopĺňa. */
+.appx__stream {
+  transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appx__stream {
+    transition: none;
+  }
+}
+
+.appx__eyebrow {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.appx__eyebrow b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* štetcové slovo leží nízko cez ťažký riadok pod ním */
+.appx__head-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.appx__script {
+  position: relative;
+  z-index: 1;
+  margin-left: 4px;
+  margin-bottom: -0.22em;
+  font-family: var(--font-script);
+  font-size: 30px;
+  line-height: 0.9;
+}
+
+.appx__shout {
+  font-family: var(--font-display);
+  font-size: 27px;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.appx__tag {
+  margin-top: 7px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.appx__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 11px;
+  padding: 9px 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}
+
+.appx__search svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+}
+
+.appx__chips {
+  display: flex;
+  gap: 5px;
+  margin-top: 9px;
+  overflow: hidden;
+}
+
+.appx__chip {
+  flex: none;
+  padding: 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 550;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.appx__chip.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
 
 .appx__body {
@@ -409,18 +558,24 @@ button {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 10px;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  margin-top: 14px;
+  margin-bottom: 11px;
+  padding-bottom: 7px;
+  border-bottom: 1.5px solid var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink);
 }
 
 .appx__label span {
+  font-family: var(--font-body);
   letter-spacing: 0;
   text-transform: none;
+  font-size: 11px;
   font-weight: 500;
+  color: var(--ink-faint);
   white-space: nowrap;
 }
 
@@ -428,7 +583,7 @@ button {
 .appx__tabs {
   flex: 0 0 auto;
   display: flex;
-  background: #fff;
+  background: var(--bg);
   border-top: 1px solid var(--line);
   border-radius: 0 0 34px 34px;
 }
@@ -469,7 +624,7 @@ button {
   padding: 0;
   overflow: hidden;
   text-align: left;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
@@ -499,11 +654,12 @@ button {
 .club__mark {
   position: absolute;
   right: 9px;
-  bottom: -20px;
+  bottom: -24px;
   font-family: var(--font-display);
-  font-size: 74px;
+  font-size: 80px;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
   opacity: 0.22;
 }
 
@@ -515,9 +671,10 @@ button {
 
 .club__name {
   font-family: var(--font-display);
-  font-size: 17px;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  font-size: 18px;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
 }
 
 .club__rhythm {
@@ -732,11 +889,10 @@ button {
 }
 
 /* ---------- 8b. ŠTYRI DIELIKY DO ŠTVORCA ---------- */
+/* skladačka je hneď za úvodom, preto je biela — striedanie pásov
+   sa začína až sekciou pod ňou */
 .match {
   overflow: hidden;
-  background: var(--bg-soft);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 
 .match__stage {
@@ -820,7 +976,9 @@ button {
   margin-top: 14px;
   font-family: var(--font-display);
   font-size: 27px;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
 }
 
 .side__text {
@@ -880,7 +1038,7 @@ button {
   align-items: center;
   justify-content: center;
   background: var(--accent-soft);
-  box-shadow: 0 0 0 1.5px rgba(178, 74, 50, 0.45);
+  box-shadow: 0 0 0 1.5px rgba(224, 58, 22, 0.45);
 }
 
 .match__stage.is-logo .match__icon--nasa {
@@ -1100,11 +1258,112 @@ button {
   height: 700px;
 }
 
+/* Obrazovka je prehrávaná ukážka — klikať sa do nej nedá.
+   Výnimka je výzva na konci, tá má vlastné živé tlačidlo. */
 .app {
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.app__done {
+  pointer-events: auto;
+}
+
+/* ---------- klávesnica, ktorá vybehne pri písaní mesta ---------- */
+.app__klavesnica {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px 5px 16px;
+  background: #d5d7dc;
+  border-radius: 0 0 34px 34px;
+  animation: klavesnicaHore 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes klavesnicaHore {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.app__rad {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.app__klaves {
+  flex: 0 0 auto;
+  width: 27px;
+  padding: 9px 0;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 13px;
+  box-shadow: 0 1px 0 rgba(15, 21, 18, 0.28);
+  transition: background 0.1s ease, color 0.1s ease, transform 0.1s ease;
+}
+
+.app__klaves--medzera {
+  width: 150px;
+}
+
+/* stlačené písmeno — jediná spätná väzba, šípka sem nechodí */
+.app__klaves.je-stlacene {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app__klavesnica {
+    animation: none;
+  }
+
+  .app__klaves {
+    transition: none;
+  }
+}
+
+/* šípka, ktorá ukážku „klikká" — hrot je v ľavom hornom rohu obrázka,
+   preto ho posunieme presne na stred zvýrazneného prvku */
+.app__sipka {
+  position: absolute;
+  z-index: 6;
+  top: -9px;
+  left: -5px;
+  width: 21px;
+  height: 21px;
+  filter: drop-shadow(0 2px 3px rgba(15, 21, 18, 0.35));
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.app__sipka svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.12s ease;
+}
+
+/* stlačenie — šípka na chvíľu cukne */
+.app__sipka.je-klik svg {
+  transform: scale(0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app__sipka,
+  .app__sipka svg {
+    transition: none;
+  }
 }
 
 /* hlavička stojí, roluje sa len obsah pod ňou */
@@ -1113,7 +1372,7 @@ button {
   /* miesto pre pilulku telefónu navrchu */
   padding: 52px 20px 4px;
   text-align: center;
-  background: #fff;
+  background: var(--bg);
   border-radius: 34px 34px 0 0;
 }
 
@@ -1155,7 +1414,9 @@ button {
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 400;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
 }
 
 .app__hint {
@@ -1181,7 +1442,7 @@ button {
   margin-top: 6px;
   padding: 6px;
   overflow-y: auto;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(15, 21, 18, 0.14);
@@ -1192,19 +1453,17 @@ button {
   display: none;
 }
 
-.app__places button {
+.app__places span {
   display: block;
   width: 100%;
   padding: 9px 12px;
-  background: none;
-  border: none;
   border-radius: 8px;
   text-align: left;
   font-size: 14px;
   color: var(--ink);
 }
 
-.app__places button:hover {
+.app__places .je-na-rade {
   background: var(--accent-soft);
   color: var(--accent-dark);
 }
@@ -1216,24 +1475,20 @@ button {
   color: var(--ink-soft);
 }
 
-.app__field input {
+/* políčko mesta — len obrázok políčka, ukážka doň píše sama */
+.app__input {
+  display: block;
   width: 100%;
   padding: 13px 16px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
-  font: inherit;
   font-size: 14px;
   color: var(--ink);
 }
 
-.app__field input::placeholder {
+.app__input.is-empty {
   color: var(--ink-faint);
-}
-
-.app__field input:focus {
-  outline: none;
-  border-color: var(--accent);
 }
 
 .app__topics {
@@ -1242,6 +1497,58 @@ button {
   justify-content: center;
   gap: 7px;
   margin-top: 20px;
+}
+
+/* Na čo sa ukážka práve chystá kliknúť — krúžok, ktorý sa rozpína.
+   Vďaka nemu je vidno, čo sa deje, skôr než sa to naozaj stane. */
+.je-na-rade {
+  position: relative;
+  z-index: 1;
+  border-color: var(--accent);
+  animation: naRade 1s ease-out infinite;
+}
+
+@keyframes naRade {
+  0% {
+    box-shadow: 0 0 0 0 rgba(224, 58, 22, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 9px rgba(224, 58, 22, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .je-na-rade {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(224, 58, 22, 0.35);
+  }
+}
+
+/* témy na výber — rovnaké ako na webe, vybraté sa zafarbia terakotou */
+.pill {
+  padding: 9px 16px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 550;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.pill:hover {
+  border-color: var(--ink-faint);
+}
+
+.pill.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.pill.is-active:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
 }
 
 .app__topics .pill {
@@ -1257,7 +1564,7 @@ button {
   gap: 12px;
   padding: 14px 20px 18px;
   border-top: 1px solid var(--line);
-  background: #fff;
+  background: var(--bg);
   border-radius: 0 0 34px 34px;
 }
 
@@ -1311,9 +1618,11 @@ button {
 
 .app__doneTitle {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 27px;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
   color: #fff;
-  letter-spacing: -0.01em;
 }
 
 .app__doneText {
@@ -1346,20 +1655,6 @@ button {
     transform: scale(1.045);
     box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
   }
-}
-
-.app__doneBack {
-  margin-top: 4px;
-  padding: 6px 10px;
-  border: none;
-  background: none;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 13px;
-  text-decoration: underline;
-}
-
-.app__doneBack:hover {
-  color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {

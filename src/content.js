@@ -15,9 +15,10 @@ export const brand = {
 export const webUrl = "https://zapadni-a9dff.web.app/";
 
 export const nav = {
+  // v rovnakom poradí, v akom sekcie idú na stránke
   links: [
-    { label: "Ako to funguje", href: "#ako-to-funguje" },
     { label: "Vyskúšaj demo", href: "#vyskusaj" },
+    { label: "Ako to funguje", href: "#ako-to-funguje" },
     { label: "Otázky", href: "#otazky" },
   ],
   cta: "Pokračovať na web",
@@ -30,10 +31,22 @@ export const hero = {
     "Povedz, čo ťa baví. Ukážeme ti, kde to už robia iní. A keď nikde, pomôžeme ti to založiť.",
   cta: "Ako to funguje",
   note: "Zadarmo · Naživo aj online · Celé Slovensko",
+  // Čo vidno v prvom telefóne — kopíruje domovskú obrazovku webu.
+  app: {
+    brand: "zapadni.sk",
+    newCommunity: "+ Nová komunita",
+    eyebrowPlace: "Slovensko",
+    eyebrowGreeting: "Ahoj, Nina",
+    headScript: "nájdi",
+    headShout: "svojich ľudí.",
+    tag: "Komunity vo tvojom okolí, ktoré ťa čakajú.",
+    search: "Hľadaj komunitu alebo záujem",
+    chips: ["Moje záľuby", "Všetko", "Vítajú nových", "Hry", "Technológie"],
+  },
   feedLabel: "Sedí to k tvojim záujmom",
   feedCount: "8 komunít",
   join: "Pridám sa",
-  tabs: ["Domov", "Členstvá", "Vytvorené", "Profil"],
+  tabs: ["Domov", "Členstvá", "Založené", "Profil"],
 };
 
 export const problem = {
@@ -44,16 +57,18 @@ export const problem = {
 };
 
 // ---------- ŠTYRIA ĽUDIA, JEDNA KOMUNITA ----------
-// Všetkých spája florbal a mesto. Jeden komunitu zakladá, traja ju hľadajú.
+// Všetkých spájajú technológie a mesto. Terka komunitu zakladá,
+// ostatní traja ju hľadajú. Zakladateľ musí byť prvý — prvý dielik
+// má sýtejšiu výplň.
 export const match = {
   title: "Jeden založí, ostatní sa pridajú.",
   subtitle:
-    "Štyria ľudia z Trnavy, ktorých baví florbal. Jeden komunitu zakladá, ďalší sa pridávajú — a pridať sa môže ktokoľvek ďalší. Bez Zapadni by o sebe nevedeli.",
+    "Štyria ľudia z Bratislavy, ktorých bavia technológie. Jeden komunitu zakladá, ďalší sa pridávajú — a pridať sa môže ktokoľvek ďalší. Bez Zapadni by o sebe nevedeli.",
   pieces: [
-    { role: "Zakladá komunitu", who: "Peter", meta: "florbal · Trnava" },
-    { role: "Hľadá komunitu", who: "Lucia", meta: "florbal · Trnava" },
-    { role: "Hľadá komunitu", who: "Jakub", meta: "florbal · Trnava" },
-    { role: "Hľadá komunitu", who: "Zuzana", meta: "florbal · Trnava" },
+    { role: "Zakladá komunitu", who: "Terka", meta: "technológie · Bratislava" },
+    { role: "Hľadá komunitu", who: "Nina", meta: "technológie · Bratislava" },
+    { role: "Hľadá komunitu", who: "Janko", meta: "technológie · Bratislava" },
+    { role: "Hľadá komunitu", who: "Tomáš", meta: "technológie · Bratislava" },
   ],
 };
 
@@ -260,11 +275,14 @@ export const explorer = {
     counter: "Vybraté:",
     cta: "Pokračovať",
     minimum: 3,
+    // Čo si ukážka naklikáva sama dokola. Keď človek do telefónu
+    // sám klikne, ukážka sa zastaví a ďalej si to vedie on.
+    demoMesto: "Trnava",
+    demoTemy: ["Šport", "Príroda a outdoor", "Hudba"],
     // vyskočí, keď je vybraté mesto aj aspoň 3 témy
     doneTitle: "Toto stačí.",
     doneText: "Podľa tohto ti nájdeme komunity v tvojom okolí.",
     doneCta: "Pokračovať na web",
-    doneBack: "Späť k výberu",
     topics: [
       "Šport",
       "Beh a fitness",

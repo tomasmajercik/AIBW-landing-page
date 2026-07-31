@@ -17,12 +17,12 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <Match />
         <Problem />
-        <HowItWorks />
-        {/* demo je najsilnejšia časť, preto ide hore — na mobile
+        {/* demo je najsilnejšia časť, preto ide čo najvyššie — na mobile
             sa k nemu človek dostane po pár potiahnutiach */}
         <Explorer />
-        <Match />
+        <HowItWorks />
         <Faq />
         <FinalCta />
       </main>

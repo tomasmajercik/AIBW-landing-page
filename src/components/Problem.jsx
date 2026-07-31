@@ -2,7 +2,7 @@ import { problem, webUrl } from "../content";
 
 export default function Problem() {
   return (
-    <section className="section problem" id="problem">
+    <section className="section section--muted problem" id="problem">
       <div className="container problem__grid">
         <h2 className="problem__title" data-reveal>
           {problem.title}

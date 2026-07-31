@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { hero, communities } from "../content";
 import Logo from "./Logo";
 
-const VISIBLE = 3; // koľko kariet je v telefóne naraz (spodná sa stráca)
+const VISIBLE = 2; // koľko kariet je v telefóne naraz (spodná sa stráca)
 const INTERVAL = 3200; // ako často sa zoznam posunie (v milisekundách)
 
 // Šesť farieb zo Zapadni — každá komunita má svoju, aby sa karty nezlievali.
@@ -46,6 +46,10 @@ const TAB_ICONS = [
   </svg>,
 ];
 
+// prvé slovo nadpisu ide štetcovým písmom, zvyšok riadku verzálkami
+const [prveSlovo, ...zvysokSlov] = hero.title.split(" ");
+const zvysokNazvu = zvysokSlov.join(" ");
+
 function clenovia(pocet) {
   if (pocet === 1) return "člen";
   if (pocet < 5) return "členovia";
@@ -54,6 +58,11 @@ function clenovia(pocet) {
 
 export default function Hero() {
   const [start, setStart] = useState(0);
+  // o koľko sa obrazovka posunie nahor, keď „doscrolluje" ku komunitám
+  const [odsun, setOdsun] = useState(0);
+
+  const telefonRef = useRef(null);
+  const vrchRef = useRef(null);
 
   // Karty sa posúvajú dokola, akoby sa zoznam komunít stále dopĺňal.
   useEffect(() => {
@@ -67,6 +76,36 @@ export default function Hero() {
     return () => clearInterval(id);
   }, []);
 
+  // Najprv je vidieť nadpis „nájdi svojich ľudí", potom sa obrazovka
+  // odscrolluje nižšie a ďalej už nabiehajú len komunity.
+  useEffect(() => {
+    const telefon = telefonRef.current;
+    const vrch = vrchRef.current;
+    if (!telefon || !vrch) return;
+
+    // + horný odstup štítku, nech zoznam sadne presne pod hlavičku
+    const posunNa = () => setOdsun(vrch.getBoundingClientRect().height + 14);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      posunNa();
+      return;
+    }
+
+    let timer;
+    const sledovac = new IntersectionObserver(
+      ([zaznam]) => {
+        if (zaznam.isIntersecting) timer = setTimeout(posunNa, 2400);
+      },
+      { threshold: 0.35 }
+    );
+
+    sledovac.observe(telefon);
+    return () => {
+      clearTimeout(timer);
+      sledovac.disconnect();
+    };
+  }, []);
+
   const visible = Array.from({ length: VISIBLE }, (_, i) => {
     const index = (start + i) % communities.length;
     return { ...communities[index], index };
@@ -76,10 +115,15 @@ export default function Hero() {
     <section className="hero" id="top">
       <div className="container hero__grid">
         <div className="hero__copy">
+          {/* Plagátový nadpis ako na webe: prvé slovo štetcovým písmom
+              leží cez ťažký riadok pod ním. Text je nezmenený, len inak
+              vysadený. */}
           <h1 className="hero__title">
-            {hero.title}
-            <br />
-            <span className="hero__accent">{hero.titleAccent}</span>
+            <span className="hero__script">{prveSlovo}</span>
+            <span className="hero__shout">{zvysokNazvu}</span>
+            <span className="hero__shout hero__shout--ink">
+              {hero.titleAccent}
+            </span>
           </h1>
 
           <p className="hero__subtitle">{hero.subtitle}</p>
@@ -95,24 +139,62 @@ export default function Hero() {
 
         {/* Telefón s ukážkou webu — rovnaké karty, aké na ňom budú */}
         <div className="hero__visual">
-          <div className="phone">
+          <div className="phone" ref={telefonRef}>
             <span className="phone__island" />
 
             <div className="phone__screen appx">
               <div className="appx__head">
                 <span className="appx__brand">
-                  <Logo size={18} />
-                  zapadni.com
+                  <Logo size={17} />
+                  {hero.app.brand}
                 </span>
+
+                <span className="appx__nova">{hero.app.newCommunity}</span>
               </div>
 
               <div className="appx__body">
-                <p className="appx__label">
-                  {hero.feedLabel}
-                  <span>{hero.feedCount}</span>
-                </p>
+                <div
+                  className="appx__stream"
+                  style={{ transform: `translateY(-${odsun}px)` }}
+                >
+                  <div className="appx__top" ref={vrchRef}>
+                    <p className="appx__eyebrow">
+                      {hero.app.eyebrowPlace} <b>·</b> {hero.app.eyebrowGreeting}
+                    </p>
 
-                <div className="feed">
+                    <p className="appx__head-lockup">
+                      <span className="appx__script">{hero.app.headScript}</span>
+                      <span className="appx__shout">{hero.app.headShout}</span>
+                    </p>
+
+                    <p className="appx__tag">{hero.app.tag}</p>
+
+                    <span className="appx__search">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                        <circle cx="11" cy="11" r="6.5" />
+                        <line x1="16" y1="16" x2="21" y2="21" strokeLinecap="round" />
+                      </svg>
+                      {hero.app.search}
+                    </span>
+
+                    <span className="appx__chips">
+                      {hero.app.chips.map((chip, i) => (
+                        <span
+                          key={chip}
+                          className={`appx__chip ${i === 0 ? "is-on" : ""}`}
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+
+                  <p className="appx__label">
+                    {hero.feedLabel}
+                    <span>{hero.feedCount}</span>
+                  </p>
+
+                  <div className="feed">
                   {visible.map((item, i) => {
                     const tint = TINTS[item.tint];
 
@@ -172,6 +254,7 @@ export default function Hero() {
                       </div>
                     );
                   })}
+                  </div>
                 </div>
               </div>
 
